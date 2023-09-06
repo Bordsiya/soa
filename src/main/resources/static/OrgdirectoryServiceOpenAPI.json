@@ -1,0 +1,188 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Orgdirectory service REST endpoints",
+    "description": "These are an Orgdirectory service REST endpoints based on the OpenAPI 3.0 specification. SOA.",
+    "contact": {
+      "name": "developers",
+      "email": "bordun.2002@mail.ru"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://localhost:9096/api/v1",
+      "description": "Orgdirectory server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "filtration",
+      "description": "Objects filtration"
+    }
+  ],
+  "paths": {
+    "/orgdirectory/filter/turnover/{min-annual-turnover}/{max-annual-turnover}": {
+      "get": {
+        "tags": [
+          "filtration"
+        ],
+        "summary": "Filter Organizations by turnover",
+        "description": "Get filtered Organizations by min and max turnovers",
+        "operationId": "filterOrganizationsByAnnualTurnover",
+        "parameters": [
+          {
+            "name": "min-annual-turnover",
+            "in": "path",
+            "description": "Min annual turnover to filter",
+            "required": true,
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "./OrganizationServiceOpenAPI.json#/components/schemas/AnnualTurnover"
+                },
+                {
+                  "example": 40000.745
+                }
+              ]
+            }
+          },
+          {
+            "name": "max-annual-turnover",
+            "in": "path",
+            "description": "Max annual turnover to filter",
+            "required": true,
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "./OrganizationServiceOpenAPI.json#/components/schemas/AnnualTurnover"
+                },
+                {
+                  "example": 80000.998
+                }
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns filtered Organizations by annual turnover",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "./OrganizationServiceOpenAPI.json#/components/schemas/Organization"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "./OrganizationServiceOpenAPI.json#/components/responses/BadRequest"
+          },
+          "500": {
+            "$ref": "./OrganizationServiceOpenAPI.json#/components/responses/InternalServerError"
+          },
+          "default": {
+            "$ref": "./OrganizationServiceOpenAPI.json#/components/responses/UnexpectedError"
+          }
+        }
+      }
+    },
+    "/orgdirectory/filter/employees/{min-employees-count}/{max-employees-count}": {
+      "get": {
+        "tags": [
+          "filtration"
+        ],
+        "summary": "Filter Organizations by employees count",
+        "description": "Get filtered Organizations by min and max employees count",
+        "operationId": "filterOrganizationsByEmployeesCount",
+        "parameters": [
+          {
+            "name": "min-employees-count",
+            "in": "path",
+            "description": "Min employees count to filter",
+            "required": true,
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "./OrganizationServiceOpenAPI.json#/components/schemas/EmployeesCount"
+                },
+                {
+                  "example": 20
+                }
+              ]
+            }
+          },
+          {
+            "name": "max-employees-count",
+            "in": "path",
+            "description": "Max employees count to filter",
+            "required": true,
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "./OrganizationServiceOpenAPI.json#/components/schemas/EmployeesCount"
+                },
+                {
+                  "example": 80
+                }
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns filtered Organizations by employees count",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "allOf": [
+                      {
+                        "$ref": "./OrganizationServiceOpenAPI.json#/components/schemas/Organization"
+                      },
+                      {
+                        "type": "object"
+                      },
+                      {
+                        "required": [
+                          "employeesCount"
+                        ]
+                      },
+                      {
+                        "properties": {
+                          "employeesCount": {
+                            "allOf": [
+                              {
+                                "type": "object"
+                              },
+                              {
+                                "$ref": "./OrganizationServiceOpenAPI.json#/components/schemas/EmployeesCount"
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "./OrganizationServiceOpenAPI.json#/components/responses/BadRequest"
+          },
+          "500": {
+            "$ref": "./OrganizationServiceOpenAPI.json#/components/responses/InternalServerError"
+          },
+          "default": {
+            "$ref": "./OrganizationServiceOpenAPI.json#/components/responses/UnexpectedError"
+          }
+        }
+      }
+    }
+  }
+}

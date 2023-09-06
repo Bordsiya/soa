@@ -1,0 +1,803 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Organization service REST endpoints",
+    "description": "These are an Organization service REST endpoints based on the OpenAPI 3.0 specification. SOA.",
+    "contact": {
+      "name": "developers",
+      "email": "bordun.2002@mail.ru"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://localhost:9095/api/v1",
+      "description": "Organization server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "basic set",
+      "description": "Basic set of endpoints"
+    },
+    {
+      "name": "advanced set",
+      "description": "Advanced set of operations"
+    }
+  ],
+  "paths": {
+    "/organization": {
+      "post": {
+        "tags": [
+          "basic set"
+        ],
+        "summary": "Add Organization",
+        "description": "Add new Organization",
+        "operationId": "addOrganization",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganizationWithoutId"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returns added Organization",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Organization"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          },
+          "default": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      }
+    },
+    "/organization/{id}": {
+      "put": {
+        "tags": [
+          "basic set"
+        ],
+        "summary": "Update Organization",
+        "description": "Update existing Organization by ID",
+        "operationId": "updateOrganizationById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Organization ID to update",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Id"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OrganizationWithoutId"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Returns updated Organization",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Organization"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          },
+          "default": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "basic set"
+        ],
+        "summary": "Get Organization",
+        "description": "Get Organization by ID",
+        "operationId": "getOrganizationById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Organization ID to get",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns Organization by ID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Organization"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          },
+          "default": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "basic set"
+        ],
+        "summary": "Delete Organization",
+        "description": "Delete Organization by ID",
+        "operationId": "deleteOrganizationById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Organization ID to delete",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Id"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/Ok"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          },
+          "default": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      }
+    },
+    "/organizations": {
+      "get": {
+        "tags": [
+          "basic set"
+        ],
+        "summary": "Get Organizations",
+        "description": "Get Organizations with preferences",
+        "operationId": "getOrganizationsWithPreferences",
+        "parameters": [
+          {
+            "name": "request",
+            "in": "query",
+            "description": "Organizations preferences",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/OrganizationsPreferences"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns Organization by ID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Organization"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          },
+          "default": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      }
+    },
+    "/organization/delete-by-official-address/{official-address}": {
+      "delete": {
+        "tags": [
+          "advanced set"
+        ],
+        "summary": "Delete Organization by Official address",
+        "description": "Delete only one Organization by Official address",
+        "operationId": "deleteOrganizationByOfficialAddress",
+        "parameters": [
+          {
+            "name": "official-address",
+            "in": "path",
+            "description": "Official address for Organization deleting",
+            "required": true,
+            "schema": {
+              "$ref": "#/components/schemas/Address"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "$ref": "#/components/responses/Ok"
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "404": {
+            "$ref": "#/components/responses/NotFound"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          },
+          "default": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      }
+    },
+    "/organizations/get-sum-of-annual-turnover": {
+      "get": {
+        "tags": [
+          "advanced set"
+        ],
+        "summary": "Get sum of all Organizations annual turnovers",
+        "description": "Get Organizations with preferences",
+        "operationId": "getSumOfOrganizationsAnnualTurnovers",
+        "responses": {
+          "200": {
+            "description": "Returns sum of all Organizations annual turnovers",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AnnualTurnover"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          },
+          "default": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      }
+    },
+    "/organizations/get-grouped-by-annual-turnover": {
+      "get": {
+        "tags": [
+          "advanced set"
+        ],
+        "summary": "Get grouped Organizations by annual turnover",
+        "description": "Get grouped Organizations by annual turnover field",
+        "operationId": "getGroupedOrganizationsByAnnualTurnover",
+        "responses": {
+          "200": {
+            "description": "Returns grouped Organizations by annual turnover",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/AnnualTurnoverOrganizationsCount"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          },
+          "default": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "responses": {
+      "Ok": {
+        "description": "The operation was performed successfully",
+        "content": {
+          "application/json": {
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/Error"
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "allOf": [
+                        {
+                          "$ref": "#/components/schemas/Code"
+                        },
+                        {
+                          "example": 200
+                        }
+                      ]
+                    },
+                    "message": {
+                      "allOf": [
+                        {
+                          "$ref": "#/components/schemas/Message"
+                        },
+                        {
+                          "example": "OK"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
+      "NotFound": {
+        "description": "The specified resource was not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/Error"
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "allOf": [
+                        {
+                          "$ref": "#/components/schemas/Code"
+                        },
+                        {
+                          "example": 404
+                        }
+                      ]
+                    },
+                    "message": {
+                      "allOf": [
+                        {
+                          "$ref": "#/components/schemas/Message"
+                        },
+                        {
+                          "example": "Resource was not found"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
+      "BadRequest": {
+        "description": "The request was bad composed",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "InternalServerError": {
+        "description": "Internal Server error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/Error"
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "allOf": [
+                        {
+                          "$ref": "#/components/schemas/Code"
+                        },
+                        {
+                          "example": 500
+                        }
+                      ]
+                    },
+                    "message": {
+                      "allOf": [
+                        {
+                          "$ref": "#/components/schemas/Message"
+                        },
+                        {
+                          "example": "Internal Server error"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
+      "UnexpectedError": {
+        "description": "Unexpected error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/Error"
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "allOf": [
+                        {
+                          "$ref": "#/components/schemas/Code"
+                        },
+                        {
+                          "example": "XXX"
+                        }
+                      ]
+                    },
+                    "message": {
+                      "allOf": [
+                        {
+                          "$ref": "#/components/schemas/Message"
+                        },
+                        {
+                          "example": "Unexpected error"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "Id": {
+        "type": "integer",
+        "format": "int32",
+        "minimum": 1,
+        "example": 1,
+        "description": "Organization ID"
+      },
+      "AnnualTurnover": {
+        "type": "number",
+        "format": "double",
+        "minimum": 0,
+        "exclusiveMinimum": true,
+        "example": 4.5,
+        "description": "Organization annual turnover"
+      },
+      "EmployeesCount": {
+        "type": "integer",
+        "format": "int64",
+        "minimum": 0,
+        "example": 5,
+        "description": "Employees count in organization"
+      },
+      "AnnualTurnoverOrganizationsCount": {
+        "type": "object",
+        "required": [
+          "annualTurnover",
+          "organizationsCount"
+        ],
+        "properties": {
+          "annualTurnover": {
+            "$ref": "#/components/schemas/AnnualTurnover"
+          },
+          "organizationsCount": {
+            "type": "integer",
+            "format": "int32",
+            "minimum": 0,
+            "example": 5,
+            "description": "Amount of Organizations with such annual turnover value"
+          }
+        }
+      },
+      "SortingOrFilteringField": {
+        "type": "string",
+        "enum": [
+          "id",
+          "name",
+          "coordinates.x",
+          "coordinates.y",
+          "creationDate",
+          "annualTurnover",
+          "type",
+          "officialAddress.street",
+          "officialAddress.zipcode"
+        ],
+        "example": "id",
+        "description": "Type of filtration"
+      },
+      "FiltrationPair": {
+        "type": "object",
+        "required": [
+          "field",
+          "value"
+        ],
+        "properties": {
+          "field": {
+            "$ref": "#/components/schemas/SortingOrFilteringField"
+          },
+          "value": {
+            "oneOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "example": 1,
+            "description": "Field value"
+          }
+        }
+      },
+      "Organization": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/OrganizationWithoutId"
+          },
+          {
+            "type": "object"
+          },
+          {
+            "required": [
+              "id"
+            ]
+          },
+          {
+            "properties": {
+              "id": {
+                "$ref": "#/components/schemas/Id"
+              }
+            }
+          }
+        ]
+      },
+      "OrganizationsPreferences": {
+        "type": "object",
+        "required": [
+          "filtrationFields",
+          "sortingFields",
+          "pageNumber",
+          "pageSize"
+        ],
+        "properties": {
+          "filtrationFields": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/FiltrationPair"
+            }
+          },
+          "sortingFields": {
+            "type": "array",
+            "nullable": true,
+            "items": {
+              "$ref": "#/components/schemas/SortingOrFilteringField"
+            }
+          },
+          "pageNumber": {
+            "type": "integer",
+            "nullable": true,
+            "format": "int32",
+            "default": 1,
+            "description": "Number of current page"
+          },
+          "pageSize": {
+            "type": "integer",
+            "nullable": true,
+            "format": "int32",
+            "default": 5,
+            "description": "Amount of Organizations per page"
+          }
+        }
+      },
+      "OrganizationWithoutId": {
+        "type": "object",
+        "required": [
+          "name",
+          "coordinates",
+          "creationDate",
+          "annualTurnover",
+          "type",
+          "officialAddress"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "example": "OAO Aviasales",
+            "description": "Organization name"
+          },
+          "coordinates": {
+            "$ref": "#/components/schemas/Coordinates"
+          },
+          "creationDate": {
+            "type": "string",
+            "format": "date",
+            "example": "2024-03-12T00:00:00.000Z",
+            "description": "Organization creation date, generates automatically"
+          },
+          "annualTurnover": {
+            "$ref": "#/components/schemas/AnnualTurnover"
+          },
+          "type": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/OrganizationType"
+              },
+              {
+                "nullable": true
+              }
+            ]
+          },
+          "officialAddress": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Address"
+              },
+              {
+                "nullable": true
+              }
+            ]
+          }
+        }
+      },
+      "Coordinates": {
+        "type": "object",
+        "required": [
+          "x",
+          "y"
+        ],
+        "properties": {
+          "x": {
+            "type": "number",
+            "format": "double",
+            "example": 4.9,
+            "description": "x coordinate"
+          },
+          "y": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true,
+            "example": 6,
+            "description": "y coordinate"
+          }
+        }
+      },
+      "Address": {
+        "type": "object",
+        "required": [
+          "street",
+          "zipCode"
+        ],
+        "properties": {
+          "street": {
+            "type": "string",
+            "minLength": 1,
+            "example": "Kosovo street",
+            "description": "Address street"
+          },
+          "zipCode": {
+            "type": "string",
+            "nullable": true,
+            "example": "AE84C",
+            "description": "Address zipcode"
+          }
+        }
+      },
+      "OrganizationType": {
+        "type": "string",
+        "enum": [
+          "COMMERCIAL",
+          "PUBLIC",
+          "OPEN_JOINT_STOCK_COMPANY"
+        ],
+        "example": "COMMERCIAL",
+        "description": "Type of Organization"
+      },
+      "Error": {
+        "type": "object",
+        "required": [
+          "httpCode",
+          "message",
+          "time"
+        ],
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/Code"
+          },
+          "message": {
+            "$ref": "#/components/schemas/Message"
+          },
+          "time": {
+            "$ref": "#/components/schemas/Time"
+          }
+        }
+      },
+      "Code": {
+        "type": "string",
+        "format": "int32",
+        "example": 400,
+        "description": "Error code"
+      },
+      "Message": {
+        "type": "string",
+        "example": "Bad Request",
+        "description": "Error message"
+      },
+      "Time": {
+        "type": "string",
+        "format": "date-time",
+        "example": "2022-09-19T00:00:09.000Z",
+        "description": "Error time"
+      }
+    }
+  }
+}
