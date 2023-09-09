@@ -11,7 +11,7 @@
   },
   "servers": [
     {
-      "url": "https://localhost:9095/api/v1",
+      "url": "https://localhost:9099/api/v1",
       "description": "Organization server"
     }
   ],
@@ -183,8 +183,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "$ref": "#/components/responses/Ok"
+          "204": {
+            "$ref": "#/components/responses/No Content"
           },
           "400": {
             "$ref": "#/components/responses/BadRequest"
@@ -266,8 +266,8 @@
           }
         ],
         "responses": {
-          "200": {
-            "$ref": "#/components/responses/Ok"
+          "204": {
+            "$ref": "#/components/responses/No Content"
           },
           "400": {
             "$ref": "#/components/responses/BadRequest"
@@ -380,6 +380,44 @@
                         },
                         {
                           "example": "OK"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
+      "No Content": {
+        "description": "The operation was performed successfully",
+        "content": {
+          "application/json": {
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/Error"
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "allOf": [
+                        {
+                          "$ref": "#/components/schemas/Code"
+                        },
+                        {
+                          "example": 204
+                        }
+                      ]
+                    },
+                    "message": {
+                      "allOf": [
+                        {
+                          "$ref": "#/components/schemas/Message"
+                        },
+                        {
+                          "example": "Organization has been deleted"
                         }
                       ]
                     }

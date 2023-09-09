@@ -11,7 +11,7 @@
   },
   "servers": [
     {
-      "url": "https://localhost:9096/api/v1",
+      "url": "https://localhost:9100/api/v1",
       "description": "Orgdirectory server"
     }
   ],
@@ -42,7 +42,7 @@
                   "$ref": "./OrganizationServiceOpenAPI.json#/components/schemas/AnnualTurnover"
                 },
                 {
-                  "example": 40000.745
+                  "example": 1.5
                 }
               ]
             }
@@ -58,7 +58,7 @@
                   "$ref": "./OrganizationServiceOpenAPI.json#/components/schemas/AnnualTurnover"
                 },
                 {
-                  "example": 80000.998
+                  "example": 800.5
                 }
               ]
             }
@@ -110,7 +110,7 @@
                   "$ref": "./OrganizationServiceOpenAPI.json#/components/schemas/EmployeesCount"
                 },
                 {
-                  "example": 20
+                  "example": 2
                 }
               ]
             }
@@ -126,7 +126,7 @@
                   "$ref": "./OrganizationServiceOpenAPI.json#/components/schemas/EmployeesCount"
                 },
                 {
-                  "example": 80
+                  "example": 10
                 }
               ]
             }
