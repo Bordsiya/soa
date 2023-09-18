@@ -26,13 +26,12 @@
     }
   ],
   "paths": {
-    "/organization": {
+    "/organizations": {
       "post": {
         "tags": [
           "basic set"
         ],
-        "summary": "Add Organization",
-        "description": "Add new Organization",
+        "summary": "",
         "operationId": "addOrganization",
         "requestBody": {
           "required": true,
@@ -65,15 +64,110 @@
             "$ref": "#/components/responses/UnexpectedError"
           }
         }
+      },
+      "get": {
+        "tags": [
+          "basic set"
+        ],
+        "summary": "Get Organizations with preferences",
+        "description": "sorting and filtration fields: id, name, coordinates(x and y), creationDate, annualTurnover, type, officialAddress(street and zipCode)",
+        "operationId": "getOrganizationsWithPreferences",
+        "parameters": [
+          {
+            "name": "filters",
+            "in": "query",
+            "description": "Filters. Choose fields and comparison(==, !=, >, <, >=, <=)",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "example": "id==1",
+                "pattern": "^(id|name|coordinates\\.x|coordinates\\.y|creationDate|annualTurnover|type|officialAddress\\.street|officialAddress\\.zipCode)(==|!=|>|<|<=|>=).+$"
+              }
+            },
+            "style": "deepObject"
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "Поле, по которому нужно сортировать (enum с множественным выбором).",
+            "required": false,
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "id",
+                  "name",
+                  "coordinates.x",
+                  "coordinates.y",
+                  "creationDate",
+                  "annualTurnover",
+                  "type",
+                  "officialAddress.street",
+                  "officialAddress.zipCode"
+                ]
+              }
+            }
+          },
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "nullable": true,
+              "format": "int32",
+              "default": 1,
+              "description": "Number of current page"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "nullable": true,
+              "format": "int32",
+              "default": 5,
+              "description": "Amount of Organizations per page"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns Organization by ID",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Organization"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          },
+          "default": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
       }
     },
-    "/organization/{id}": {
+    "/organizations/{id}": {
       "put": {
         "tags": [
           "basic set"
         ],
-        "summary": "Update Organization",
-        "description": "Update existing Organization by ID",
+        "summary": "",
         "operationId": "updateOrganizationById",
         "parameters": [
           {
@@ -125,8 +219,7 @@
         "tags": [
           "basic set"
         ],
-        "summary": "Get Organization",
-        "description": "Get Organization by ID",
+        "summary": "",
         "operationId": "getOrganizationById",
         "parameters": [
           {
@@ -168,8 +261,7 @@
         "tags": [
           "basic set"
         ],
-        "summary": "Delete Organization",
-        "description": "Delete Organization by ID",
+        "summary": "",
         "operationId": "deleteOrganizationById",
         "parameters": [
           {
@@ -184,7 +276,7 @@
         ],
         "responses": {
           "204": {
-            "$ref": "#/components/responses/No Content"
+            "$ref": "#/components/responses/NoContent"
           },
           "400": {
             "$ref": "#/components/responses/BadRequest"
@@ -201,58 +293,12 @@
         }
       }
     },
-    "/organizations": {
-      "get": {
-        "tags": [
-          "basic set"
-        ],
-        "summary": "Get Organizations",
-        "description": "Get Organizations with preferences",
-        "operationId": "getOrganizationsWithPreferences",
-        "parameters": [
-          {
-            "name": "request",
-            "in": "query",
-            "description": "Organizations preferences",
-            "required": true,
-            "schema": {
-              "$ref": "#/components/schemas/OrganizationsPreferences"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Returns Organization by ID",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/Organization"
-                  }
-                }
-              }
-            }
-          },
-          "400": {
-            "$ref": "#/components/responses/BadRequest"
-          },
-          "500": {
-            "$ref": "#/components/responses/InternalServerError"
-          },
-          "default": {
-            "$ref": "#/components/responses/UnexpectedError"
-          }
-        }
-      }
-    },
-    "/organization/delete-by-official-address/{official-address}": {
+    "/organizations/official-address/{official-address}": {
       "delete": {
         "tags": [
           "advanced set"
         ],
-        "summary": "Delete Organization by Official address",
-        "description": "Delete only one Organization by Official address",
+        "summary": "",
         "operationId": "deleteOrganizationByOfficialAddress",
         "parameters": [
           {
@@ -267,7 +313,7 @@
         ],
         "responses": {
           "204": {
-            "$ref": "#/components/responses/No Content"
+            "$ref": "#/components/responses/NoContent"
           },
           "400": {
             "$ref": "#/components/responses/BadRequest"
@@ -284,13 +330,12 @@
         }
       }
     },
-    "/organizations/get-sum-of-annual-turnover": {
+    "/organizations/annual-turnover/sum": {
       "get": {
         "tags": [
           "advanced set"
         ],
         "summary": "Get sum of all Organizations annual turnovers",
-        "description": "Get Organizations with preferences",
         "operationId": "getSumOfOrganizationsAnnualTurnovers",
         "responses": {
           "200": {
@@ -298,7 +343,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/AnnualTurnover"
+                  "$ref": "#/components/schemas/OnlyAnnualTurnover"
                 }
               }
             }
@@ -315,13 +360,12 @@
         }
       }
     },
-    "/organizations/get-grouped-by-annual-turnover": {
+    "/organizations/annual-turnover/grouped": {
       "get": {
         "tags": [
           "advanced set"
         ],
-        "summary": "Get grouped Organizations by annual turnover",
-        "description": "Get grouped Organizations by annual turnover field",
+        "summary": "",
         "operationId": "getGroupedOrganizationsByAnnualTurnover",
         "responses": {
           "200": {
@@ -390,43 +434,8 @@
           }
         }
       },
-      "No Content": {
-        "description": "The operation was performed successfully",
-        "content": {
-          "application/json": {
-            "schema": {
-              "allOf": [
-                {
-                  "$ref": "#/components/schemas/Error"
-                },
-                {
-                  "properties": {
-                    "code": {
-                      "allOf": [
-                        {
-                          "$ref": "#/components/schemas/Code"
-                        },
-                        {
-                          "example": 204
-                        }
-                      ]
-                    },
-                    "message": {
-                      "allOf": [
-                        {
-                          "$ref": "#/components/schemas/Message"
-                        },
-                        {
-                          "example": "Organization has been deleted"
-                        }
-                      ]
-                    }
-                  }
-                }
-              ]
-            }
-          }
-        }
+      "NoContent": {
+        "description": "No Content"
       },
       "NotFound": {
         "description": "The specified resource was not found",
@@ -569,6 +578,14 @@
         "example": 4.5,
         "description": "Organization annual turnover"
       },
+      "OnlyAnnualTurnover": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "$ref": "#/components/schemas/AnnualTurnover"
+          }
+        }
+      },
       "EmployeesCount": {
         "type": "integer",
         "format": "int64",
@@ -661,9 +678,7 @@
         "type": "object",
         "required": [
           "filtrationFields",
-          "sortingFields",
-          "pageNumber",
-          "pageSize"
+          "sortingFields"
         ],
         "properties": {
           "filtrationFields": {
@@ -679,20 +694,6 @@
             "items": {
               "$ref": "#/components/schemas/SortingOrFilteringField"
             }
-          },
-          "pageNumber": {
-            "type": "integer",
-            "nullable": true,
-            "format": "int32",
-            "default": 1,
-            "description": "Number of current page"
-          },
-          "pageSize": {
-            "type": "integer",
-            "nullable": true,
-            "format": "int32",
-            "default": 5,
-            "description": "Amount of Organizations per page"
           }
         }
       },
