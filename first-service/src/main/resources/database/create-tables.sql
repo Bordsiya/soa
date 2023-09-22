@@ -15,7 +15,7 @@ create table if not exists address
 create table if not exists organization_type
 (
     id        serial primary key,
-    type_name text not null
+    type_name text not null unique
 );
 
 create table if not exists organization
