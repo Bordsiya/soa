@@ -37,17 +37,12 @@
             "description": "Min annual turnover to filter",
             "required": true,
             "schema": {
-              "allOf": [
-                {
-                  "type": "number"
-                },
-                {
-                  "$ref": "#/components/schemas/AnnualTurnover"
-                },
-                {
-                  "example": 1.5
-                }
-              ]
+              "type": "number",
+              "format": "double",
+              "minimum": 0,
+              "exclusiveMinimum": true,
+              "example": 4.5,
+              "description": "Organization annual turnover"
             }
           },
           {
@@ -56,17 +51,12 @@
             "description": "Max annual turnover to filter",
             "required": true,
             "schema": {
-              "allOf": [
-                {
-                  "type": "number"
-                },
-                {
-                  "$ref": "#/components/schemas/AnnualTurnover"
-                },
-                {
-                  "example": 800.5
-                }
-              ]
+              "type": "number",
+              "format": "double",
+              "minimum": 0,
+              "exclusiveMinimum": true,
+              "example": 10,
+              "description": "Organization annual turnover"
             }
           }
         ],
@@ -111,17 +101,11 @@
             "description": "Min employees count to filter",
             "required": true,
             "schema": {
-              "allOf": [
-                {
-                  "type": "integer"
-                },
-                {
-                  "$ref": "#/components/schemas/EmployeesCount"
-                },
-                {
-                  "example": 2
-                }
-              ]
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0,
+              "example": 5,
+              "description": "Employees count in organization"
             }
           },
           {
@@ -130,17 +114,11 @@
             "description": "Max employees count to filter",
             "required": true,
             "schema": {
-              "allOf": [
-                {
-                  "type": "integer"
-                },
-                {
-                  "$ref": "#/components/schemas/EmployeesCount"
-                },
-                {
-                  "example": 10
-                }
-              ]
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0,
+              "example": 10,
+              "description": "Employees count in organization"
             }
           }
         ],

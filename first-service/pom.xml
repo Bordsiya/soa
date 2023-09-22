@@ -91,7 +91,7 @@
 							<goal>generate</goal>
 						</goals>
 						<configuration>
-							<inputSpec>${project.basedir}/src/main/resources/OrganizationServiceOpenAPI.json</inputSpec>
+							<inputSpec>${project.basedir}/src/main/resources/swagger-OrganizationServiceOpenAPI.json</inputSpec>
 							<language>spring</language>
 							<output>${project.build.directory}/generated-sources/</output>
 							<generateSupportingFiles>false</generateSupportingFiles>

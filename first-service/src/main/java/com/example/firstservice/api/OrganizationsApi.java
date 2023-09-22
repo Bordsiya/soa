@@ -23,142 +23,142 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2023-09-21T11:23:02.120621100+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2023-09-22T14:28:41.491075200+03:00[Europe/Moscow]")
 @Validated
 public interface OrganizationsApi {
 
-    @Operation(summary = "", description = "", tags = {"basic set"})
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Returns added Organization", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Organization.class))),
-
-            @ApiResponse(responseCode = "400", description = "The request was bad composed", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Error.class))),
-
-            @ApiResponse(responseCode = "500", description = "Internal Server error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse500.class))),
-
-            @ApiResponse(responseCode = "200", description = "Unexpected error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponseDefault.class)))})
+    @Operation(summary = "", description = "", tags={ "basic set" })
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "Returns added Organization", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Organization.class))),
+        
+        @ApiResponse(responseCode = "400", description = "The request was bad composed", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Error.class))),
+        
+        @ApiResponse(responseCode = "500", description = "Internal Server error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse500.class))),
+        
+        @ApiResponse(responseCode = "200", description = "Unexpected error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponseDefault.class))) })
     @RequestMapping(value = "/organizations",
-            produces = {"application/json"},
-            consumes = {"application/json"},
-            method = RequestMethod.POST)
-    ResponseEntity<Organization> addOrganization(@Parameter(in = ParameterIn.DEFAULT, description = "", required = true, schema = @Schema()) @Valid @RequestBody OrganizationWithoutId body);
+        produces = { "application/json" }, 
+        consumes = { "application/json" }, 
+        method = RequestMethod.POST)
+    ResponseEntity<Organization> addOrganization(@Parameter(in = ParameterIn.DEFAULT, description = "", required=true, schema=@Schema()) @Valid @RequestBody OrganizationWithoutId body);
 
 
-    @Operation(summary = "", description = "", tags = {"basic set"})
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "204", description = "No Content"),
-
-            @ApiResponse(responseCode = "400", description = "The request was bad composed", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Error.class))),
-
-            @ApiResponse(responseCode = "404", description = "The specified resource was not found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse404.class))),
-
-            @ApiResponse(responseCode = "500", description = "Internal Server error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse500.class))),
-
-            @ApiResponse(responseCode = "200", description = "Unexpected error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponseDefault.class)))})
+    @Operation(summary = "", description = "", tags={ "basic set" })
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "204", description = "No Content"),
+        
+        @ApiResponse(responseCode = "400", description = "The request was bad composed", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Error.class))),
+        
+        @ApiResponse(responseCode = "404", description = "The specified resource was not found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse404.class))),
+        
+        @ApiResponse(responseCode = "500", description = "Internal Server error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse500.class))),
+        
+        @ApiResponse(responseCode = "200", description = "Unexpected error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponseDefault.class))) })
     @RequestMapping(value = "/organizations/{id}",
-            produces = {"application/json"},
-            method = RequestMethod.DELETE)
-    ResponseEntity<Void> deleteOrganizationById(@Parameter(in = ParameterIn.PATH, description = "Organization ID to delete", required = true, schema = @Schema(allowableValues = {"1"}, minimum = "1"
-    )) @PathVariable("id") Integer id);
+        produces = { "application/json" }, 
+        method = RequestMethod.DELETE)
+    ResponseEntity<Void> deleteOrganizationById(@Parameter(in = ParameterIn.PATH, description = "Organization ID to delete", required=true, schema=@Schema(allowableValues={ "1" }, minimum="1"
+)) @PathVariable("id") Integer id);
 
 
-    @Operation(summary = "", description = "", tags = {"advanced set"})
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "204", description = "No Content"),
-
-            @ApiResponse(responseCode = "400", description = "The request was bad composed", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Error.class))),
-
-            @ApiResponse(responseCode = "404", description = "The specified resource was not found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse404.class))),
-
-            @ApiResponse(responseCode = "500", description = "Internal Server error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse500.class))),
-
-            @ApiResponse(responseCode = "200", description = "Unexpected error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponseDefault.class)))})
+    @Operation(summary = "", description = "", tags={ "advanced set" })
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "204", description = "No Content"),
+        
+        @ApiResponse(responseCode = "400", description = "The request was bad composed", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Error.class))),
+        
+        @ApiResponse(responseCode = "404", description = "The specified resource was not found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse404.class))),
+        
+        @ApiResponse(responseCode = "500", description = "Internal Server error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse500.class))),
+        
+        @ApiResponse(responseCode = "200", description = "Unexpected error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponseDefault.class))) })
     @RequestMapping(value = "/organizations/official-address/{official-address}",
-            produces = {"application/json"},
-            method = RequestMethod.DELETE)
-    ResponseEntity<Void> deleteOrganizationByOfficialAddress(@Parameter(in = ParameterIn.PATH, description = "Official address for Organization deleting", required = true, schema = @Schema()) @PathVariable("official-address") Address officialAddress);
+        produces = { "application/json" }, 
+        method = RequestMethod.DELETE)
+    ResponseEntity<Void> deleteOrganizationByOfficialAddress(@Parameter(in = ParameterIn.PATH, description = "Official address for Organization deleting", required=true, schema=@Schema()) @PathVariable("official-address") Address officialAddress);
 
 
-    @Operation(summary = "", description = "", tags = {"advanced set"})
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Returns grouped Organizations by annual turnover", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = AnnualTurnoverOrganizationsCount.class)))),
-
-            @ApiResponse(responseCode = "400", description = "The request was bad composed", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Error.class))),
-
-            @ApiResponse(responseCode = "500", description = "Internal Server error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse500.class))),
-
-            @ApiResponse(responseCode = "200", description = "Unexpected error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponseDefault.class)))})
+    @Operation(summary = "", description = "", tags={ "advanced set" })
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "Returns grouped Organizations by annual turnover", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = AnnualTurnoverOrganizationsCount.class)))),
+        
+        @ApiResponse(responseCode = "400", description = "The request was bad composed", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Error.class))),
+        
+        @ApiResponse(responseCode = "500", description = "Internal Server error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse500.class))),
+        
+        @ApiResponse(responseCode = "200", description = "Unexpected error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponseDefault.class))) })
     @RequestMapping(value = "/organizations/annual-turnover/grouped",
-            produces = {"application/json"},
-            method = RequestMethod.GET)
+        produces = { "application/json" }, 
+        method = RequestMethod.GET)
     ResponseEntity<List<AnnualTurnoverOrganizationsCount>> getGroupedOrganizationsByAnnualTurnover();
 
 
-    @Operation(summary = "", description = "", tags = {"basic set"})
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Returns Organization by ID", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Organization.class))),
-
-            @ApiResponse(responseCode = "400", description = "The request was bad composed", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Error.class))),
-
-            @ApiResponse(responseCode = "404", description = "The specified resource was not found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse404.class))),
-
-            @ApiResponse(responseCode = "500", description = "Internal Server error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse500.class))),
-
-            @ApiResponse(responseCode = "200", description = "Unexpected error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponseDefault.class)))})
+    @Operation(summary = "", description = "", tags={ "basic set" })
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "Returns Organization by ID", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Organization.class))),
+        
+        @ApiResponse(responseCode = "400", description = "The request was bad composed", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Error.class))),
+        
+        @ApiResponse(responseCode = "404", description = "The specified resource was not found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse404.class))),
+        
+        @ApiResponse(responseCode = "500", description = "Internal Server error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse500.class))),
+        
+        @ApiResponse(responseCode = "200", description = "Unexpected error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponseDefault.class))) })
     @RequestMapping(value = "/organizations/{id}",
-            produces = {"application/json"},
-            method = RequestMethod.GET)
-    ResponseEntity<Organization> getOrganizationById(@Parameter(in = ParameterIn.PATH, description = "Organization ID to get", required = true, schema = @Schema(allowableValues = {"1"}, minimum = "1"
-    )) @PathVariable("id") Integer id);
+        produces = { "application/json" }, 
+        method = RequestMethod.GET)
+    ResponseEntity<Organization> getOrganizationById(@Parameter(in = ParameterIn.PATH, description = "Organization ID to get", required=true, schema=@Schema(allowableValues={ "1" }, minimum="1"
+)) @PathVariable("id") Integer id);
 
 
-    @Operation(summary = "Get Organizations with preferences", description = "sorting and filtration fields: id, name, coordinates(x and y), creationDate, annualTurnover, type, officialAddress(street and zipCode)", tags = {"basic set"})
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Returns Organization by ID", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Organization.class)))),
-
-            @ApiResponse(responseCode = "400", description = "The request was bad composed", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Error.class))),
-
-            @ApiResponse(responseCode = "500", description = "Internal Server error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse500.class))),
-
-            @ApiResponse(responseCode = "200", description = "Unexpected error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponseDefault.class)))})
+    @Operation(summary = "Get Organizations with preferences", description = "sorting and filtration fields: id, name, coordinates(x and y), creationDate, annualTurnover, type, officialAddress(street and zipCode)", tags={ "basic set" })
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "Returns Organization by ID", content = @Content(mediaType = "application/json", array = @ArraySchema(schema = @Schema(implementation = Organization.class)))),
+        
+        @ApiResponse(responseCode = "400", description = "The request was bad composed", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Error.class))),
+        
+        @ApiResponse(responseCode = "500", description = "Internal Server error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse500.class))),
+        
+        @ApiResponse(responseCode = "200", description = "Unexpected error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponseDefault.class))) })
     @RequestMapping(value = "/organizations",
-            produces = {"application/json"},
-            method = RequestMethod.GET)
-    ResponseEntity<List<Organization>> getOrganizationsWithPreferences(@NotNull @Parameter(in = ParameterIn.QUERY, description = "", required = true, schema = @Schema(defaultValue = "1")) @Valid @RequestParam(value = "pageNumber", required = true, defaultValue = "1") Integer pageNumber, @NotNull @Parameter(in = ParameterIn.QUERY, description = "", required = true, schema = @Schema(defaultValue = "5")) @Valid @RequestParam(value = "pageSize", required = true, defaultValue = "5") Integer pageSize, @Parameter(in = ParameterIn.QUERY, description = "Поле, по которому нужно сортировать (enum с множественным выбором).", schema = @Schema(allowableValues = {"id", "name", "coordinates.x", "coordinates.y", "creationDate", "annualTurnover", "type", "officialAddress.street", "officialAddress.zipCode"}
-    )) @Valid @RequestParam(value = "sortBy", required = false) List<String> sortBy);
+        produces = { "application/json" }, 
+        method = RequestMethod.GET)
+    ResponseEntity<List<Organization>> getOrganizationsWithPreferences(@NotNull @Parameter(in = ParameterIn.QUERY, description = "" ,required=true,schema=@Schema( defaultValue="1")) @Valid @RequestParam(value = "pageNumber", required = true, defaultValue="1") Integer pageNumber, @NotNull @Parameter(in = ParameterIn.QUERY, description = "" ,required=true,schema=@Schema( defaultValue="5")) @Valid @RequestParam(value = "pageSize", required = true, defaultValue="5") Integer pageSize, @Parameter(in = ParameterIn.QUERY, description = "Поле, по которому нужно сортировать (enum с множественным выбором)." ,schema=@Schema(allowableValues={ "id", "name", "coordinates.x", "coordinates.y", "creationDate", "annualTurnover", "type", "officialAddress.street", "officialAddress.zipCode" }
+)) @Valid @RequestParam(value = "sortBy", required = false) List<String> sortBy);
 
 
-    @Operation(summary = "Get sum of all Organizations annual turnovers", description = "", tags = {"advanced set"})
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Returns sum of all Organizations annual turnovers", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OnlyAnnualTurnover.class))),
-
-            @ApiResponse(responseCode = "400", description = "The request was bad composed", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Error.class))),
-
-            @ApiResponse(responseCode = "500", description = "Internal Server error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse500.class))),
-
-            @ApiResponse(responseCode = "200", description = "Unexpected error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponseDefault.class)))})
+    @Operation(summary = "Get sum of all Organizations annual turnovers", description = "", tags={ "advanced set" })
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "Returns sum of all Organizations annual turnovers", content = @Content(mediaType = "application/json", schema = @Schema(implementation = OnlyAnnualTurnover.class))),
+        
+        @ApiResponse(responseCode = "400", description = "The request was bad composed", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Error.class))),
+        
+        @ApiResponse(responseCode = "500", description = "Internal Server error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse500.class))),
+        
+        @ApiResponse(responseCode = "200", description = "Unexpected error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponseDefault.class))) })
     @RequestMapping(value = "/organizations/annual-turnover/sum",
-            produces = {"application/json"},
-            method = RequestMethod.GET)
+        produces = { "application/json" }, 
+        method = RequestMethod.GET)
     ResponseEntity<OnlyAnnualTurnover> getSumOfOrganizationsAnnualTurnovers();
 
 
-    @Operation(summary = "", description = "", tags = {"basic set"})
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Returns updated Organization", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Organization.class))),
-
-            @ApiResponse(responseCode = "400", description = "The request was bad composed", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Error.class))),
-
-            @ApiResponse(responseCode = "404", description = "The specified resource was not found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse404.class))),
-
-            @ApiResponse(responseCode = "500", description = "Internal Server error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse500.class))),
-
-            @ApiResponse(responseCode = "200", description = "Unexpected error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponseDefault.class)))})
+    @Operation(summary = "", description = "", tags={ "basic set" })
+    @ApiResponses(value = { 
+        @ApiResponse(responseCode = "200", description = "Returns updated Organization", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Organization.class))),
+        
+        @ApiResponse(responseCode = "400", description = "The request was bad composed", content = @Content(mediaType = "application/json", schema = @Schema(implementation = Error.class))),
+        
+        @ApiResponse(responseCode = "404", description = "The specified resource was not found", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse404.class))),
+        
+        @ApiResponse(responseCode = "500", description = "Internal Server error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponse500.class))),
+        
+        @ApiResponse(responseCode = "200", description = "Unexpected error", content = @Content(mediaType = "application/json", schema = @Schema(implementation = InlineResponseDefault.class))) })
     @RequestMapping(value = "/organizations/{id}",
-            produces = {"application/json"},
-            consumes = {"application/json"},
-            method = RequestMethod.PUT)
-    ResponseEntity<Organization> updateOrganizationById(@Parameter(in = ParameterIn.PATH, description = "Organization ID to update", required = true, schema = @Schema(allowableValues = {"1"}, minimum = "1"
-    )) @PathVariable("id") Integer id, @Parameter(in = ParameterIn.DEFAULT, description = "", required = true, schema = @Schema()) @Valid @RequestBody OrganizationWithoutId body);
+        produces = { "application/json" }, 
+        consumes = { "application/json" }, 
+        method = RequestMethod.PUT)
+    ResponseEntity<Organization> updateOrganizationById(@Parameter(in = ParameterIn.PATH, description = "Organization ID to update", required=true, schema=@Schema(allowableValues={ "1" }, minimum="1"
+)) @PathVariable("id") Integer id, @Parameter(in = ParameterIn.DEFAULT, description = "", required=true, schema=@Schema()) @Valid @RequestBody OrganizationWithoutId body);
 
 }
 
