@@ -1,14 +1,15 @@
 package com.example.firstservice.models;
 
-import java.util.Objects;
-import com.example.firstservice.models.Coordinates;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
 import io.swagger.v3.oas.annotations.media.Schema;
-import org.threeten.bp.LocalDate;
 import org.springframework.validation.annotation.Validated;
+import org.threeten.bp.LocalDate;
+
 import javax.validation.Valid;
-import javax.validation.constraints.*;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.util.Objects;
 
 /**
  * OrganizationWithoutId
@@ -17,194 +18,202 @@ import javax.validation.constraints.*;
 @javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2023-09-21T11:23:02.120621100+03:00[Europe/Moscow]")
 
 
-public class OrganizationWithoutId   {
-  @JsonProperty("name")
-  private String name = null;
+public class OrganizationWithoutId {
+    @JsonProperty("name")
+    private String name = null;
 
-  @JsonProperty("coordinates")
-  private Coordinates coordinates = null;
+    @JsonProperty("coordinates")
+    private Coordinates coordinates = null;
 
-  @JsonProperty("creationDate")
-  private LocalDate creationDate = null;
+    @JsonProperty("creationDate")
+    private LocalDate creationDate = null;
 
-  @JsonProperty("annualTurnover")
-  private Double annualTurnover = null;
+    @JsonProperty("annualTurnover")
+    private Double annualTurnover = null;
 
-  @JsonProperty("type")
-  private AllOfOrganizationWithoutIdType type = null;
+    @JsonProperty("type")
+    private AllOfOrganizationWithoutIdType type = null;
 
-  @JsonProperty("officialAddress")
-  private AllOfOrganizationWithoutIdOfficialAddress officialAddress = null;
+    @JsonProperty("officialAddress")
+    private AllOfOrganizationWithoutIdOfficialAddress officialAddress = null;
 
-  public OrganizationWithoutId name(String name) {
-    this.name = name;
-    return this;
-  }
+    public OrganizationWithoutId name(String name) {
+        this.name = name;
+        return this;
+    }
 
-  /**
-   * Organization name
-   * @return name
-   **/
-  @Schema(example = "OAO Aviasales", required = true, description = "Organization name")
-      @NotNull
+    /**
+     * Organization name
+     *
+     * @return name
+     **/
+    @Schema(example = "OAO Aviasales", required = true, description = "Organization name")
+    @NotNull
 
-  @Size(min=1)   public String getName() {
-    return name;
-  }
+    @Size(min = 1)
+    public String getName() {
+        return name;
+    }
 
-  public void setName(String name) {
-    this.name = name;
-  }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-  public OrganizationWithoutId coordinates(Coordinates coordinates) {
-    this.coordinates = coordinates;
-    return this;
-  }
+    public OrganizationWithoutId coordinates(Coordinates coordinates) {
+        this.coordinates = coordinates;
+        return this;
+    }
 
-  /**
-   * Get coordinates
-   * @return coordinates
-   **/
-  @Schema(required = true, description = "")
-      @NotNull
+    /**
+     * Get coordinates
+     *
+     * @return coordinates
+     **/
+    @Schema(required = true, description = "")
+    @NotNull
 
     @Valid
     public Coordinates getCoordinates() {
-    return coordinates;
-  }
+        return coordinates;
+    }
 
-  public void setCoordinates(Coordinates coordinates) {
-    this.coordinates = coordinates;
-  }
+    public void setCoordinates(Coordinates coordinates) {
+        this.coordinates = coordinates;
+    }
 
-  public OrganizationWithoutId creationDate(LocalDate creationDate) {
-    this.creationDate = creationDate;
-    return this;
-  }
+    public OrganizationWithoutId creationDate(LocalDate creationDate) {
+        this.creationDate = creationDate;
+        return this;
+    }
 
-  /**
-   * Organization creation date, generates automatically
-   * @return creationDate
-   **/
-  @Schema(required = true, description = "Organization creation date, generates automatically")
-      @NotNull
+    /**
+     * Organization creation date, generates automatically
+     *
+     * @return creationDate
+     **/
+    @Schema(required = true, description = "Organization creation date, generates automatically")
+    @NotNull
 
     @Valid
     public LocalDate getCreationDate() {
-    return creationDate;
-  }
+        return creationDate;
+    }
 
-  public void setCreationDate(LocalDate creationDate) {
-    this.creationDate = creationDate;
-  }
+    public void setCreationDate(LocalDate creationDate) {
+        this.creationDate = creationDate;
+    }
 
-  public OrganizationWithoutId annualTurnover(Double annualTurnover) {
-    this.annualTurnover = annualTurnover;
-    return this;
-  }
+    public OrganizationWithoutId annualTurnover(Double annualTurnover) {
+        this.annualTurnover = annualTurnover;
+        return this;
+    }
 
-  /**
-   * Organization annual turnover
-   * minimum: 0
-   * @return annualTurnover
-   **/
-  @Schema(example = "4.5", required = true, description = "Organization annual turnover")
-      @NotNull
+    /**
+     * Organization annual turnover
+     * minimum: 0
+     *
+     * @return annualTurnover
+     **/
+    @Schema(example = "4.5", required = true, description = "Organization annual turnover")
+    @NotNull
 
-  @DecimalMin("0")  public Double getAnnualTurnover() {
-    return annualTurnover;
-  }
+    @DecimalMin("0")
+    public Double getAnnualTurnover() {
+        return annualTurnover;
+    }
 
-  public void setAnnualTurnover(Double annualTurnover) {
-    this.annualTurnover = annualTurnover;
-  }
+    public void setAnnualTurnover(Double annualTurnover) {
+        this.annualTurnover = annualTurnover;
+    }
 
-  public OrganizationWithoutId type(AllOfOrganizationWithoutIdType type) {
-    this.type = type;
-    return this;
-  }
+    public OrganizationWithoutId type(AllOfOrganizationWithoutIdType type) {
+        this.type = type;
+        return this;
+    }
 
-  /**
-   * Get type
-   * @return type
-   **/
-  @Schema(required = true, description = "")
-      @NotNull
+    /**
+     * Get type
+     *
+     * @return type
+     **/
+    @Schema(required = true, description = "")
+    @NotNull
 
     public AllOfOrganizationWithoutIdType getType() {
-    return type;
-  }
+        return type;
+    }
 
-  public void setType(AllOfOrganizationWithoutIdType type) {
-    this.type = type;
-  }
+    public void setType(AllOfOrganizationWithoutIdType type) {
+        this.type = type;
+    }
 
-  public OrganizationWithoutId officialAddress(AllOfOrganizationWithoutIdOfficialAddress officialAddress) {
-    this.officialAddress = officialAddress;
-    return this;
-  }
+    public OrganizationWithoutId officialAddress(AllOfOrganizationWithoutIdOfficialAddress officialAddress) {
+        this.officialAddress = officialAddress;
+        return this;
+    }
 
-  /**
-   * Get officialAddress
-   * @return officialAddress
-   **/
-  @Schema(required = true, description = "")
-      @NotNull
+    /**
+     * Get officialAddress
+     *
+     * @return officialAddress
+     **/
+    @Schema(required = true, description = "")
+    @NotNull
 
     public AllOfOrganizationWithoutIdOfficialAddress getOfficialAddress() {
-    return officialAddress;
-  }
-
-  public void setOfficialAddress(AllOfOrganizationWithoutIdOfficialAddress officialAddress) {
-    this.officialAddress = officialAddress;
-  }
-
-
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
+        return officialAddress;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    public void setOfficialAddress(AllOfOrganizationWithoutIdOfficialAddress officialAddress) {
+        this.officialAddress = officialAddress;
     }
-    OrganizationWithoutId organizationWithoutId = (OrganizationWithoutId) o;
-    return Objects.equals(this.name, organizationWithoutId.name) &&
-        Objects.equals(this.coordinates, organizationWithoutId.coordinates) &&
-        Objects.equals(this.creationDate, organizationWithoutId.creationDate) &&
-        Objects.equals(this.annualTurnover, organizationWithoutId.annualTurnover) &&
-        Objects.equals(this.type, organizationWithoutId.type) &&
-        Objects.equals(this.officialAddress, organizationWithoutId.officialAddress);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(name, coordinates, creationDate, annualTurnover, type, officialAddress);
-  }
 
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class OrganizationWithoutId {\n");
-    
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    coordinates: ").append(toIndentedString(coordinates)).append("\n");
-    sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
-    sb.append("    annualTurnover: ").append(toIndentedString(annualTurnover)).append("\n");
-    sb.append("    type: ").append(toIndentedString(type)).append("\n");
-    sb.append("    officialAddress: ").append(toIndentedString(officialAddress)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
+    @Override
+    public boolean equals(java.lang.Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        OrganizationWithoutId organizationWithoutId = (OrganizationWithoutId) o;
+        return Objects.equals(this.name, organizationWithoutId.name) &&
+                Objects.equals(this.coordinates, organizationWithoutId.coordinates) &&
+                Objects.equals(this.creationDate, organizationWithoutId.creationDate) &&
+                Objects.equals(this.annualTurnover, organizationWithoutId.annualTurnover) &&
+                Objects.equals(this.type, organizationWithoutId.type) &&
+                Objects.equals(this.officialAddress, organizationWithoutId.officialAddress);
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, coordinates, creationDate, annualTurnover, type, officialAddress);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class OrganizationWithoutId {\n");
+
+        sb.append("    name: ").append(toIndentedString(name)).append("\n");
+        sb.append("    coordinates: ").append(toIndentedString(coordinates)).append("\n");
+        sb.append("    creationDate: ").append(toIndentedString(creationDate)).append("\n");
+        sb.append("    annualTurnover: ").append(toIndentedString(annualTurnover)).append("\n");
+        sb.append("    type: ").append(toIndentedString(type)).append("\n");
+        sb.append("    officialAddress: ").append(toIndentedString(officialAddress)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces
+     * (except the first line).
+     */
+    private String toIndentedString(java.lang.Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 }

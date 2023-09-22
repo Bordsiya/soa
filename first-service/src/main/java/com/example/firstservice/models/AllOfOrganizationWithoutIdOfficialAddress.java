@@ -1,10 +1,8 @@
 package com.example.firstservice.models;
 
-import java.util.Objects;
-import com.example.firstservice.models.Address;
 import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import java.util.Objects;
 
 /**
  * AllOfOrganizationWithoutIdOfficialAddress
