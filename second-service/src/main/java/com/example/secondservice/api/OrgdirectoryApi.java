@@ -5,41 +5,29 @@
  */
 package com.example.secondservice.api;
 
-import com.example.secondservice.models.Error;
-import com.example.secondservice.models.InlineResponse500;
-import com.example.secondservice.models.InlineResponseDefault;
-import com.example.secondservice.models.Maxannualturnover;
-import com.example.secondservice.models.Maxemployeescount;
-import com.example.secondservice.models.Minannualturnover;
-import com.example.secondservice.models.Minemployeescount;
-import com.example.secondservice.models.Organization;
+import com.example.firstservice.models.Error;
+import com.example.firstservice.models.InlineResponse500;
+import com.example.firstservice.models.InlineResponseDefault;
+import com.example.firstservice.models.Organization;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;
-import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
-import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RequestPart;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.bind.annotation.CookieValue;
 
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.Min;
 import java.util.List;
-import java.util.Map;
 
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2023-09-21T11:53:29.139894400+03:00[Europe/Moscow]")
+@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2023-09-22T15:03:58.143327300+03:00[Europe/Moscow]")
 @Validated
 public interface OrgdirectoryApi {
 
@@ -55,7 +43,7 @@ public interface OrgdirectoryApi {
     @RequestMapping(value = "/orgdirectory/filter/turnover/{min-annual-turnover}/{max-annual-turnover}",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    ResponseEntity<List<Organization>> filterOrganizationsByAnnualTurnover(@Parameter(in = ParameterIn.PATH, description = "Min annual turnover to filter", required=true, schema=@Schema()) @PathVariable("min-annual-turnover") Minannualturnover minAnnualTurnover, @Parameter(in = ParameterIn.PATH, description = "Max annual turnover to filter", required=true, schema=@Schema()) @PathVariable("max-annual-turnover") Maxannualturnover maxAnnualTurnover);
+    ResponseEntity<List<Organization>> filterOrganizationsByAnnualTurnover(@DecimalMin("0")@Parameter(in = ParameterIn.PATH, description = "Min annual turnover to filter", required=true, schema=@Schema()) @PathVariable("min-annual-turnover") Double minAnnualTurnover, @DecimalMin("0")@Parameter(in = ParameterIn.PATH, description = "Max annual turnover to filter", required=true, schema=@Schema()) @PathVariable("max-annual-turnover") Double maxAnnualTurnover);
 
 
     @Operation(summary = "Filter Organizations by employees count", description = "Get filtered Organizations by min and max employees count", tags={ "filtration" })
@@ -70,7 +58,9 @@ public interface OrgdirectoryApi {
     @RequestMapping(value = "/orgdirectory/filter/employees/{min-employees-count}/{max-employees-count}",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    ResponseEntity<List<Object>> filterOrganizationsByEmployeesCount(@Parameter(in = ParameterIn.PATH, description = "Min employees count to filter", required=true, schema=@Schema()) @PathVariable("min-employees-count") Minemployeescount minEmployeesCount, @Parameter(in = ParameterIn.PATH, description = "Max employees count to filter", required=true, schema=@Schema()) @PathVariable("max-employees-count") Maxemployeescount maxEmployeesCount);
+    ResponseEntity<List<Object>> filterOrganizationsByEmployeesCount(@Min(0L)@Parameter(in = ParameterIn.PATH, description = "Min employees count to filter", required=true, schema=@Schema(allowableValues={ "0" }
+)) @PathVariable("min-employees-count") Long minEmployeesCount, @Min(0L)@Parameter(in = ParameterIn.PATH, description = "Max employees count to filter", required=true, schema=@Schema(allowableValues={ "0" }
+)) @PathVariable("max-employees-count") Long maxEmployeesCount);
 
 }
 
