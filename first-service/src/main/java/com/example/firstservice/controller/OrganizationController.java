@@ -1,6 +1,7 @@
 package com.example.firstservice.controller;
 
 import com.example.firstservice.api.OrganizationsApi;
+import com.example.firstservice.exception.PageableConditionsException;
 import com.example.firstservice.models.*;
 import com.example.firstservice.service.OrganizationService;
 import com.example.firstservice.util.mappers.OrganizationMapper;
@@ -60,9 +61,23 @@ public class OrganizationController implements OrganizationsApi {
 
     @Override
     public ResponseEntity<List<OrganizationDTO>> getOrganizationsWithPreferences(
-            Integer pageNumber, Integer pageSize, List<String> sortBy, List<String> filters) {
+            Integer pageNumber,
+            Integer pageSize,
+            List<String> sortBy, List<String> filters
+    ) {
+        List<OrganizationDTO> orgsWithPrefs = organizationMapper
+                .toDTO(organizationService.getOrganizationsWithPreferences(sortBy, filters));
+
+        if (pageNumber == 0 || pageSize == 0) {
+            return ResponseEntity.ok(orgsWithPrefs);
+        }
+        int start = (pageNumber - 1) * pageSize;
+        int end = Math.min(start + pageSize, orgsWithPrefs.size());
+        if (start >= orgsWithPrefs.size() || start < 0 || end < 0 || end > orgsWithPrefs.size()) {
+            throw new PageableConditionsException();
+        }
         return ResponseEntity.ok(
-                organizationMapper.toDTO(organizationService.getOrganizationsWithPreferences(sortBy, filters))
+                orgsWithPrefs.subList(start, end)
         );
     }
 

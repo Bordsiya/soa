@@ -165,11 +165,14 @@ public class OrganizationService {
         List<Organization> organizations = organizationRepository.findAll();
 
         //filtering
-        List<OrganizationFilter> filters = OrganizationFilterService.parseFilters(filterConditions);
-        List<Organization> filteringOrganizations = new ArrayList<>();
-        for (Organization org : organizations) {
-            if (OrganizationFilterService.applyFilters(org, filters)) {
-                filteringOrganizations.add(org);
+        List<Organization> filteringOrganizations = organizations;
+        if (filterConditions != null) {
+            List<OrganizationFilter> filters = OrganizationFilterService.parseFilters(filterConditions);
+            filteringOrganizations = new ArrayList<>();
+            for (Organization org : organizations) {
+                if (OrganizationFilterService.applyFilters(org, filters)) {
+                    filteringOrganizations.add(org);
+                }
             }
         }
 

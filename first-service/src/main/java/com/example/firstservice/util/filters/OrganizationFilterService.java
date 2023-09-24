@@ -4,6 +4,7 @@ import com.example.firstservice.entity.Organization;
 import com.example.firstservice.entity.OrganizationType;
 import com.example.firstservice.exception.IncorrectOrganizationFilterException;
 import com.example.firstservice.util.enums.SortingOrFilteringField;
+import jakarta.validation.constraints.NotNull;
 
 import java.util.Date;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.stream.Collectors;
 
 public class OrganizationFilterService {
 
-    public static List<OrganizationFilter> parseFilters(List<String> filters) {
+    public static List<OrganizationFilter> parseFilters(@NotNull List<String> filters) {
         return filters.stream()
                 .map(OrganizationFilterService::parseFilter)
                 .collect(Collectors.toList());
