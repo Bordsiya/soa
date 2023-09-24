@@ -14,13 +14,18 @@ import com.example.firstservice.models.AnnualTurnoverOrganizationsCountDTO;
 import com.example.firstservice.models.OnlyAnnualTurnoverDTO;
 import com.example.firstservice.models.OrganizationWithoutIdDTO;
 import com.example.firstservice.repository.OrganizationRepository;
+import com.example.firstservice.util.comparators.OrganizationComparator;
+import com.example.firstservice.util.enums.SortingOrFilteringField;
 import com.example.firstservice.util.mappers.CoordinatesMapper;
 import com.example.firstservice.util.mappers.OrganizationMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 public class OrganizationService {
@@ -151,5 +156,38 @@ public class OrganizationService {
 
     public List<AnnualTurnoverOrganizationsCountDTO> getGroupedOrganizationsByAnnualTurnover() {
         return organizationRepository.getGroupedOrganizationsByAnnualTurnover();
+    }
+
+    public List<Organization> getOrganizationsWithPreferences(List<String> fieldsForSort) {
+        List<Organization> organizations = organizationRepository.findAll();
+
+        //filtering
+
+
+        // sorting
+        if (fieldsForSort != null) {
+            List<SortingOrFilteringField> sortingFields = fieldsForSort.stream()
+                    .map(SortingOrFilteringField::fromValue)
+                    .filter(Objects::nonNull)
+                    .collect(Collectors.toList());
+            sortOrganizationsByField(organizations, sortingFields);
+        }
+
+        return organizations;
+    }
+
+    public void sortOrganizationsByField(List<Organization> organizations, List<SortingOrFilteringField> sortFields) {
+        Comparator<Organization> multiComparator = null;
+        for (SortingOrFilteringField sortField : sortFields) {
+            if (multiComparator == null) {
+                multiComparator = OrganizationComparator.findComparatorByFieldName(sortField);
+            } else {
+                multiComparator.thenComparing(OrganizationComparator.findComparatorByFieldName(sortField));
+            }
+        }
+
+        if (multiComparator != null) {
+            organizations.sort(multiComparator);
+        }
     }
 }

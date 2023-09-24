@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class OrganizationMapper {
@@ -60,5 +61,11 @@ public class OrganizationMapper {
                         organization.getAddress().getZipCode()
                 )
         );
+    }
+
+    public List<OrganizationDTO> toDTO(List<Organization> organizations) {
+        return organizations.stream()
+                .map(this::toDTO)
+                .collect(Collectors.toList());
     }
 }
