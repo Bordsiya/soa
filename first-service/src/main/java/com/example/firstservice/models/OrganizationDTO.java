@@ -1,6 +1,6 @@
 package com.example.firstservice.models;
 
-import com.example.firstservice.util.enums.OrganizationTypeType;
+import com.example.firstservice.util.enums.OrganizationTypeDto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Min;
@@ -37,7 +37,7 @@ public class OrganizationDTO extends OrganizationWithoutIdDTO {
           CoordinatesDTO coordinatesDTO,
           LocalDate creationDate,
           Double annualTurnover,
-          OrganizationTypeType type,
+          OrganizationTypeDto type,
           AddressDTO addressDTO
   ) {
     this.id = id;

@@ -4,7 +4,7 @@ import com.example.firstservice.entity.OrganizationType;
 import com.example.firstservice.exception.not_found.OrganizationTypeNotFoundException;
 import com.example.firstservice.repository.OrganizationTypeRepository;
 import com.example.firstservice.util.mappers.OrganizationTypeMapper;
-import com.example.firstservice.util.enums.OrganizationTypeType;
+import com.example.firstservice.util.enums.OrganizationTypeDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +34,7 @@ public class OrganizationTypeService {
         return organizationType;
     }
 
-    public OrganizationType addOrganizationType(OrganizationTypeType organizationTypeType) {
-        return organizationTypeRepository.save(organizationTypeMapper.fromDTO(organizationTypeType));
+    public OrganizationType addOrganizationType(OrganizationTypeDto organizationTypeDto) {
+        return organizationTypeRepository.save(organizationTypeMapper.fromDTO(organizationTypeDto));
     }
 }

@@ -8,7 +8,7 @@ import com.example.firstservice.models.AddressDTO;
 import com.example.firstservice.models.CoordinatesDTO;
 import com.example.firstservice.models.OrganizationDTO;
 import com.example.firstservice.models.OrganizationWithoutIdDTO;
-import com.example.firstservice.util.enums.OrganizationTypeType;
+import com.example.firstservice.util.enums.OrganizationTypeDto;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
@@ -54,7 +54,7 @@ public class OrganizationMapper {
                 ),
                 organization.getCreationDate().toLocalDateTime().toLocalDate(),
                 organization.getAnnualTurnover(),
-                OrganizationTypeType.fromValue(organization.getOrganizationType().getType()),
+                OrganizationTypeDto.fromValue(organization.getOrganizationType().getType()),
                 new AddressDTO(
                         organization.getAddress().getStreet(),
                         organization.getAddress().getZipCode()

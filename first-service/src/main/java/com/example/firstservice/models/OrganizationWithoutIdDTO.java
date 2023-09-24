@@ -1,7 +1,7 @@
 package com.example.firstservice.models;
 
 import com.example.firstservice.exception.UndefinedOrganizationTypeException;
-import com.example.firstservice.util.enums.OrganizationTypeType;
+import com.example.firstservice.util.enums.OrganizationTypeDto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.DecimalMin;
@@ -54,14 +54,14 @@ public class OrganizationWithoutIdDTO {
   @Schema(required = true, description = "")
   @NotNull(message = "Organization-Type is required.")
   @JsonProperty("type")
-  private OrganizationTypeType type;
+  private OrganizationTypeDto type;
 
   @Schema(required = true, description = "")
   @NotNull(message = "Official-Address is required.")
   @JsonProperty("officialAddress")
   private AddressDTO officialAddressDTO;
 
-  public void setType(OrganizationTypeType type) {
+  public void setType(OrganizationTypeDto type) {
     if (type == null) throw new UndefinedOrganizationTypeException();
     this.type = type;
   }

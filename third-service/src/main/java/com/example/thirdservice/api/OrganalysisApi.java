@@ -7,7 +7,7 @@ package com.example.thirdservice.api;
 
 import com.example.firstservice.models.ErrorDTO;
 import com.example.firstservice.models.CoordinatesDTO;
-import com.example.firstservice.util.enums.OrganizationTypeType;
+import com.example.firstservice.util.enums.OrganizationTypeDto;
 import com.example.thirdservice.models.QuarterResponseDTO;
 import com.example.thirdservice.models.PredictionDTO;
 import io.swagger.v3.oas.annotations.Operation;
@@ -104,7 +104,7 @@ public interface OrganalysisApi {
             Long amount,
             @Parameter(in = ParameterIn.QUERY, description = "Organization type" ,schema=@Schema())
             @Valid @QueryParam(value = "organizationType")
-            OrganizationTypeType organizationTypeType);
+            OrganizationTypeDto organizationTypeDto);
 
 }
 
