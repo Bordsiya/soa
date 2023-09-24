@@ -16,12 +16,15 @@ import com.example.firstservice.models.OrganizationWithoutIdDTO;
 import com.example.firstservice.repository.OrganizationRepository;
 import com.example.firstservice.util.comparators.OrganizationComparator;
 import com.example.firstservice.util.enums.SortingOrFilteringField;
+import com.example.firstservice.util.filters.OrganizationFilter;
+import com.example.firstservice.util.filters.OrganizationFilterService;
 import com.example.firstservice.util.mappers.CoordinatesMapper;
 import com.example.firstservice.util.mappers.OrganizationMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
@@ -158,11 +161,17 @@ public class OrganizationService {
         return organizationRepository.getGroupedOrganizationsByAnnualTurnover();
     }
 
-    public List<Organization> getOrganizationsWithPreferences(List<String> fieldsForSort) {
+    public List<Organization> getOrganizationsWithPreferences(List<String> fieldsForSort, List<String> filterConditions) {
         List<Organization> organizations = organizationRepository.findAll();
 
         //filtering
-
+        List<OrganizationFilter> filters = OrganizationFilterService.parseFilters(filterConditions);
+        List<Organization> filteringOrganizations = new ArrayList<>();
+        for (Organization org : organizations) {
+            if (OrganizationFilterService.applyFilters(org, filters)) {
+                filteringOrganizations.add(org);
+            }
+        }
 
         // sorting
         if (fieldsForSort != null) {
@@ -170,10 +179,10 @@ public class OrganizationService {
                     .map(SortingOrFilteringField::fromValue)
                     .filter(Objects::nonNull)
                     .collect(Collectors.toList());
-            sortOrganizationsByField(organizations, sortingFields);
+            sortOrganizationsByField(filteringOrganizations, sortingFields);
         }
 
-        return organizations;
+        return filteringOrganizations;
     }
 
     public void sortOrganizationsByField(List<Organization> organizations, List<SortingOrFilteringField> sortFields) {

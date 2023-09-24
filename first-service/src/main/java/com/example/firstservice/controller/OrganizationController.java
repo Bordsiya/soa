@@ -62,7 +62,7 @@ public class OrganizationController implements OrganizationsApi {
     public ResponseEntity<List<OrganizationDTO>> getOrganizationsWithPreferences(
             Integer pageNumber, Integer pageSize, List<String> sortBy, List<String> filters) {
         return ResponseEntity.ok(
-                organizationMapper.toDTO(organizationService.getOrganizationsWithPreferences(sortBy))
+                organizationMapper.toDTO(organizationService.getOrganizationsWithPreferences(sortBy, filters))
         );
     }
 

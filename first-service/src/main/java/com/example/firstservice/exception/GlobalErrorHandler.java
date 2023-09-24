@@ -35,6 +35,14 @@ public class GlobalErrorHandler {
         return errorDTO;
     }
 
+    @ExceptionHandler(IncorrectOrganizationFilterException.class)
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public ErrorDTO handleIncorrectOrganizationFilterException(IncorrectOrganizationFilterException ex) {
+        ErrorDTO errorDTO = new ErrorDTO(
+                HttpStatus.BAD_REQUEST.name(), ex.getMessage(), LocalDateTime.now());
+        return errorDTO;
+    }
+
     @ExceptionHandler(UndefinedOrganizationTypeException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
     public ErrorDTO handleUndefinedOrganizationTypeException(UndefinedOrganizationTypeException ex) {
