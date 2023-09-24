@@ -60,21 +60,20 @@ public class OrganizationService {
     }
 
     public Organization addOrganization(OrganizationWithoutIdDTO organizationWithoutIdDTO) {
-        try{
+        try {
             Coordinates coordinates = coordinatesService.findCoordinatesByXAndY(
                     organizationWithoutIdDTO.getCoordinatesDTO().getX(),
                     organizationWithoutIdDTO.getCoordinatesDTO().getY()
             );
             throw new CoordinatesAlreadyReservedException(coordinates.getX(), coordinates.getY());
+        } catch (CoordinatesNotFoundException ignored) {
         }
-        catch (CoordinatesNotFoundException ignored) {}
 
         OrganizationType organizationType;
         try {
             organizationType =
                     organizationTypeService.findOrganizationTypeByType(organizationWithoutIdDTO.getType().name());
-        }
-        catch (OrganizationTypeNotFoundException e) {
+        } catch (OrganizationTypeNotFoundException e) {
             organizationType = organizationTypeService.addOrganizationType(organizationWithoutIdDTO.getType());
         }
 
@@ -84,8 +83,7 @@ public class OrganizationService {
                     organizationWithoutIdDTO.getOfficialAddressDTO().getStreet(),
                     organizationWithoutIdDTO.getOfficialAddressDTO().getZipCode()
             );
-        }
-        catch (AddressNotFoundException e) {
+        } catch (AddressNotFoundException e) {
             address = addressService.addAddress(organizationWithoutIdDTO.getOfficialAddressDTO());
         }
 
@@ -118,8 +116,7 @@ public class OrganizationService {
             Coordinates coordinates = coordinatesService.findCoordinatesByXAndY(
                     body.getCoordinatesDTO().getX(), body.getCoordinatesDTO().getY());
             throw new CoordinatesAlreadyReservedException(coordinates.getX(), coordinates.getY());
-        }
-        catch (CoordinatesNotFoundException e) {
+        } catch (CoordinatesNotFoundException e) {
             coordinatesService.updateCoordinates(organization.getCoordinates().getId(), body.getCoordinatesDTO());
         }
 
@@ -130,8 +127,7 @@ public class OrganizationService {
         try {
             organizationType =
                     organizationTypeService.findOrganizationTypeByType(body.getType().name());
-        }
-        catch (OrganizationTypeNotFoundException e) {
+        } catch (OrganizationTypeNotFoundException e) {
             organizationType = organizationTypeService.addOrganizationType(body.getType());
         }
         organization.setOrganizationType(organizationType);
@@ -142,8 +138,7 @@ public class OrganizationService {
                     body.getOfficialAddressDTO().getStreet(),
                     body.getOfficialAddressDTO().getZipCode()
             );
-        }
-        catch (AddressNotFoundException e) {
+        } catch (AddressNotFoundException e) {
             address = addressService.addAddress(body.getOfficialAddressDTO());
         }
         organization.setAddress(address);
