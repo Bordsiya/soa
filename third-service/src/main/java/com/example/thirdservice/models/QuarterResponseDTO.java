@@ -1,44 +1,33 @@
 package com.example.thirdservice.models;
 
 import java.util.Objects;
-import com.example.thirdservice.models.Quarter;
+
+import com.example.thirdservice.util.Quarter;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
+
+import javax.annotation.Generated;
+
 
 /**
  * InlineResponse200
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2023-09-22T22:04:54.480604900+03:00[Europe/Moscow]")
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2023-09-22T22:04:54.480604900+03:00[Europe/Moscow]")
+public class QuarterResponseDTO {
 
-
-public class InlineResponse200   {
+  @NotNull(message = "Quarter is required.")
   @JsonProperty("quarter")
-  private Quarter quarter = null;
-
-  public InlineResponse200 quarter(Quarter quarter) {
-    this.quarter = quarter;
-    return this;
-  }
-
-  /**
-   * Get quarter
-   * @return quarter
-   **/
-  @Schema(description = "")
-  
-    @Valid
-    public Quarter getQuarter() {
-    return quarter;
-  }
-
-  public void setQuarter(Quarter quarter) {
-    this.quarter = quarter;
-  }
+  private Quarter quarter;
 
 
   @Override
@@ -49,8 +38,8 @@ public class InlineResponse200   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    InlineResponse200 inlineResponse200 = (InlineResponse200) o;
-    return Objects.equals(this.quarter, inlineResponse200.quarter);
+    QuarterResponseDTO quarterResponseDTO = (QuarterResponseDTO) o;
+    return Objects.equals(this.quarter, quarterResponseDTO.quarter);
   }
 
   @Override

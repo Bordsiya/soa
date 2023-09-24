@@ -2,66 +2,35 @@ package com.example.firstservice.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.annotation.Generated;
 import java.util.Objects;
 
 /**
  * Address
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2023-09-22T14:28:41.491075200+03:00[Europe/Moscow]")
-
-
-public class Address   {
-  @JsonProperty("street")
-  private String street = null;
-
-  @JsonProperty("zipCode")
-  private String zipCode = null;
-
-  public Address street(String street) {
-    this.street = street;
-    return this;
-  }
-
-  /**
-   * Address street
-   * @return street
-   **/
+@Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2023-09-22T14:28:41.491075200+03:00[Europe/Moscow]")
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+public class AddressDTO {
   @Schema(example = "Kosovo street", required = true, description = "Address street")
-      @NotNull
+  @NotBlank(message = "Street is required.")
+  @JsonProperty("street")
+  private String street;
 
-  @Size(min=1)   public String getStreet() {
-    return street;
-  }
-
-  public void setStreet(String street) {
-    this.street = street;
-  }
-
-  public Address zipCode(String zipCode) {
-    this.zipCode = zipCode;
-    return this;
-  }
-
-  /**
-   * Address zipcode
-   * @return zipCode
-   **/
   @Schema(example = "AE84C", required = true, description = "Address zipcode")
-      @NotNull
-
-    public String getZipCode() {
-    return zipCode;
-  }
-
-  public void setZipCode(String zipCode) {
-    this.zipCode = zipCode;
-  }
-
+  @NotBlank(message = "ZipCode is required.")
+  @JsonProperty("zipCode")
+  private String zipCode;
 
   @Override
   public boolean equals(Object o) {
@@ -71,9 +40,9 @@ public class Address   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Address address = (Address) o;
-    return Objects.equals(this.street, address.street) &&
-        Objects.equals(this.zipCode, address.zipCode);
+    AddressDTO addressDTO = (AddressDTO) o;
+    return Objects.equals(this.street, addressDTO.street) &&
+        Objects.equals(this.zipCode, addressDTO.zipCode);
   }
 
   @Override

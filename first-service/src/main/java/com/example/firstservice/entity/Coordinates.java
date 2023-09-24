@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "coordinates")
+@Table(name = "coordinates", schema = "soa")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -16,11 +16,14 @@ public class Coordinates {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
 
     @Column(name = "x", nullable = false)
     private Double x;
 
     @Column(name = "y", nullable = false)
     private Long y;
+
+    @OneToOne(mappedBy = "coordinates", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private Organization organization;
 }

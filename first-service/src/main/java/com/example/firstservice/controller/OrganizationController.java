@@ -2,50 +2,77 @@ package com.example.firstservice.controller;
 
 import com.example.firstservice.api.OrganizationsApi;
 import com.example.firstservice.models.*;
+import com.example.firstservice.service.OrganizationService;
+import com.example.firstservice.util.mappers.OrganizationMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+
 @RestController
 public class OrganizationController implements OrganizationsApi {
+    private OrganizationService organizationService;
+    private OrganizationMapper organizationMapper;
+
+    @Autowired
+    public OrganizationController(
+            OrganizationService organizationService,
+            OrganizationMapper organizationMapper
+    ) {
+        this.organizationService = organizationService;
+        this.organizationMapper = organizationMapper;
+    }
+
     @Override
-    public ResponseEntity<Organization> addOrganization(OrganizationWithoutId body) {
-        return null;
+    public ResponseEntity<OrganizationDTO> addOrganization(OrganizationWithoutIdDTO body) {
+        return ResponseEntity.ok(
+                organizationMapper.toDTO(organizationService.addOrganization(body))
+        );
     }
 
     @Override
     public ResponseEntity<Void> deleteOrganizationById(Integer id) {
+        organizationService.deleteOrganizationById(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @Override
+    public ResponseEntity<Void> deleteOrganizationByOfficialAddress(String officialAddressStreet,
+                                                                    String officialAddressZipcode) {
+        AddressDTO addressDTO = new AddressDTO(officialAddressStreet, officialAddressZipcode);
+        organizationService.deleteOrganizationByOfficialAddress(addressDTO);
+        return ResponseEntity.noContent().build();
+    }
+
+    @Override
+    public ResponseEntity<List<AnnualTurnoverOrganizationsCountDTO>> getGroupedOrganizationsByAnnualTurnover() {
+        return ResponseEntity.ok(organizationService.getGroupedOrganizationsByAnnualTurnover());
+    }
+
+    @Override
+    public ResponseEntity<OrganizationDTO> getOrganizationById(Integer id) {
+        return ResponseEntity.ok(
+                organizationMapper.toDTO(organizationService.getOrganizationById(id))
+        );
+    }
+
+    @Override
+    public ResponseEntity<List<OrganizationDTO>> getOrganizationsWithPreferences(
+            Integer pageNumber, Integer pageSize, List<String> sortBy, List<String> filters) {
         return null;
     }
 
     @Override
-    public ResponseEntity<Void> deleteOrganizationByOfficialAddress(Address officialAddress) {
-        return null;
+    public ResponseEntity<OnlyAnnualTurnoverDTO> getSumOfOrganizationsAnnualTurnovers() {
+        return ResponseEntity.ok(organizationService.getSumOfOrganizationsAnnualTurnovers());
     }
 
     @Override
-    public ResponseEntity<List<AnnualTurnoverOrganizationsCount>> getGroupedOrganizationsByAnnualTurnover() {
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<Organization> getOrganizationById(Integer id) {
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<List<Organization>> getOrganizationsWithPreferences(Integer pageNumber, Integer pageSize, List<String> sortBy) {
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<OnlyAnnualTurnover> getSumOfOrganizationsAnnualTurnovers() {
-        return null;
-    }
-
-    @Override
-    public ResponseEntity<Organization> updateOrganizationById(Integer id, OrganizationWithoutId body) {
-        return null;
+    public ResponseEntity<OrganizationDTO> updateOrganizationById(Integer id, OrganizationWithoutIdDTO body) {
+        return ResponseEntity.ok(
+                organizationMapper.toDTO(organizationService.updateOrganizationById(id, body))
+        );
     }
 }

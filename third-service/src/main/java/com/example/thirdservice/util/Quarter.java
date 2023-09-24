@@ -1,10 +1,6 @@
-package com.example.thirdservice.models;
+package com.example.thirdservice.util;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonValue;
-import org.springframework.validation.annotation.Validated;
-import javax.validation.Valid;
-import javax.validation.constraints.*;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 
@@ -13,9 +9,9 @@ import com.fasterxml.jackson.annotation.JsonCreator;
  */
 public enum Quarter {
   I("I"),
-    II("II"),
-    III("III"),
-    IV("IV");
+  II("II"),
+  III("III"),
+  IV("IV");
 
   private String value;
 

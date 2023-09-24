@@ -2,51 +2,46 @@ package com.example.firstservice.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
+import javax.annotation.Generated;
 import java.util.Objects;
 
 /**
  * AnnualTurnoverOrganizationsCount
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2023-09-22T14:28:41.491075200+03:00[Europe/Moscow]")
-
-
-public class AnnualTurnoverOrganizationsCount   {
+@AllArgsConstructor
+@NoArgsConstructor
+@Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2023-09-22T14:28:41.491075200+03:00[Europe/Moscow]")
+public class AnnualTurnoverOrganizationsCountDTO {
+  @Schema(example = "4.5", required = true, description = "Organization annual turnover")
+  @NotNull(message = "Annual-Turnover cannot be null.")
   @JsonProperty("annualTurnover")
-  private Double annualTurnover = null;
+  @DecimalMin("0")
+  private Double annualTurnover;
 
+  @Schema(example = "5", required = true, description = "Amount of Organizations with such annual turnover value")
+  @NotNull(message = "Organization-count cannot be null.")
   @JsonProperty("organizationsCount")
-  private Integer organizationsCount = null;
-
-  public AnnualTurnoverOrganizationsCount annualTurnover(Double annualTurnover) {
-    this.annualTurnover = annualTurnover;
-    return this;
-  }
+  @Min(0)
+  private Long organizationsCount;
 
   /**
    * Organization annual turnover
    * minimum: 0
    * @return annualTurnover
    **/
-  @Schema(example = "4.5", required = true, description = "Organization annual turnover")
-      @NotNull
-
-  @DecimalMin("0")  public Double getAnnualTurnover() {
+  public Double getAnnualTurnover() {
     return annualTurnover;
   }
-
   public void setAnnualTurnover(Double annualTurnover) {
     this.annualTurnover = annualTurnover;
-  }
-
-  public AnnualTurnoverOrganizationsCount organizationsCount(Integer organizationsCount) {
-    this.organizationsCount = organizationsCount;
-    return this;
   }
 
   /**
@@ -54,14 +49,10 @@ public class AnnualTurnoverOrganizationsCount   {
    * minimum: 0
    * @return organizationsCount
    **/
-  @Schema(example = "5", required = true, description = "Amount of Organizations with such annual turnover value")
-      @NotNull
-
-  @Min(0)  public Integer getOrganizationsCount() {
+  public Long getOrganizationsCount() {
     return organizationsCount;
   }
-
-  public void setOrganizationsCount(Integer organizationsCount) {
+  public void setOrganizationsCount(Long organizationsCount) {
     this.organizationsCount = organizationsCount;
   }
 
@@ -74,9 +65,9 @@ public class AnnualTurnoverOrganizationsCount   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    AnnualTurnoverOrganizationsCount annualTurnoverOrganizationsCount = (AnnualTurnoverOrganizationsCount) o;
-    return Objects.equals(this.annualTurnover, annualTurnoverOrganizationsCount.annualTurnover) &&
-        Objects.equals(this.organizationsCount, annualTurnoverOrganizationsCount.organizationsCount);
+    AnnualTurnoverOrganizationsCountDTO annualTurnoverOrganizationsCountDTO = (AnnualTurnoverOrganizationsCountDTO) o;
+    return Objects.equals(this.annualTurnover, annualTurnoverOrganizationsCountDTO.annualTurnover) &&
+        Objects.equals(this.organizationsCount, annualTurnoverOrganizationsCountDTO.organizationsCount);
   }
 
   @Override

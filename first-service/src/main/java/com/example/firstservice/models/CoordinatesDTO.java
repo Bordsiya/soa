@@ -2,64 +2,35 @@ package com.example.firstservice.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.constraints.NotNull;
+import javax.annotation.Generated;
 import java.util.Objects;
 
 /**
  * Coordinates
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2023-09-22T14:28:41.491075200+03:00[Europe/Moscow]")
-
-
-public class Coordinates   {
-  @JsonProperty("x")
-  private Double x = null;
-
-  @JsonProperty("y")
-  private Long y = null;
-
-  public Coordinates x(Double x) {
-    this.x = x;
-    return this;
-  }
-
-  /**
-   * x coordinate
-   * @return x
-   **/
+@Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2023-09-22T14:28:41.491075200+03:00[Europe/Moscow]")
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+public class CoordinatesDTO {
   @Schema(example = "4.9", required = true, description = "x coordinate")
-      @NotNull
+  @NotNull(message = "X is required.")
+  @JsonProperty("x")
+  private Double x;
 
-    public Double getX() {
-    return x;
-  }
-
-  public void setX(Double x) {
-    this.x = x;
-  }
-
-  public Coordinates y(Long y) {
-    this.y = y;
-    return this;
-  }
-
-  /**
-   * y coordinate
-   * @return y
-   **/
   @Schema(example = "6", required = true, description = "y coordinate")
-      @NotNull
-
-    public Long getY() {
-    return y;
-  }
-
-  public void setY(Long y) {
-    this.y = y;
-  }
+  @NotNull(message = "Y is required.")
+  @JsonProperty("y")
+  private Long y;
 
 
   @Override
@@ -70,9 +41,9 @@ public class Coordinates   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Coordinates coordinates = (Coordinates) o;
-    return Objects.equals(this.x, coordinates.x) &&
-        Objects.equals(this.y, coordinates.y);
+    CoordinatesDTO coordinatesDTO = (CoordinatesDTO) o;
+    return Objects.equals(this.x, coordinatesDTO.x) &&
+        Objects.equals(this.y, coordinatesDTO.y);
   }
 
   @Override

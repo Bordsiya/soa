@@ -55,14 +55,9 @@
 			<version>2.15.2</version>
 		</dependency>
 		<dependency>
-			<groupId>javax.validation</groupId>
-			<artifactId>validation-api</artifactId>
-			<version>2.0.1.Final</version>
-		</dependency>
-		<dependency>
-			<groupId>org.threeten</groupId>
-			<artifactId>threetenbp</artifactId>
-			<version>1.6.8</version>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+			<version>2.4.0</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.annotation</groupId>
@@ -87,9 +82,15 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>org.springdoc</groupId>
+			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+			<version>2.1.0</version>
+		</dependency>
 
 	</dependencies>
 
+	<!--
 	<build>
 		<plugins>
 			<plugin>
@@ -122,5 +123,9 @@
 			</plugin>
 		</plugins>
 	</build>
+	-->
+
+
+
 
 </project>

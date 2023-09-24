@@ -1,4 +1,4 @@
-package com.example.firstservice.models;
+package com.example.firstservice.util.enums;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonValue;
  * Type of filtration
  */
 public enum SortingOrFilteringField {
-  ID("id"),
+    ID("id"),
     NAME("name"),
     COORDINATES_X("coordinates.x"),
     COORDINATES_Y("coordinates.y"),

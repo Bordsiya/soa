@@ -1,45 +1,53 @@
 package com.example.firstservice.models;
 
+import com.example.firstservice.util.enums.OrganizationTypeType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotNull;
+import javax.annotation.Generated;
+import java.time.LocalDate;
 import java.util.Objects;
 
 /**
  * Organization
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2023-09-22T14:28:41.491075200+03:00[Europe/Moscow]")
-
-
-public class Organization extends OrganizationWithoutId  {
-  @JsonProperty("id")
-  private Integer id = null;
-
-  public Organization id(Integer id) {
-    this.id = id;
-    return this;
-  }
-
-  /**
-   * Organization ID
-   * minimum: 1
-   * @return id
-   **/
+@Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2023-09-22T14:28:41.491075200+03:00[Europe/Moscow]")
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+public class OrganizationDTO extends OrganizationWithoutIdDTO {
   @Schema(example = "1", required = true, description = "Organization ID")
-      @NotNull
+  @NotNull(message = "Id is required.")
+  @Min(1)
+  @JsonProperty("id")
+  private Integer id;
 
-  @Min(1)  public Integer getId() {
-    return id;
-  }
-
-  public void setId(Integer id) {
+  public OrganizationDTO(
+          Integer id,
+          String name,
+          CoordinatesDTO coordinatesDTO,
+          LocalDate creationDate,
+          Double annualTurnover,
+          OrganizationTypeType type,
+          AddressDTO addressDTO
+  ) {
     this.id = id;
+    setName(name);
+    setCoordinatesDTO(coordinatesDTO);
+    setCreationDate(creationDate);
+    setAnnualTurnover(annualTurnover);
+    setType(type);
+    setOfficialAddressDTO(addressDTO);
   }
-
 
   @Override
   public boolean equals(Object o) {
@@ -49,8 +57,8 @@ public class Organization extends OrganizationWithoutId  {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Organization organization = (Organization) o;
-    return Objects.equals(this.id, organization.id) &&
+    OrganizationDTO organizationDTO = (OrganizationDTO) o;
+    return Objects.equals(this.id, organizationDTO.id) &&
         super.equals(o);
   }
 

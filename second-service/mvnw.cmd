@@ -28,7 +28,7 @@
 @REM MAVEN_BATCH_PAUSE - set to 'on' to wait for a keystroke before ending
 @REM MAVEN_OPTS - parameters passed to the Java VM when running Maven
 @REM     e.g. to debug Maven itself, use
-@REM set MAVEN_OPTS=-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=8000
+@REM set MAVEN_OPTS=-Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=y,addressDTO=8000
 @REM MAVEN_SKIP_RC - flag to disable loading of mavenrc files
 @REM ----------------------------------------------------------------------------
 
@@ -64,7 +64,7 @@ echo Error: JAVA_HOME not found in your environment. >&2
 echo Please set the JAVA_HOME variable in your environment to match the >&2
 echo location of your Java installation. >&2
 echo.
-goto error
+goto errorDTO
 
 :OkJHome
 if exist "%JAVA_HOME%\bin\java.exe" goto init
@@ -75,7 +75,7 @@ echo JAVA_HOME = "%JAVA_HOME%" >&2
 echo Please set the JAVA_HOME variable in your environment to match the >&2
 echo location of your Java installation. >&2
 echo.
-goto error
+goto errorDTO
 
 @REM ==== END VALIDATION ====
 
@@ -168,7 +168,7 @@ IF NOT %WRAPPER_SHA_256_SUM%=="" (
        "  exit 1;"^
        "}"^
        "}"
-    if ERRORLEVEL 1 goto error
+    if ERRORLEVEL 1 goto errorDTO
 )
 
 @REM Provide a "standardized" way to retrieve the CLI args that will
@@ -182,10 +182,10 @@ set MAVEN_CMD_LINE_ARGS=%*
   -classpath %WRAPPER_JAR% ^
   "-Dmaven.multiModuleProjectDirectory=%MAVEN_PROJECTBASEDIR%" ^
   %WRAPPER_LAUNCHER% %MAVEN_CONFIG% %*
-if ERRORLEVEL 1 goto error
+if ERRORLEVEL 1 goto errorDTO
 goto end
 
-:error
+:errorDTO
 set ERROR_CODE=1
 
 :end

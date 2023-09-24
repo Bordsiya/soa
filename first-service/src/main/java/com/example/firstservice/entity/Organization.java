@@ -1,17 +1,18 @@
 package com.example.firstservice.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.validation.constraints.Min;
 import java.util.Date;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
-@Table(name = "organization")
+@Table(name = "organization", schema = "soa")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -20,16 +21,16 @@ public class Organization {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private int id;
 
     @Column(name = "name", nullable = false)
     private String name;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "coordinates_id", nullable = false)
+    @JoinColumn(name = "coordinates_id")
     private Coordinates coordinates;
 
-    @Column(name = "creationDate")
+    @Column(name = "creationDate", nullable = false)
     private Timestamp creationDate;
 
     @PrePersist
@@ -41,12 +42,15 @@ public class Organization {
     @Column(name = "annualTurnover", nullable = false)
     private Double annualTurnover;
 
-    @ManyToOne
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "type_id")
     private OrganizationType organizationType;
 
-    @ManyToOne
+    @ManyToOne(optional = false)
     @JoinColumn(name = "address_id")
     private Address address;
+
+    @OneToMany(mappedBy = "organization", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Employee> employees;
 
 }

@@ -2,42 +2,30 @@ package com.example.firstservice.models;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.DecimalMin;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.validation.annotation.Validated;
 
-import javax.validation.constraints.DecimalMin;
+import javax.annotation.Generated;
 import java.util.Objects;
 
 /**
  * OnlyAnnualTurnover
  */
 @Validated
-@javax.annotation.Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2023-09-22T14:28:41.491075200+03:00[Europe/Moscow]")
-
-
-public class OnlyAnnualTurnover   {
-  @JsonProperty("value")
-  private Double value = null;
-
-  public OnlyAnnualTurnover value(Double value) {
-    this.value = value;
-    return this;
-  }
-
-  /**
-   * Organization annual turnover
-   * minimum: 0
-   * @return value
-   **/
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2023-09-22T14:28:41.491075200+03:00[Europe/Moscow]")
+public class OnlyAnnualTurnoverDTO {
   @Schema(example = "4.5", description = "Organization annual turnover")
-  
-  @DecimalMin("0")  public Double getValue() {
-    return value;
-  }
-
-  public void setValue(Double value) {
-    this.value = value;
-  }
-
+  @DecimalMin("0")
+  @JsonProperty("value")
+  private Double value;
 
   @Override
   public boolean equals(Object o) {
@@ -47,8 +35,8 @@ public class OnlyAnnualTurnover   {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    OnlyAnnualTurnover onlyAnnualTurnover = (OnlyAnnualTurnover) o;
-    return Objects.equals(this.value, onlyAnnualTurnover.value);
+    OnlyAnnualTurnoverDTO onlyAnnualTurnoverDTO = (OnlyAnnualTurnoverDTO) o;
+    return Objects.equals(this.value, onlyAnnualTurnoverDTO.value);
   }
 
   @Override
