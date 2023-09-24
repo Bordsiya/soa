@@ -42,6 +42,10 @@ public class OrganizationComparator {
         return Comparator.comparing(org -> org.getAddress().getZipCode());
     }
 
+    public static Comparator<Organization> compareByEmployeesCount() {
+        return Comparator.comparing(org -> org.getEmployees().size());
+    }
+
     public static Comparator<Organization> findComparatorByFieldName(SortingOrFilteringField field) {
         switch (field) {
             case ID -> {
@@ -70,6 +74,9 @@ public class OrganizationComparator {
             }
             case OFFICIALADDRESS_ZIPCODE -> {
                 return compareByOfficialAddressZipCode();
+            }
+            case EMPLOYEES_COUNT -> {
+                return compareByEmployeesCount();
             }
         }
         return Comparator.comparing(obj -> 0);

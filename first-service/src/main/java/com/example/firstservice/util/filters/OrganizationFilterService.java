@@ -98,7 +98,14 @@ public class OrganizationFilterService {
                         return false;
                     }
                 }
+                case EMPLOYEES_COUNT -> {
+                    int y = organization.getEmployees().size();
+                    if (!compare(y, operator, Integer.parseInt(value))) {
+                        return false;
+                    }
+                }
                 default -> {
+                    // TODO think about this case maybe throw here exception
                 }
             }
         }

@@ -15,7 +15,8 @@ public enum SortingOrFilteringField {
     ANNUALTURNOVER("annualTurnover"),
     TYPE("type"),
     OFFICIALADDRESS_STREET("officialAddress.street"),
-    OFFICIALADDRESS_ZIPCODE("officialAddress.zipcode");
+    OFFICIALADDRESS_ZIPCODE("officialAddress.zipcode"),
+    EMPLOYEES_COUNT("employeesCount");
 
   private String value;
 
