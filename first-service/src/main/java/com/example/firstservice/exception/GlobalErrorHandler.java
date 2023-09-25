@@ -51,6 +51,14 @@ public class GlobalErrorHandler {
         return errorDTO;
     }
 
+    @ExceptionHandler(PageableConditionsException.class)
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public ErrorDTO handlePageableConditionsException(PageableConditionsException ex) {
+        ErrorDTO errorDTO = new ErrorDTO(
+                HttpStatus.BAD_REQUEST.name(), ex.getMessage(), LocalDateTime.now());
+        return errorDTO;
+    }
+
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
