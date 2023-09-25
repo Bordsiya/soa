@@ -76,7 +76,7 @@
           {
             "name": "filters",
             "in": "query",
-            "description": "Filters. Choose fields and comparison(==, !=, >, <, >=, <=)",
+            "description": "Filters. Choose default fields and comparison(==, !=, >, <, >=, <=)",
             "required": false,
             "schema": {
               "type": "array",

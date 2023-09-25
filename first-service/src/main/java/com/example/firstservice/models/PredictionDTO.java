@@ -1,4 +1,4 @@
-package com.example.thirdservice.models;
+package com.example.firstservice.models;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
