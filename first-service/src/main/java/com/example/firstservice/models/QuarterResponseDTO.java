@@ -1,8 +1,8 @@
-package com.example.thirdservice.models;
+package com.example.firstservice.models;
 
 import java.util.Objects;
 
-import com.example.thirdservice.util.Quarter;
+import com.example.firstservice.util.enums.Quarter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;

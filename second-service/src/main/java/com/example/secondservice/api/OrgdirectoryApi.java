@@ -39,7 +39,13 @@ public interface OrgdirectoryApi {
     @RequestMapping(value = "/orgdirectory/filter/turnover/{min-annual-turnover}/{max-annual-turnover}",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    ResponseEntity<List<OrganizationDTO>> filterOrganizationsByAnnualTurnover(@DecimalMin("0")@Parameter(in = ParameterIn.PATH, description = "Min annual turnover to filter", required=true, schema=@Schema()) @PathVariable("min-annual-turnover") Double minAnnualTurnover, @DecimalMin("0")@Parameter(in = ParameterIn.PATH, description = "Max annual turnover to filter", required=true, schema=@Schema()) @PathVariable("max-annual-turnover") Double maxAnnualTurnover);
+    ResponseEntity<List<OrganizationDTO>> filterOrganizationsByAnnualTurnover(
+            @DecimalMin("0") @Parameter(in = ParameterIn.PATH, description = "Min annual turnover to filter",
+                    required=true, schema=@Schema())
+            @PathVariable("min-annual-turnover") Double minAnnualTurnover,
+            @DecimalMin("0") @Parameter(in = ParameterIn.PATH, description = "Max annual turnover to filter",
+                    required=true, schema=@Schema())
+            @PathVariable("max-annual-turnover") Double maxAnnualTurnover);
 
 
     @Operation(summary = "Filter Organizations by employees count", description = "Get filtered Organizations by min and max employees count", tags={ "filtration" })
@@ -52,9 +58,13 @@ public interface OrgdirectoryApi {
     @RequestMapping(value = "/orgdirectory/filter/employees/{min-employees-count}/{max-employees-count}",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    ResponseEntity<List<Object>> filterOrganizationsByEmployeesCount(@Min(0L)@Parameter(in = ParameterIn.PATH, description = "Min employees count to filter", required=true, schema=@Schema(allowableValues={ "0" }
-)) @PathVariable("min-employees-count") Long minEmployeesCount, @Min(0L)@Parameter(in = ParameterIn.PATH, description = "Max employees count to filter", required=true, schema=@Schema(allowableValues={ "0" }
-)) @PathVariable("max-employees-count") Long maxEmployeesCount);
+    ResponseEntity<List<OrganizationDTO>> filterOrganizationsByEmployeesCount(
+            @Min(0L) @Parameter(in = ParameterIn.PATH, description = "Min employees count to filter",
+                    required=true, schema=@Schema())
+            @PathVariable("min-employees-count") Long minEmployeesCount,
+            @Min(0L) @Parameter(in = ParameterIn.PATH, description = "Max employees count to filter",
+                    required=true, schema=@Schema())
+            @PathVariable("max-employees-count") Long maxEmployeesCount);
 
 }
 

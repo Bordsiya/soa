@@ -1,4 +1,4 @@
-package com.example.thirdservice.util;
+package com.example.firstservice.util.enums;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 
