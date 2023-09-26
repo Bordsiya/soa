@@ -9,12 +9,10 @@ import com.example.firstservice.exception.not_found.AddressNotFoundException;
 import com.example.firstservice.exception.not_found.CoordinatesNotFoundException;
 import com.example.firstservice.exception.not_found.OrganizationNotFoundException;
 import com.example.firstservice.exception.not_found.OrganizationTypeNotFoundException;
-import com.example.firstservice.models.AddressDTO;
-import com.example.firstservice.models.AnnualTurnoverOrganizationsCountDTO;
-import com.example.firstservice.models.OnlyAnnualTurnoverDTO;
-import com.example.firstservice.models.OrganizationWithoutIdDTO;
+import com.example.firstservice.models.*;
 import com.example.firstservice.repository.OrganizationRepository;
 import com.example.firstservice.util.comparators.OrganizationComparator;
+import com.example.firstservice.util.enums.Quarter;
 import com.example.firstservice.util.enums.SortingOrFilteringField;
 import com.example.firstservice.util.filters.OrganizationFilter;
 import com.example.firstservice.util.filters.OrganizationFilterService;
@@ -23,12 +21,17 @@ import com.example.firstservice.util.mappers.OrganizationMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 @Service
 public class OrganizationService {
@@ -201,5 +204,84 @@ public class OrganizationService {
         if (multiComparator != null) {
             organizations.sort(multiComparator);
         }
+    }
+
+    public PredictionDTO predictOrganizationAnnualTurnoverBehavior(Integer id) {
+        double increaseProbability = 0.9D;
+        double decreaseProbability = 0D;
+
+        final double AGE = 10;
+        final double COMPETITIVE_AMOUNT = 3;
+
+        Organization organization = getOrganizationById(id);
+        List<Integer> competitiveOrganizationsIdsNear = organizationRepository.findCompetitiveOrganizationsIds(
+                id,
+                organization.getCoordinates().getX(),
+                organization.getCoordinates().getY(),
+                organization.getAnnualTurnover(),
+                organization.getEmployees().size()
+        );
+        long amountOfCompetitiveOrganizationsTheSameTypeNear = competitiveOrganizationsIdsNear
+                .stream().filter(
+                        orgId -> getOrganizationById(orgId).getOrganizationType().equals(organization.getOrganizationType()))
+                .count();
+        if (amountOfCompetitiveOrganizationsTheSameTypeNear > COMPETITIVE_AMOUNT) {
+            increaseProbability -= 0.3D;
+            decreaseProbability += 0.3D;
+        }
+        else if (amountOfCompetitiveOrganizationsTheSameTypeNear == COMPETITIVE_AMOUNT) {
+            increaseProbability -= 0.2D;
+        }
+
+        Quarter quarter = Quarter.fromCoordinates(
+                organization.getCoordinates().getX(), organization.getCoordinates().getY());
+        List<Long> quartersWithAmounts = coordinatesService.getAmountOfOrganizationsForEachCoordinateQuarter();
+        int minInd = IntStream.range(0, quartersWithAmounts.size())
+                .reduce((i,j) -> quartersWithAmounts.get(i)
+                        > quartersWithAmounts.get(j) ? j : i)
+                .getAsInt();
+        int maxInd = IntStream.range(0, quartersWithAmounts.size())
+                .reduce((i,j) -> quartersWithAmounts.get(i) < quartersWithAmounts.get(j) ? j : i)
+                .getAsInt();
+        if (Quarter.toNumber(quarter) == maxInd) {
+            decreaseProbability += 0.3D;
+            increaseProbability -= 0.3D;
+        }
+        else if (Quarter.toNumber(quarter) != minInd) {
+            increaseProbability -= 0.2D;
+        }
+
+        long organizationAge = ChronoUnit.YEARS.between(
+                organization.getCreationDate().toLocalDateTime(),
+                LocalDateTime.now()
+        );
+        if (organizationAge > AGE) {
+            increaseProbability -= 0.1D;
+            if (decreaseProbability >= 0.3D) decreaseProbability -= 0.3D;
+        }
+
+        return new PredictionDTO(
+                BigDecimal.valueOf(increaseProbability)
+                        .setScale(3, RoundingMode.HALF_UP).doubleValue(),
+                BigDecimal.valueOf(decreaseProbability)
+                        .setScale(3, RoundingMode.HALF_UP).doubleValue(),
+                BigDecimal.valueOf(1D - (Double.max(increaseProbability, decreaseProbability)
+                        + Double.min(increaseProbability, decreaseProbability)))
+                        .setScale(3, RoundingMode.HALF_DOWN).doubleValue()
+        );
+    }
+
+    public List<Organization> recommendOrganizationsByCoordinates(Double x, Long y) {
+        final double ANNUAL_TURNOVER_MIN = 700000D;
+        final int EMPLOYEES_COUNT_MIN = 3;
+
+        List<Integer> recommendedOrganizations = organizationRepository.findCompetitiveOrganizationsIds(
+                0,
+                x,
+                y,
+                ANNUAL_TURNOVER_MIN,
+                EMPLOYEES_COUNT_MIN
+        );
+        return recommendedOrganizations.stream().map(this::getOrganizationById).toList();
     }
 }

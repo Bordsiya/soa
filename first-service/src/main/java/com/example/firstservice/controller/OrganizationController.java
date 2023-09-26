@@ -3,12 +3,13 @@ package com.example.firstservice.controller;
 import com.example.firstservice.api.OrganizationsApi;
 import com.example.firstservice.exception.PageableConditionsException;
 import com.example.firstservice.models.*;
+import com.example.firstservice.service.CoordinatesService;
 import com.example.firstservice.service.OrganizationService;
 import com.example.firstservice.util.mappers.OrganizationMapper;
+import io.swagger.v3.oas.annotations.Hidden;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,15 +17,18 @@ import java.util.List;
 @RestController
 public class OrganizationController implements OrganizationsApi {
     private OrganizationService organizationService;
+    private CoordinatesService coordinatesService;
     private OrganizationMapper organizationMapper;
 
     @Autowired
     public OrganizationController(
             OrganizationService organizationService,
-            OrganizationMapper organizationMapper
+            OrganizationMapper organizationMapper,
+            CoordinatesService coordinatesService
     ) {
         this.organizationService = organizationService;
         this.organizationMapper = organizationMapper;
+        this.coordinatesService = coordinatesService;
     }
 
     @Override
@@ -92,5 +96,33 @@ public class OrganizationController implements OrganizationsApi {
         return ResponseEntity.ok(
                 organizationMapper.toDTO(organizationService.updateOrganizationById(id, body))
         );
+    }
+
+    @Hidden
+    @RequestMapping(value = "/recommend/coordinates/quarter",
+            produces = { "application/json" },
+            method = RequestMethod.GET)
+    public ResponseEntity<QuarterResponseDTO> recommendCoordinateQuarter() {
+        return ResponseEntity.ok(coordinatesService.recommendQuarter());
+    }
+
+    @Hidden
+    @RequestMapping(value = "/predict/organizations/{id}/annual-turnover",
+            produces = { "application/json" },
+            method = RequestMethod.GET)
+    public ResponseEntity<PredictionDTO> predictOrganizationAnnualTurnoverBehavior(@PathVariable("id") Integer id) {
+        return ResponseEntity.ok(organizationService.predictOrganizationAnnualTurnoverBehavior(id));
+    }
+
+    @Hidden
+    @RequestMapping(value = "/recommend/organizations/coordinates",
+            produces = { "application/json" },
+            method = RequestMethod.GET)
+    public ResponseEntity<List<OrganizationDTO>> recommendOrganizationsByCoordinates(
+            @RequestParam(value = "coordinateX") Double x,
+            @RequestParam(value = "coordinateY") Long y
+    ) {
+        return ResponseEntity.ok(organizationService.recommendOrganizationsByCoordinates(x, y)
+                .stream().map(organization -> organizationMapper.toDTO(organization)).toList());
     }
 }

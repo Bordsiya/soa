@@ -12,6 +12,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 
 @Service
 public class CoordinatesService {
@@ -45,21 +47,28 @@ public class CoordinatesService {
         return coordinatesRepository.save(coordinates);
     }
 
-    private Quarter findTheEmptiestCoordinateQuarter() {
+    public List<Long> getAmountOfOrganizationsForEachCoordinateQuarter() {
         Long firstQuarterOrganizationsAmount = coordinatesRepository.countCoordinatesFirstQuarter();
         Long secondQuarterOrganizationsAmount = coordinatesRepository.countCoordinatesSecondQuarter();
         Long thirdQuarterOrganizationsAmount = coordinatesRepository.countCoordinatesThirdQuarter();
         Long fourthQuarterOrganizationsAmount = coordinatesRepository.countCoordinatesFourthQuarter();
-
-        Long minOrganizationsAmount = Collections.min(List.of(
+        return List.of(
                 firstQuarterOrganizationsAmount,
                 secondQuarterOrganizationsAmount,
                 thirdQuarterOrganizationsAmount,
                 fourthQuarterOrganizationsAmount
-        ));
-        if (firstQuarterOrganizationsAmount.equals(minOrganizationsAmount)) return Quarter.I;
-        else if (secondQuarterOrganizationsAmount.equals(minOrganizationsAmount)) return Quarter.II;
-        else if (thirdQuarterOrganizationsAmount.equals(minOrganizationsAmount)) return Quarter.III;
+        );
+    }
+
+    private Quarter findTheEmptiestCoordinateQuarter() {
+        List<Long> amountOfOrganizationsForEachCoordinateQuarter = getAmountOfOrganizationsForEachCoordinateQuarter();
+        int minInd = IntStream.range(0, amountOfOrganizationsForEachCoordinateQuarter.size())
+                .reduce((i,j) -> amountOfOrganizationsForEachCoordinateQuarter.get(i)
+                        > amountOfOrganizationsForEachCoordinateQuarter.get(j) ? j : i)
+                .getAsInt();
+        if (minInd == 0) return Quarter.I;
+        else if (minInd == 1) return Quarter.II;
+        else if (minInd == 2) return Quarter.III;
         else return Quarter.IV;
     }
 

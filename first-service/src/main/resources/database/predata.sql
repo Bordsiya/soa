@@ -15,7 +15,7 @@ INSERT INTO organization
 values (1,
         'Yandex Inc.',
         1,
-        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP - interval '50' year,
         15400000.3,
         3,
         1);
@@ -27,7 +27,7 @@ INSERT INTO organization
 values (2,
         'Tinkoff Inc.',
         2,
-        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP  - interval '20' year,
         400000,
         3,
         2);
@@ -39,7 +39,7 @@ INSERT INTO organization
 values (3,
         'ITMO W.T.F.',
         3,
-        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP  - interval '40' year,
         10000,
         3,
         3);
@@ -51,7 +51,7 @@ INSERT INTO organization
 values (4,
         'LDPR momento',
         4,
-        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP - interval '5' year,
         340000.9,
         3,
         4);
@@ -64,7 +64,7 @@ INSERT INTO organization
 values (5,
         'Wolcheka bakery',
         5,
-        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP - interval '10' year,
         500000,
         3,
         5);
@@ -76,7 +76,7 @@ INSERT INTO organization
 values (6,
         'Lenta store',
         6,
-        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP - interval '12' year,
         800000,
         2,
         6);
@@ -88,7 +88,7 @@ INSERT INTO organization
 values (7,
         'Polyakov global industry',
         7,
-        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP - interval '4' year,
         77777,
         2,
         7);
@@ -100,7 +100,7 @@ INSERT INTO organization
 values (8,
         'Intel',
         8,
-        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP - interval '32' year,
         20000000,
         2,
         8);
@@ -112,7 +112,7 @@ INSERT INTO organization
 values (9,
         'Sberbank Inc.',
         9,
-        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP - interval '41' year,
         45000000,
         2,
         9);
@@ -124,7 +124,7 @@ INSERT INTO organization
 values (10,
         'MINECRAFT',
         10,
-        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP - interval '100' year,
         100,
         2,
         10);
@@ -136,7 +136,7 @@ INSERT INTO organization
 values (11,
         'NorNikel Company',
         11,
-        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP - interval '47' year,
         1905000,
         1,
         11);
@@ -148,7 +148,7 @@ INSERT INTO organization
 values (12,
         'World stirka company',
         12,
-        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP - interval '1' year,
         40000,
         1,
         12);
@@ -160,7 +160,7 @@ INSERT INTO organization
 values (13,
         'Yoga center',
         13,
-        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP - interval '2' year,
         100,
         1,
         13);
@@ -172,7 +172,7 @@ INSERT INTO organization
 values (14,
         'Only GACHI CLUB',
         14,
-        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP - interval '3' year,
         800,
         1,
         14);
@@ -184,7 +184,7 @@ INSERT INTO organization
 values (15,
         'BBC Inc.',
         15,
-        CURRENT_TIMESTAMP,
+        CURRENT_TIMESTAMP - interval '7' year,
         20070,
         1,
         15);
