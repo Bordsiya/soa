@@ -3,7 +3,7 @@ package com.example.firstservice.util.filters;
 import com.example.firstservice.entity.Organization;
 import com.example.firstservice.entity.OrganizationType;
 import com.example.firstservice.exception.IncorrectOrganizationFilterException;
-import com.example.firstservice.util.enums.SortingOrFilteringField;
+import com.example.commonservice.enums.SortingOrFilteringField;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.Date;

@@ -1,7 +1,7 @@
 package com.example.firstservice.util.mappers;
 
 import com.example.firstservice.entity.OrganizationType;
-import com.example.firstservice.util.enums.OrganizationTypeDto;
+import com.example.commonservice.enums.OrganizationTypeDto;
 import org.springframework.stereotype.Component;
 
 import java.util.List;

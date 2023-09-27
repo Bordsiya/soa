@@ -1,8 +1,8 @@
-package com.example.firstservice.models;
+package com.example.commonservice.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.DecimalMin;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,24 +13,19 @@ import javax.annotation.Generated;
 import java.util.Objects;
 
 /**
- * Address
+ * OnlyAnnualTurnover
  */
 @Validated
-@Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2023-09-22T14:28:41.491075200+03:00[Europe/Moscow]")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class AddressDTO {
-  @Schema(example = "Kosovo street", required = true, description = "Address street")
-  @NotBlank(message = "Street is required.")
-  @JsonProperty("street")
-  private String street;
-
-  @Schema(example = "AE84C", required = true, description = "Address zipcode")
-  @NotBlank(message = "ZipCode is required.")
-  @JsonProperty("zipCode")
-  private String zipCode;
+@Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2023-09-22T14:28:41.491075200+03:00[Europe/Moscow]")
+public class OnlyAnnualTurnoverDTO {
+  @Schema(example = "4.5", description = "Organization annual turnover")
+  @DecimalMin("0")
+  @JsonProperty("value")
+  private Double value;
 
   @Override
   public boolean equals(Object o) {
@@ -40,23 +35,21 @@ public class AddressDTO {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    AddressDTO addressDTO = (AddressDTO) o;
-    return Objects.equals(this.street, addressDTO.street) &&
-        Objects.equals(this.zipCode, addressDTO.zipCode);
+    OnlyAnnualTurnoverDTO onlyAnnualTurnoverDTO = (OnlyAnnualTurnoverDTO) o;
+    return Objects.equals(this.value, onlyAnnualTurnoverDTO.value);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(street, zipCode);
+    return Objects.hash(value);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Address {\n");
+    sb.append("class OnlyAnnualTurnover {\n");
     
-    sb.append("    street: ").append(toIndentedString(street)).append("\n");
-    sb.append("    zipCode: ").append(toIndentedString(zipCode)).append("\n");
+    sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("}");
     return sb.toString();
   }

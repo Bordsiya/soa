@@ -1,7 +1,8 @@
 package com.example.firstservice.exception;
 
-import com.example.firstservice.exception.not_found.ResourceNotFoundException;
-import com.example.firstservice.models.ErrorDTO;
+import com.example.commonservice.exception.UndefinedOrganizationTypeException;
+import com.example.commonservice.model.ErrorDTO;
+import com.example.commonservice.exception.not_found.ResourceNotFoundException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;

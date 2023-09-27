@@ -2,7 +2,7 @@ package com.example.firstservice.controller;
 
 import com.example.firstservice.api.OrganizationsApi;
 import com.example.firstservice.exception.PageableConditionsException;
-import com.example.firstservice.models.*;
+import com.example.commonservice.model.*;
 import com.example.firstservice.service.CoordinatesService;
 import com.example.firstservice.service.OrganizationService;
 import com.example.firstservice.util.mappers.OrganizationMapper;

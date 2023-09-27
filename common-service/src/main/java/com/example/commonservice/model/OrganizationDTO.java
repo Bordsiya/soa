@@ -1,6 +1,6 @@
-package com.example.firstservice.models;
+package com.example.commonservice.model;
 
-import com.example.firstservice.util.enums.OrganizationTypeDto;
+import com.example.commonservice.enums.OrganizationTypeDto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.Min;

@@ -2,7 +2,7 @@ package com.example.firstservice.service;
 
 import com.example.firstservice.entity.Address;
 import com.example.firstservice.exception.not_found.AddressNotFoundException;
-import com.example.firstservice.models.AddressDTO;
+import com.example.commonservice.model.AddressDTO;
 import com.example.firstservice.repository.AddressRepository;
 import com.example.firstservice.util.mappers.AddressMapper;
 import org.springframework.beans.factory.annotation.Autowired;

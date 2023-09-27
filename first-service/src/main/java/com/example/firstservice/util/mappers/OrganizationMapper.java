@@ -4,11 +4,11 @@ import com.example.firstservice.entity.Address;
 import com.example.firstservice.entity.Coordinates;
 import com.example.firstservice.entity.Organization;
 import com.example.firstservice.entity.OrganizationType;
-import com.example.firstservice.models.AddressDTO;
-import com.example.firstservice.models.CoordinatesDTO;
-import com.example.firstservice.models.OrganizationDTO;
-import com.example.firstservice.models.OrganizationWithoutIdDTO;
-import com.example.firstservice.util.enums.OrganizationTypeDto;
+import com.example.commonservice.model.AddressDTO;
+import com.example.commonservice.model.CoordinatesDTO;
+import com.example.commonservice.model.OrganizationDTO;
+import com.example.commonservice.model.OrganizationWithoutIdDTO;
+import com.example.commonservice.enums.OrganizationTypeDto;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;

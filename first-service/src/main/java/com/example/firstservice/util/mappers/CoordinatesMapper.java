@@ -2,7 +2,7 @@ package com.example.firstservice.util.mappers;
 
 import com.example.firstservice.entity.Coordinates;
 import com.example.firstservice.entity.Organization;
-import com.example.firstservice.models.CoordinatesDTO;
+import com.example.commonservice.model.CoordinatesDTO;
 import org.springframework.stereotype.Component;
 
 @Component

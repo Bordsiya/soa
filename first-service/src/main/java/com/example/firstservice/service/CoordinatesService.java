@@ -2,18 +2,16 @@ package com.example.firstservice.service;
 
 import com.example.firstservice.entity.Coordinates;
 import com.example.firstservice.exception.not_found.CoordinatesNotFoundException;
-import com.example.firstservice.models.CoordinatesDTO;
-import com.example.firstservice.models.QuarterResponseDTO;
+import com.example.commonservice.model.CoordinatesDTO;
+import com.example.commonservice.model.QuarterResponseDTO;
 import com.example.firstservice.repository.CoordinatesRepository;
-import com.example.firstservice.util.enums.Quarter;
+import com.example.commonservice.enums.Quarter;
 import com.example.firstservice.util.mappers.QuarterMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.IntStream;
-import java.util.stream.LongStream;
 
 @Service
 public class CoordinatesService {
