@@ -15,7 +15,7 @@ public interface OrganizationRepository extends JpaRepository<Organization, Inte
     Double getSumOfOrganizationsAnnualTurnovers();
 
     @Query("SELECT " +
-            "    new com.example.firstservice.models.AnnualTurnoverOrganizationsCountDTO(o.annualTurnover, COUNT(o)) " +
+            "    new com.example.commonservice.model.AnnualTurnoverOrganizationsCountDTO(o.annualTurnover, COUNT(o)) " +
             "FROM " +
             "    Organization o " +
             "GROUP BY " +
