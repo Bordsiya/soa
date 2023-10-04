@@ -5,8 +5,8 @@
  */
 package com.example.secondservice.api;
 
-import com.example.firstservice.models.ErrorDTO;
-import com.example.firstservice.models.OrganizationDTO;
+import com.example.commonservice.model.ErrorDTO;
+import com.example.commonservice.model.OrganizationDTO;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.enums.ParameterIn;

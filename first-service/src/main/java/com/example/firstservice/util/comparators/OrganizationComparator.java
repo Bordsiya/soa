@@ -1,7 +1,7 @@
 package com.example.firstservice.util.comparators;
 
 import com.example.firstservice.entity.Organization;
-import com.example.firstservice.util.enums.SortingOrFilteringField;
+import com.example.commonservice.enums.SortingOrFilteringField;
 
 import java.util.Comparator;
 

@@ -1,4 +1,4 @@
-package com.example.firstservice.exception;
+package com.example.commonservice.exception;
 
 public class UndefinedOrganizationTypeException extends RuntimeException {
     public UndefinedOrganizationTypeException() {

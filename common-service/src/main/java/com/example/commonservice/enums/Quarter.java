@@ -1,8 +1,7 @@
-package com.example.firstservice.util.enums;
-
-import com.fasterxml.jackson.annotation.JsonValue;
+package com.example.commonservice.enums;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 
 /**
  * Gets or Sets Quarter

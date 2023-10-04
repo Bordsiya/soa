@@ -1,6 +1,5 @@
-package com.example.firstservice.models;
+package com.example.commonservice.model;
 
-import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
@@ -11,6 +10,7 @@ import lombok.Setter;
 import org.springframework.validation.annotation.Validated;
 
 import javax.annotation.Generated;
+import java.util.Objects;
 
 /**
  * Prediction

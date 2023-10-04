@@ -1,4 +1,4 @@
-package com.example.firstservice.exception.not_found;
+package com.example.commonservice.exception.not_found;
 
 public class ResourceNotFoundException extends RuntimeException {
     public ResourceNotFoundException(String resourceType, String keyName, String keyValue) {

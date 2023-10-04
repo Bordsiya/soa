@@ -1,6 +1,6 @@
 package com.example.secondservice.controller;
 
-import com.example.firstservice.models.OrganizationDTO;
+import com.example.commonservice.model.OrganizationDTO;
 import com.example.secondservice.api.OrgdirectoryApi;
 import com.example.secondservice.rest_client.RestClientService;
 import org.springframework.beans.factory.annotation.Autowired;

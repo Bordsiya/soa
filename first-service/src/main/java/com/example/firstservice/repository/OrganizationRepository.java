@@ -1,7 +1,7 @@
 package com.example.firstservice.repository;
 
 import com.example.firstservice.entity.Organization;
-import com.example.firstservice.models.AnnualTurnoverOrganizationsCountDTO;
+import com.example.commonservice.model.AnnualTurnoverOrganizationsCountDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,7 +15,7 @@ public interface OrganizationRepository extends JpaRepository<Organization, Inte
     Double getSumOfOrganizationsAnnualTurnovers();
 
     @Query("SELECT " +
-            "    new com.example.firstservice.models.AnnualTurnoverOrganizationsCountDTO(o.annualTurnover, COUNT(o)) " +
+            "    new com.example.commonservice.model.AnnualTurnoverOrganizationsCountDTO(o.annualTurnover, COUNT(o)) " +
             "FROM " +
             "    Organization o " +
             "GROUP BY " +

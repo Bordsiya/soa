@@ -1,7 +1,7 @@
-package com.example.firstservice.models;
+package com.example.commonservice.model;
 
+import com.example.commonservice.enums.Quarter;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,25 +12,21 @@ import org.springframework.validation.annotation.Validated;
 import javax.annotation.Generated;
 import java.util.Objects;
 
+
 /**
- * Coordinates
+ * InlineResponse200
  */
 @Validated
-@Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2023-09-22T14:28:41.491075200+03:00[Europe/Moscow]")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class CoordinatesDTO {
-  @Schema(example = "4.9", required = true, description = "x coordinate")
-  @NotNull(message = "X is required.")
-  @JsonProperty("x")
-  private Double x;
+@Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2023-09-22T22:04:54.480604900+03:00[Europe/Moscow]")
+public class QuarterResponseDTO {
 
-  @Schema(example = "6", required = true, description = "y coordinate")
-  @NotNull(message = "Y is required.")
-  @JsonProperty("y")
-  private Long y;
+  @NotNull(message = "Quarter is required.")
+  @JsonProperty("quarter")
+  private Quarter quarter;
 
 
   @Override
@@ -41,23 +37,21 @@ public class CoordinatesDTO {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    CoordinatesDTO coordinatesDTO = (CoordinatesDTO) o;
-    return Objects.equals(this.x, coordinatesDTO.x) &&
-        Objects.equals(this.y, coordinatesDTO.y);
+    QuarterResponseDTO quarterResponseDTO = (QuarterResponseDTO) o;
+    return Objects.equals(this.quarter, quarterResponseDTO.quarter);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(x, y);
+    return Objects.hash(quarter);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Coordinates {\n");
+    sb.append("class InlineResponse200 {\n");
     
-    sb.append("    x: ").append(toIndentedString(x)).append("\n");
-    sb.append("    y: ").append(toIndentedString(y)).append("\n");
+    sb.append("    quarter: ").append(toIndentedString(quarter)).append("\n");
     sb.append("}");
     return sb.toString();
   }

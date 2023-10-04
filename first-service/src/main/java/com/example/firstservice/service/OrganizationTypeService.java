@@ -4,7 +4,7 @@ import com.example.firstservice.entity.OrganizationType;
 import com.example.firstservice.exception.not_found.OrganizationTypeNotFoundException;
 import com.example.firstservice.repository.OrganizationTypeRepository;
 import com.example.firstservice.util.mappers.OrganizationTypeMapper;
-import com.example.firstservice.util.enums.OrganizationTypeDto;
+import com.example.commonservice.enums.OrganizationTypeDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
