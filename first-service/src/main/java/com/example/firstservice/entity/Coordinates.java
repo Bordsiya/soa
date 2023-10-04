@@ -1,6 +1,6 @@
 package com.example.firstservice.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +15,8 @@ import lombok.Setter;
 public class Coordinates {
     @Id
     @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "coordinates_id_seq")
+    @SequenceGenerator(schema = "soa", sequenceName = "soa.coordinates_id_seq", allocationSize = 1, name = "coordinates_id_seq")
     private int id;
 
     @Column(name = "x", nullable = false)

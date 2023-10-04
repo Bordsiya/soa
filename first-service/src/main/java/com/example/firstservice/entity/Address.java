@@ -1,6 +1,6 @@
 package com.example.firstservice.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -17,7 +17,8 @@ import java.util.List;
 public class Address {
     @Id
     @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "address_id_seq")
+    @SequenceGenerator(schema="soa", sequenceName = "soa.address_id_seq", allocationSize = 1, name = "address_id_seq")
     private int id;
 
     @Column(name = "street", nullable = false)

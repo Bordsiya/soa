@@ -1,12 +1,12 @@
 package com.example.firstservice.entity;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.*;
+import javax.validation.constraints.Min;
 import java.util.Date;
 import java.sql.Timestamp;
 import java.util.List;
@@ -20,7 +20,8 @@ import java.util.List;
 public class Organization {
     @Id
     @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "organization_id_seq")
+    @SequenceGenerator(schema = "soa", sequenceName = "soa.organization_id_seq",name = "organization_id_seq", allocationSize = 1)
     private int id;
 
     @Column(name = "name", nullable = false)
