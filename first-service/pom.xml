@@ -20,7 +20,7 @@
         <java.version>17</java.version>
         <start-class>com.example.firstservice.FirstServiceApplication</start-class>
     </properties>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
@@ -138,19 +138,28 @@
     <!--		</plugins>-->
     <!--	</build>-->
 
+<!--    <build>-->
+<!--        <plugins>-->
+<!--            <plugin>-->
+<!--                <groupId>org.apache.maven.plugins</groupId>-->
+<!--                <artifactId>maven-jar-plugin</artifactId>-->
+<!--                <version>3.3.0</version>-->
+<!--                <configuration>-->
+<!--                    <finalName>First_Service</finalName>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
+<!--        </plugins>-->
+<!--    </build>-->
+
+
     <build>
         <plugins>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-jar-plugin</artifactId>
-                <version>3.3.0</version>
-                <configuration>
-                    <finalName>First_Service</finalName>
-                </configuration>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
     </build>
-
     <!--
     <build>
         <plugins>
