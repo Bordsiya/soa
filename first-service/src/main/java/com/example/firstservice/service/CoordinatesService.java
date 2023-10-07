@@ -10,6 +10,7 @@ import com.example.firstservice.util.mappers.QuarterMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
 
@@ -50,12 +51,12 @@ public class CoordinatesService {
         Long secondQuarterOrganizationsAmount = coordinatesRepository.countCoordinatesSecondQuarter();
         Long thirdQuarterOrganizationsAmount = coordinatesRepository.countCoordinatesThirdQuarter();
         Long fourthQuarterOrganizationsAmount = coordinatesRepository.countCoordinatesFourthQuarter();
-        return List.of(
-                firstQuarterOrganizationsAmount,
-                secondQuarterOrganizationsAmount,
-                thirdQuarterOrganizationsAmount,
-                fourthQuarterOrganizationsAmount
-        );
+        List<Long> myList = new ArrayList<>();
+        myList.add(firstQuarterOrganizationsAmount);
+        myList.add(secondQuarterOrganizationsAmount);
+        myList.add(thirdQuarterOrganizationsAmount);
+        myList.add(fourthQuarterOrganizationsAmount);
+        return myList;
     }
 
     private Quarter findTheEmptiestCoordinateQuarter() {

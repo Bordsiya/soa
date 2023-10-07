@@ -4,6 +4,7 @@ import com.example.firstservice.entity.Address;
 import com.example.commonservice.model.AddressDTO;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -13,7 +14,7 @@ public class AddressMapper {
                 0,
                 addressDTO.getStreet(),
                 addressDTO.getZipCode(),
-                List.of()
+                new ArrayList<>()
         );
     }
 }

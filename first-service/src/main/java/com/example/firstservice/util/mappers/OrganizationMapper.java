@@ -12,13 +12,13 @@ import com.example.commonservice.enums.OrganizationTypeDto;
 import org.springframework.stereotype.Component;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
 public class OrganizationMapper {
     public Organization fromDTO(OrganizationWithoutIdDTO organizationWithoutIdDTO) {
-        String a = String.valueOf(organizationWithoutIdDTO.getCreationDate().atStartOfDay());
         return new Organization(
                 0,
                 organizationWithoutIdDTO.getName(),
@@ -33,15 +33,15 @@ public class OrganizationMapper {
                 new OrganizationType(
                         0,
                         organizationWithoutIdDTO.getType().name(),
-                        List.of()
+                        new ArrayList<>()
                 ),
                 new Address(
                         0,
                         organizationWithoutIdDTO.getOfficialAddressDTO().getStreet(),
                         organizationWithoutIdDTO.getOfficialAddressDTO().getZipCode(),
-                        List.of()
+                        new ArrayList<>()
                 ),
-                List.of()
+                new ArrayList<>()
         );
     }
 

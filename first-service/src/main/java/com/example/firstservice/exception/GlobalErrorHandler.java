@@ -3,8 +3,6 @@ package com.example.firstservice.exception;
 import com.example.commonservice.exception.UndefinedOrganizationTypeException;
 import com.example.commonservice.model.ErrorDTO;
 import com.example.commonservice.exception.not_found.ResourceNotFoundException;
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
@@ -14,6 +12,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import java.time.LocalDateTime;
 import java.util.regex.Pattern;
 
@@ -89,9 +89,12 @@ public class GlobalErrorHandler {
         ValidationErrorResponse error = new ValidationErrorResponse();
         String message = e.getMessage();
         assert message != null;
+        /*
         String field = Pattern.compile("\"(.*?)\"")
                 .matcher(message).results().map(mr -> mr.group(1)).findFirst().get();
         error.getViolations().add(new Violation(field, e.getMessage()));
+
+         */
         return error;
     }
 }

@@ -47,6 +47,7 @@ public class OrganizationComparator {
     }
 
     public static Comparator<Organization> findComparatorByFieldName(SortingOrFilteringField field) {
+        /*
         switch (field) {
             case ID -> {
                 return compareById();
@@ -79,6 +80,8 @@ public class OrganizationComparator {
                 return compareByEmployeesCount();
             }
         }
+
+         */
         return Comparator.comparing(obj -> 0);
     }
 }
