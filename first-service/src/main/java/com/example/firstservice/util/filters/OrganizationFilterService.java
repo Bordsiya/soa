@@ -4,8 +4,8 @@ import com.example.firstservice.entity.Organization;
 import com.example.firstservice.entity.OrganizationType;
 import com.example.firstservice.exception.IncorrectOrganizationFilterException;
 import com.example.commonservice.enums.SortingOrFilteringField;
-import jakarta.validation.constraints.NotNull;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 import java.util.Objects;
@@ -43,6 +43,7 @@ public class OrganizationFilterService {
             SortingOrFilteringField field = SortingOrFilteringField.fromValue(filter.getField());
             String operator = filter.getOperator();
             String value = filter.getValue();
+            /*
 
             switch (Objects.requireNonNull(field)) {
                 case ID -> {
@@ -109,6 +110,8 @@ public class OrganizationFilterService {
                     // TODO think about this case maybe throw here exception
                 }
             }
+
+             */
         }
 
         return true;
@@ -117,6 +120,8 @@ public class OrganizationFilterService {
     private static <T extends Comparable<T>> boolean compare(T left, String operator, T right) {
         int comparison = left.compareTo(right);
 
+        return true;
+        /*
         return switch (operator) {
             case "<" -> comparison < 0;
             case "<=" -> comparison <= 0;
@@ -126,6 +131,8 @@ public class OrganizationFilterService {
             case "!=" -> comparison != 0;
             default -> false; // Недопустимый оператор
         };
+
+         */
     }
 
     private static boolean compare(String left, String operator, String right) {

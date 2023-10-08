@@ -282,6 +282,6 @@ public class OrganizationService {
                 ANNUAL_TURNOVER_MIN,
                 EMPLOYEES_COUNT_MIN
         );
-        return recommendedOrganizations.stream().map(this::getOrganizationById).toList();
+        return recommendedOrganizations.stream().map(this::getOrganizationById).collect(Collectors.toList());
     }
 }

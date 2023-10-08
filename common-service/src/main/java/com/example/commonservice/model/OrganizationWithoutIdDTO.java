@@ -2,19 +2,25 @@ package com.example.commonservice.model;
 
 import com.example.commonservice.exception.UndefinedOrganizationTypeException;
 import com.example.commonservice.enums.OrganizationTypeDto;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.DecimalMin;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.validation.annotation.Validated;
 
 import javax.annotation.Generated;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -43,6 +49,10 @@ public class OrganizationWithoutIdDTO {
   @Schema(required = true, description = "Organization creation date, generates automatically")
   @NotNull(message = "Creation-date is required.")
   @JsonProperty("creationDate")
+  @JsonFormat(pattern = "yyyy-MM-dd")
+  @JsonSerialize(using = LocalDateSerializer.class)
+  @JsonDeserialize(using = LocalDateDeserializer.class)
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
   private LocalDate creationDate;
 
   @Schema(example = "4.5", required = true, description = "Organization annual turnover")

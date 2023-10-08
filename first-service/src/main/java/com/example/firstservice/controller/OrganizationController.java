@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -119,10 +121,10 @@ public class OrganizationController implements OrganizationsApi {
             produces = { "application/json" },
             method = RequestMethod.GET)
     public ResponseEntity<List<OrganizationDTO>> recommendOrganizationsByCoordinates(
-            @RequestParam(value = "coordinateX") Double x,
-            @RequestParam(value = "coordinateY") Long y
+            @RequestParam(value = "x") Double x,
+            @RequestParam(value = "y") Long y
     ) {
         return ResponseEntity.ok(organizationService.recommendOrganizationsByCoordinates(x, y)
-                .stream().map(organization -> organizationMapper.toDTO(organization)).toList());
+                .stream().map(organization -> organizationMapper.toDTO(organization)).collect(Collectors.toList()));
     }
 }

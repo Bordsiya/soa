@@ -4,6 +4,7 @@ import com.example.firstservice.entity.OrganizationType;
 import com.example.commonservice.enums.OrganizationTypeDto;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Component
@@ -12,7 +13,7 @@ public class OrganizationTypeMapper {
         return new OrganizationType(
                 0,
                 organizationTypeDto.name(),
-                List.of()
+                new ArrayList<>()
         );
     }
 }

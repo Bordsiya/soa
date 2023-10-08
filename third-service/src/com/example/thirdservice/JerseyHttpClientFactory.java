@@ -1,15 +1,27 @@
 package com.example.thirdservice;
 
-class JerseyHttpClientFactory {
-    /*
+import com.example.thirdservice.exception.ClientException;
 
-    static Client getJerseyHTTPSClient() {
+import javax.net.ssl.*;
+import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.security.KeyManagementException;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.CertificateException;
+
+class JerseyHttpClientFactory {
+
+    static Client getJerseyHTTPSClient() throws ClientException {
         SSLContext sslContext = null;
         try {
             sslContext = getSslContext();
         } catch (NoSuchAlgorithmException | KeyManagementException | IOException | KeyStoreException |
                  CertificateException e) {
-            throw new RuntimeException(e);
+            throw new ClientException(e.getMessage());
         }
         HostnameVerifier allHostsValid = new LocalHostnameVerifier();
 
@@ -39,7 +51,7 @@ class JerseyHttpClientFactory {
             }
         }
 
-        SSLContext sslContext = SSLContext.getInstance("TLSv1");
+        SSLContext sslContext = SSLContext.getInstance("SSL");
         sslContext.init(null, new TrustManager[] { myTm }, null);
 
         return sslContext;
@@ -52,5 +64,4 @@ class JerseyHttpClientFactory {
         }
     }
 
-     */
 }
