@@ -1,0 +1,536 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Orgdirectory service REST endpoints",
+    "description": "These are an Orgdirectory service REST endpoints based on the OpenAPI 3.0 specification. SOA.",
+    "contact": {
+      "name": "developers",
+      "email": "bordun.2002@mail.ru"
+    },
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://localhost:9100/api/v1",
+      "description": "Orgdirectory server"
+    }
+  ],
+  "tags": [
+    {
+      "name": "filtration",
+      "description": "Objects filtration"
+    }
+  ],
+  "paths": {
+    "/orgdirectory/filter/turnover/{min-annual-turnover}/{max-annual-turnover}": {
+      "get": {
+        "tags": [
+          "filtration"
+        ],
+        "summary": "Filter Organizations by turnover",
+        "description": "Get filtered Organizations by min and max turnovers",
+        "operationId": "filterOrganizationsByAnnualTurnover",
+        "parameters": [
+          {
+            "name": "min-annual-turnover",
+            "in": "path",
+            "description": "Min annual turnover to filter",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "minimum": 0,
+              "exclusiveMinimum": true,
+              "example": 4.5,
+              "description": "Organization annual turnover"
+            }
+          },
+          {
+            "name": "max-annual-turnover",
+            "in": "path",
+            "description": "Max annual turnover to filter",
+            "required": true,
+            "schema": {
+              "type": "number",
+              "format": "double",
+              "minimum": 0,
+              "exclusiveMinimum": true,
+              "example": 10,
+              "description": "Organization annual turnover"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns filtered Organizations by annual turnover",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Organization"
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          },
+          "default": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      }
+    },
+    "/orgdirectory/filter/employees/{min-employees-count}/{max-employees-count}": {
+      "get": {
+        "tags": [
+          "filtration"
+        ],
+        "summary": "Filter Organizations by employees count",
+        "description": "Get filtered Organizations by min and max employees count",
+        "operationId": "filterOrganizationsByEmployeesCount",
+        "parameters": [
+          {
+            "name": "min-employees-count",
+            "in": "path",
+            "description": "Min employees count to filter",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0,
+              "example": 5,
+              "description": "Employees count in organization"
+            }
+          },
+          {
+            "name": "max-employees-count",
+            "in": "path",
+            "description": "Max employees count to filter",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int64",
+              "minimum": 0,
+              "example": 10,
+              "description": "Employees count in organization"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Returns filtered Organizations by employees count",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "allOf": [
+                      {
+                        "$ref": "#/components/schemas/Organization"
+                      },
+                      {
+                        "type": "object"
+                      },
+                      {
+                        "required": [
+                          "employeesCount"
+                        ]
+                      },
+                      {
+                        "properties": {
+                          "employeesCount": {
+                            "allOf": [
+                              {
+                                "type": "object"
+                              },
+                              {
+                                "$ref": "#/components/schemas/EmployeesCount"
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/BadRequest"
+          },
+          "500": {
+            "$ref": "#/components/responses/InternalServerError"
+          },
+          "default": {
+            "$ref": "#/components/responses/UnexpectedError"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "responses": {
+      "Ok": {
+        "description": "The operation was performed successfully",
+        "content": {
+          "application/json": {
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/Error"
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "allOf": [
+                        {
+                          "$ref": "#/components/schemas/Code"
+                        },
+                        {
+                          "example": 200
+                        }
+                      ]
+                    },
+                    "message": {
+                      "allOf": [
+                        {
+                          "$ref": "#/components/schemas/Message"
+                        },
+                        {
+                          "example": "OK"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
+      "NoContent": {
+        "description": "No Content"
+      },
+      "NotFound": {
+        "description": "The specified resource was not found",
+        "content": {
+          "application/json": {
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/Error"
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "allOf": [
+                        {
+                          "$ref": "#/components/schemas/Code"
+                        },
+                        {
+                          "example": 404
+                        }
+                      ]
+                    },
+                    "message": {
+                      "allOf": [
+                        {
+                          "$ref": "#/components/schemas/Message"
+                        },
+                        {
+                          "example": "Resource was not found"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
+      "BadRequest": {
+        "description": "The request was bad composed",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/schemas/Error"
+            }
+          }
+        }
+      },
+      "InternalServerError": {
+        "description": "Internal Server error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/Error"
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "allOf": [
+                        {
+                          "$ref": "#/components/schemas/Code"
+                        },
+                        {
+                          "example": 500
+                        }
+                      ]
+                    },
+                    "message": {
+                      "allOf": [
+                        {
+                          "$ref": "#/components/schemas/Message"
+                        },
+                        {
+                          "example": "Internal Server error"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      },
+      "UnexpectedError": {
+        "description": "Unexpected error",
+        "content": {
+          "application/json": {
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/components/schemas/Error"
+                },
+                {
+                  "properties": {
+                    "code": {
+                      "allOf": [
+                        {
+                          "$ref": "#/components/schemas/Code"
+                        },
+                        {
+                          "example": "XXX"
+                        }
+                      ]
+                    },
+                    "message": {
+                      "allOf": [
+                        {
+                          "$ref": "#/components/schemas/Message"
+                        },
+                        {
+                          "example": "Unexpected error"
+                        }
+                      ]
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "schemas": {
+      "Id": {
+        "type": "integer",
+        "format": "int32",
+        "minimum": 1,
+        "example": 1,
+        "description": "Organization ID"
+      },
+      "AnnualTurnover": {
+        "type": "number",
+        "format": "double",
+        "minimum": 0,
+        "exclusiveMinimum": true,
+        "example": 4.5,
+        "description": "Organization annual turnover"
+      },
+      "EmployeesCount": {
+        "type": "integer",
+        "format": "int64",
+        "minimum": 0,
+        "example": 5,
+        "description": "Employees count in organization"
+      },
+      "Organization": {
+        "allOf": [
+          {
+            "$ref": "#/components/schemas/OrganizationWithoutId"
+          },
+          {
+            "type": "object"
+          },
+          {
+            "required": [
+              "id"
+            ]
+          },
+          {
+            "properties": {
+              "id": {
+                "$ref": "#/components/schemas/Id"
+              }
+            }
+          }
+        ]
+      },
+      "OrganizationWithoutId": {
+        "type": "object",
+        "required": [
+          "name",
+          "coordinates",
+          "creationDate",
+          "annualTurnover",
+          "type",
+          "officialAddress"
+        ],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "example": "OAO Aviasales",
+            "description": "Organization name"
+          },
+          "coordinates": {
+            "$ref": "#/components/schemas/Coordinates"
+          },
+          "creationDate": {
+            "type": "string",
+            "format": "date",
+            "example": "2024-03-12T00:00:00.000Z",
+            "description": "Organization creation date, generates automatically"
+          },
+          "annualTurnover": {
+            "$ref": "#/components/schemas/AnnualTurnover"
+          },
+          "type": {
+            "allOf": [
+              {
+                "type": "object"
+              },
+              {
+                "$ref": "#/components/schemas/OrganizationType"
+              },
+              {
+                "nullable": true
+              }
+            ]
+          },
+          "officialAddress": {
+            "allOf": [
+              {
+                "$ref": "#/components/schemas/Address"
+              },
+              {
+                "nullable": true
+              }
+            ]
+          }
+        }
+      },
+      "Coordinates": {
+        "type": "object",
+        "required": [
+          "x",
+          "y"
+        ],
+        "properties": {
+          "x": {
+            "type": "number",
+            "format": "double",
+            "example": 4.9,
+            "description": "x coordinate"
+          },
+          "y": {
+            "type": "integer",
+            "format": "int64",
+            "nullable": true,
+            "example": 6,
+            "description": "y coordinate"
+          }
+        }
+      },
+      "Address": {
+        "type": "object",
+        "required": [
+          "street",
+          "zipCode"
+        ],
+        "properties": {
+          "street": {
+            "type": "string",
+            "minLength": 1,
+            "example": "Kosovo street",
+            "description": "Address street"
+          },
+          "zipCode": {
+            "type": "string",
+            "nullable": true,
+            "example": "AE84C",
+            "description": "Address zipcode"
+          }
+        }
+      },
+      "OrganizationType": {
+        "type": "string",
+        "enum": [
+          "COMMERCIAL",
+          "PUBLIC",
+          "OPEN_JOINT_STOCK_COMPANY"
+        ],
+        "example": "COMMERCIAL",
+        "description": "Type of Organization"
+      },
+      "Error": {
+        "type": "object",
+        "required": [
+          "httpCode",
+          "message",
+          "time"
+        ],
+        "properties": {
+          "code": {
+            "$ref": "#/components/schemas/Code"
+          },
+          "message": {
+            "$ref": "#/components/schemas/Message"
+          },
+          "time": {
+            "$ref": "#/components/schemas/Time"
+          }
+        }
+      },
+      "Code": {
+        "type": "string",
+        "format": "int32",
+        "example": 400,
+        "description": "Error code"
+      },
+      "Message": {
+        "type": "string",
+        "example": "Bad Request",
+        "description": "Error message"
+      },
+      "Time": {
+        "type": "string",
+        "format": "date-time",
+        "example": "2022-09-19T00:00:09.000Z",
+        "description": "Error time"
+      }
+    }
+  }
+}
