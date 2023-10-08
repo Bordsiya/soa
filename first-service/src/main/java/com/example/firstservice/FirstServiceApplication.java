@@ -12,14 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
 @SpringBootApplication
 public class FirstServiceApplication extends SpringBootServletInitializer implements CommandLineRunner {
-
-	@RequestMapping(path = "/aboba", method = RequestMethod.GET)
-	public String aboba() {
-		return "aboba";
-	}
 
 	@Autowired
 	private ObjectMapper objectMapper;
