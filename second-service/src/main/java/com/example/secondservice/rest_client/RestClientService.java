@@ -12,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -20,8 +21,9 @@ import static org.springframework.web.util.UriComponentsBuilder.fromHttpUrl;
 
 @Service
 public class RestClientService {
+
     private final RestTemplate restTemplate;
-    private final String serviceUrl = "https://localhost:9099/";
+    private final String serviceUrl = "https://localhost:9099/first-service";
 
     @Autowired
     public RestClientService(
@@ -34,7 +36,11 @@ public class RestClientService {
         UriComponentsBuilder builder = fromHttpUrl(url);
         builder.queryParam("pageNumber", 0);
         builder.queryParam("pageSize", 0);
-        builder.queryParam("filters", String.join(",", List.of(filterMinQuery, filterMaxQuery)));
+        List<String> myList = new ArrayList<>();
+        myList.add(filterMinQuery);
+        myList.add(filterMaxQuery);
+
+        builder.queryParam("filters", String.join(",", myList));
         return builder.build().encode().toUri();
     }
 
