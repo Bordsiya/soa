@@ -7,7 +7,6 @@ import Third from "@/components/Third.vue";
 </script>
 
 <template>
-
   <header>
     <div class="header-fixed">
       <Header />
