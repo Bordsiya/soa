@@ -11,7 +11,7 @@ import java.util.List;
 public interface OrganizationRepository extends JpaRepository<Organization, Integer> {
     List<Organization> findOrganizationByAddress_Id(Integer addressId);
 
-    @Query(value = "select sum(annual_turnover) from soa.organization", nativeQuery = true)
+    @Query(value = "select sum(annual_turnover) from organization", nativeQuery = true)
     Double getSumOfOrganizationsAnnualTurnovers();
 
     @Query("SELECT " +
@@ -22,14 +22,14 @@ public interface OrganizationRepository extends JpaRepository<Organization, Inte
             "    o.annualTurnover")
     List<AnnualTurnoverOrganizationsCountDTO> getGroupedOrganizationsByAnnualTurnover();
 
-    @Query(value = "select grouped_organizations.id from (select soa.organization.id, count(*) from soa.organization " +
-            "    inner join soa.organization_type ot on soa.organization.type_id = ot.id " +
-            "       inner join soa.coordinates c on soa.organization.coordinates_id = c.id " +
-            "       inner join soa.employee e on soa.organization.id = e.organization_id " +
-            "    where soa.organization.annual_turnover > :annualTurnover" +
+    @Query(value = "select grouped_organizations.id from (select organization.id, count(*) from organization " +
+            "    inner join organization_type ot on organization.type_id = ot.id " +
+            "       inner join coordinates c on organization.coordinates_id = c.id " +
+            "       inner join employee e on organization.id = e.organization_id " +
+            "    where organization.annual_turnover > :annualTurnover" +
             "    and sqrt(power(:x - c.x, 2)) + sqrt(power(:y - c.y, 2)) < 1000 " +
-            "    and soa.organization.id != :id" +
-            "        group by soa.organization.id having count(*) > :employeesCount) as grouped_organizations", nativeQuery = true)
+            "    and organization.id != :id" +
+            "        group by organization.id having count(*) > :employeesCount) as grouped_organizations", nativeQuery = true)
     List<Integer> findCompetitiveOrganizationsIds(
             @Param("id") Integer id,
             @Param("x") Double x,

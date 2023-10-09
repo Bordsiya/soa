@@ -12,7 +12,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 @Entity
-@Table(name = "organization", schema = "soa")
+@Table(name = "organization")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

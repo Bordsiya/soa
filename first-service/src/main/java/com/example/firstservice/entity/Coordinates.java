@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "coordinates", schema = "soa")
+@Table(name = "coordinates")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter

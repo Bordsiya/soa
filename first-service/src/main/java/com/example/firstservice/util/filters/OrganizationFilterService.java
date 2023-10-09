@@ -43,75 +43,72 @@ public class OrganizationFilterService {
             SortingOrFilteringField field = SortingOrFilteringField.fromValue(filter.getField());
             String operator = filter.getOperator();
             String value = filter.getValue();
-            /*
 
             switch (Objects.requireNonNull(field)) {
-                case ID -> {
+                case ID:
                     long id = organization.getId();
                     if (!compare(id, operator, Long.parseLong(value))) {
                         return false;
                     }
-                }
-                case NAME -> {
+                    break;
+                case NAME:
                     String name = organization.getName();
                     if (!compare(name, operator, value)) {
                         return false;
                     }
-                }
-                case ANNUALTURNOVER -> {
+                    break;
+                case ANNUALTURNOVER:
                     Double annualTurnover = organization.getAnnualTurnover();
                     if (!compare(annualTurnover, operator, Double.parseDouble(value))) {
                         return false;
                     }
-                }
-                case OFFICIALADDRESS_ZIPCODE -> {
+                    break;
+                case OFFICIALADDRESS_ZIPCODE:
                     String zipcode = organization.getAddress().getZipCode();
                     if (!compare(zipcode, operator, value)) {
                         return false;
                     }
-                }
-                case OFFICIALADDRESS_STREET -> {
+                    break;
+                case OFFICIALADDRESS_STREET:
                     String street = organization.getAddress().getStreet();
                     if (!compare(street, operator, value)) {
                         return false;
                     }
-                }
-                case CREATIONDATE -> {
+                    break;
+                case CREATIONDATE:
                     long creationDate = organization.getCreationDate().getTime();
                     if (!compare(creationDate, operator, Date.parse(value))) {
                         return false;
                     }
-                }
-                case TYPE -> {
+                    break;
+                case TYPE:
                     OrganizationType type = organization.getOrganizationType();
                     if (!compare(type.getType(), operator, value)) {
                         return false;
                     }
-                }
-                case COORDINATES_X -> {
+                    break;
+                case COORDINATES_X:
                     double x = organization.getCoordinates().getX();
                     if (!compare(x, operator, Double.parseDouble(value))) {
                         return false;
                     }
-                }
-                case COORDINATES_Y -> {
+                    break;
+                case COORDINATES_Y:
                     long y = organization.getCoordinates().getY();
                     if (!compare(y, operator, Long.parseLong(value))) {
                         return false;
                     }
-                }
-                case EMPLOYEES_COUNT -> {
-                    int y = organization.getEmployees().size();
-                    if (!compare(y, operator, Integer.parseInt(value))) {
+                    break;
+                case EMPLOYEES_COUNT:
+                    int y1 = organization.getEmployees().size();
+                    if (!compare(y1, operator, Integer.parseInt(value))) {
                         return false;
                     }
-                }
-                default -> {
+                    break;
+                default:
                     // TODO think about this case maybe throw here exception
-                }
             }
 
-             */
         }
 
         return true;
@@ -120,19 +117,23 @@ public class OrganizationFilterService {
     private static <T extends Comparable<T>> boolean compare(T left, String operator, T right) {
         int comparison = left.compareTo(right);
 
-        return true;
-        /*
-        return switch (operator) {
-            case "<" -> comparison < 0;
-            case "<=" -> comparison <= 0;
-            case ">" -> comparison > 0;
-            case ">=" -> comparison >= 0;
-            case "==" -> comparison == 0;
-            case "!=" -> comparison != 0;
-            default -> false; // Недопустимый оператор
-        };
+        switch (operator) {
+            case "<":
+                return comparison < 0;
+            case "<=":
+                return comparison <= 0;
+            case ">":
+                return comparison > 0;
+            case ">=":
+                return comparison >= 0;
+            case "==":
+                return comparison == 0;
+            case "!=":
+                return comparison != 0;
+            default:
+                return false; // Недопустимый оператор
+        }
 
-         */
     }
 
     private static boolean compare(String left, String operator, String right) {
