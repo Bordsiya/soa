@@ -1,14 +1,9 @@
 package com.example.thirdservice;
 
-import com.example.commonservice.model.OrganizationDTO;
-import com.example.commonservice.model.PredictionDTO;
-import com.example.commonservice.model.QuarterResponseDTO;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.ResponseEntity;
-
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.util.List;
+import javax.ws.rs.core.Response;
 
 
 @Path("/organalysis")
@@ -21,22 +16,22 @@ public class OrganalysisResource {
 
 	@GET
 	@Path("predict/organizations/{id}/annual-turnover")
-	public ResponseEntity<PredictionDTO> predictOrganizationAnnualTurnoverBehavior(@PathParam("id") Integer id) {
-		return ResponseEntity.ok(restClientService.predictOrganizationAnnualTurnoverBehavior(id));
+	public Response predictOrganizationAnnualTurnoverBehavior(@PathParam("id") Integer id) {
+		return Response.ok(restClientService.predictOrganizationAnnualTurnoverBehavior(id), MediaType.APPLICATION_JSON).build();
 	}
 
 	@GET
 	@Path("recommend/coordinates/quarter")
-	public ResponseEntity<QuarterResponseDTO> recommendCoordinateQuarter() {
-		return ResponseEntity.ok(restClientService.recommendCoordinateQuarter());
+	public Response recommendCoordinateQuarter() {
+		return Response.ok(restClientService.recommendCoordinateQuarter(), MediaType.APPLICATION_JSON).build();
 	}
 
 	@GET
 	@Path("recommend/organizations/coordinates")
-	public ResponseEntity<List<OrganizationDTO>> recommendOrganizationsByCoordinates(
+	public Response recommendOrganizationsByCoordinates(
 			@QueryParam("x") Double x,
 			@QueryParam("y") Long y
 	) {
-		return ResponseEntity.ok(restClientService.recommendOrganizationsByCoordinates(x, y));
+		return Response.ok(restClientService.recommendOrganizationsByCoordinates(x, y)).build();
 	}
 }
