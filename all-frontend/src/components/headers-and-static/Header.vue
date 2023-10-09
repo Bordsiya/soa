@@ -5,7 +5,7 @@
 <template>
   <header class="header">
     <div class="header-content">
-      <p class="header-text">P34111 Ivanov Evgeniy and Bordun Anastasiya</p>
+      <p class="header-text">P34111 Ivanov Evgeniy and Bordun Anastasiya (SWAGGER 4.0???)</p>
     </div>
   </header>
 </template>

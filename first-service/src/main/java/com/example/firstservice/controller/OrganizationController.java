@@ -1,8 +1,8 @@
 package com.example.firstservice.controller;
 
+import com.example.commonservice.model.*;
 import com.example.firstservice.api.OrganizationsApi;
 import com.example.firstservice.exception.PageableConditionsException;
-import com.example.commonservice.model.*;
 import com.example.firstservice.service.CoordinatesService;
 import com.example.firstservice.service.OrganizationService;
 import com.example.firstservice.util.mappers.OrganizationMapper;
@@ -11,11 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-
+@CrossOrigin(origins = "*")
 @RestController
 public class OrganizationController implements OrganizationsApi {
     private OrganizationService organizationService;
