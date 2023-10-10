@@ -1,12 +1,13 @@
 <script setup>
 import OtherError from "@/components/data-details/OtherError.vue";
+import ViolationErrors from "../../../data-details/ViolationErrors.vue";
 
 </script>
 
 <template>
   <div class="container">
     <div class="left-side">
-      <p class="description_text">Получение организации по id</p>
+      <p class="description_text">Добавление организации</p>
       <form @submit="submitForm" class="form">
         <div class="form-group">
           <div class="another-field">
@@ -51,7 +52,11 @@ import OtherError from "@/components/data-details/OtherError.vue";
     </div>
     <div class="right-side">
       <div v-if="errorAll" class="error-message">
-        <div v-if="errorAll.status" class="other-message">
+        <div v-if="errorAll.violations">
+          <ViolationErrors :errors="errorAll.violations"/>
+        </div>
+
+        <div v-else-if="errorAll.status" class="other-message">
           <OtherError :error="errorAll"/>
         </div>
         <div v-else>
@@ -61,6 +66,7 @@ import OtherError from "@/components/data-details/OtherError.vue";
       <div v-else>
         <OrganizationFromDto :organization="organization"/>
       </div>
+
     </div>
   </div>
 </template>
@@ -113,9 +119,11 @@ export default {
       axios.create()
           .post(`${urls[0]}/organizations`, this.formData, {headers})
           .then(response => {
+            console.log(response);
             this.organization = response.data;
           })
           .catch(error => {
+            console.log(error);
             this.errorAll = handleAxiosError(error);
           });
     },

@@ -5,6 +5,7 @@
 <template>
   <div v-if="organization">
     <h2>{{ organization.name }}</h2>
+    <p>ID: {{ organization.id }}</p>
     <p>Координаты: ({{ organization.coordinates.x }}, {{ organization.coordinates.y }})</p>
     <p>Дата создания: {{ organization.creationDate }}</p>
     <p>Годовой оборот: {{ organization.annualTurnover }}</p>

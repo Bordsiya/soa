@@ -2,6 +2,7 @@
 
 import OtherError from "@/components/data-details/OtherError.vue";
 import GroupedAnnualTurnover from "@/components/data-details/GroupedAnnualTurnover.vue";
+import ViolationErrors from "../../../data-details/ViolationErrors.vue";
 </script>
 
 <template>
@@ -17,7 +18,11 @@ import GroupedAnnualTurnover from "@/components/data-details/GroupedAnnualTurnov
     </div>
     <div class="right-side">
       <div v-if="errorAll" class="error-message">
-        <div v-if="errorAll.status" class="other-message">
+        <div v-if="errorAll.violations">
+          <ViolationErrors :errors="errorAll.violations"/>
+        </div>
+
+        <div v-else-if="errorAll.status" class="other-message">
           <OtherError :error="errorAll"/>
         </div>
         <div v-else>
