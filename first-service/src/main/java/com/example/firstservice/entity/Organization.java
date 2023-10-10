@@ -21,7 +21,7 @@ public class Organization {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "organization_id_seq")
-    @SequenceGenerator(schema = "soa", sequenceName = "soa.organization_id_seq",name = "organization_id_seq", allocationSize = 1)
+    @SequenceGenerator(sequenceName = "organization_id_seq",name = "organization_id_seq", allocationSize = 1)
     private int id;
 
     @Column(name = "name", nullable = false)

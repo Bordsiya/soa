@@ -1,11 +1,12 @@
 package com.example.firstservice.entity;
 
-import javax.persistence.*;
-import javax.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import javax.persistence.*;
+import javax.validation.constraints.Min;
 
 
 @Entity
@@ -18,7 +19,7 @@ public class Employee {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employee_id_seq")
-    @SequenceGenerator(schema = "soa", sequenceName = "soa.employee_id_seq",name = "employee_id_seq", allocationSize = 1)
+    @SequenceGenerator(sequenceName = "employee_id_seq",name = "employee_id_seq", allocationSize = 1)
     private int id;
 
     @Column(name = "first_name", nullable = false)
