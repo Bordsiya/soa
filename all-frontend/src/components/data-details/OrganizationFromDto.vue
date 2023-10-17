@@ -27,17 +27,5 @@ export default {
 </script>
 
 <style scoped>
-
-h2 {
-  font-weight: bold;
-  font-size: 24px;
-  color: #51f61a;
-}
-
-p {
-  font-size: 16px;
-  color: #000;
-}
-
-
+@import "@/assets/dto-style.css";
 </style>

@@ -8,39 +8,39 @@
     <div class="error-info">
       <p><strong>Status:</strong> {{ error.code }}</p>
       <p><strong>Error:</strong> {{ error.message }}</p>
-      <p><strong>Timestamp:</strong> {{ error.time }}</p>
+      <p><strong>Timestamp:</strong> {{ getCorrectTime() }}</p>
     </div>
   </div>
 </template>
 
 <script>
+import { convertTimestampToDate } from "@/components/utils/utils";
+
 export default {
   props: {
     error: Object, // Принимайте объект ошибки в качестве свойства
   },
+
+  data() {
+    return {
+      timeWithDate: ""
+    }
+  },
+
+  methods: {
+    getCorrectTime() {
+      if (this.error) {
+        this.timeWithDate = convertTimestampToDate(this.error.time);
+      } else {
+        this.timeWithDate = "no load date";
+      }
+      return this.timeWithDate;
+    }
+
+  }
 };
 </script>
 
 <style scoped>
-h2 {
-  font-weight: bold;
-  font-size: 24px;
-  color: #51f61a;
-}
-
-.error {
-  background-color: #ffcccc;
-  border: 1px solid #ff0000;
-  padding: 10px;
-  margin: 10px 0;
-}
-
-.error-info {
-  font-size: 14px;
-}
-
-p {
-  font-size: 16px;
-  color: #000;
-}
+@import "@/assets/error-styles.css";
 </style>
