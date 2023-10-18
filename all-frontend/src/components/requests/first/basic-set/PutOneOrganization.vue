@@ -63,6 +63,7 @@ import ViolationErrors from "../../../data-details/ViolationErrors.vue";
         <div v-else-if="errorAll.status" class="other-message">
           <OtherError :error="errorAll"/>
         </div>
+
         <div v-else>
           <ErrorDto :error="errorAll"/>
         </div>
