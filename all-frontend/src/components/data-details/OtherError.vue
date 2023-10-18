@@ -29,7 +29,7 @@ export default {
 
   methods: {
     getCorrectTime() {
-      if (this.error) {
+      if (this.error && this.error.time) {
         this.timeWithDate = convertTimestampToDate(this.error.time);
       } else {
         this.timeWithDate = "no load date";
