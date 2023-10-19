@@ -1,6 +1,6 @@
 <script setup>
 
-import Navigation from "@/components/headers-and-static/Navigation.vue";
+import Navigation from "@/components/headers-and-static/NavigationAndServices.vue";
 </script>
 
 <template>
@@ -8,7 +8,9 @@ import Navigation from "@/components/headers-and-static/Navigation.vue";
     <div class="header-content">
       <p class="header-text">P34111 Ivanov Evgeniy and Bordun Anastasiya (SWAGGER 4.0???)</p>
     </div>
+
     <Navigation />
+
   </div>
 </template>
 
