@@ -38,31 +38,5 @@ export default {
 </script>
 
 <style scoped>
-h2 {
-  font-weight: bold;
-  font-size: 24px;
-  color: #51f61a;
-}
-
-p {
-  font-size: 16px;
-  color: #000;
-}
-
-.custom-table {
-  border-collapse: collapse;
-  width: 100%;
-}
-
-.custom-table th, .custom-table td {
-  border: 1px solid #ddd;
-  padding: 8px;
-  text-align: center;
-}
-
-.large-text {
-  color: black;
-  font-size: 18px;
-}
-
+@import "@/assets/dto-style.css";
 </style>

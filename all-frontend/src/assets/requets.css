@@ -1,6 +1,6 @@
 
 .container {
-    display: flex; /* Добавляем свойство display: flex; для контейнера */
+    display: flex;
 }
 
 .left-side {

@@ -16,8 +16,5 @@ export default {
 </script>
 
 <style scoped>
-p {
-  font-size: 16px;
-  color: #000;
-}
+@import "@/assets/dto-style.css";
 </style>

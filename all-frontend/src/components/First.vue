@@ -1,5 +1,4 @@
 <script setup>
-import Headline from "@/components/headers-and-static/Headline.vue";
 import GetOneOrganization from "@/components/requests/first/basic-set/GetOneOrganization.vue";
 import DeleteOneOrganization from "@/components/requests/first/basic-set/DeleteOneOrganization.vue";
 import PostOneOrganization from "@/components/requests/first/basic-set/PostOneOrganization.vue";
@@ -11,7 +10,6 @@ import DeleteByOfficialAddress from "@/components/requests/first/advanced-set/De
 </script>
 
 <template>
-  <Headline :text_of_headline='headline_text'></Headline>
 
   <GetOneOrganization />
   <DeleteOneOrganization />
@@ -24,9 +22,6 @@ import DeleteByOfficialAddress from "@/components/requests/first/advanced-set/De
 </template>
 
 <script>
-
-const headline_text = 'Organization Service:';
-
 </script>
 
 <style scoped>

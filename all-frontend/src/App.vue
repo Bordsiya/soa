@@ -1,37 +1,36 @@
 <script setup>
 
 import Header from "@/components/headers-and-static/Header.vue";
-import First from "@/components/First.vue";
-import Second from "@/components/Second.vue";
-import Third from "@/components/Third.vue";
 </script>
 
 <template>
-  <header>
-    <div class="header-fixed">
-      <Header />
+  <div class="all-page">
+    <Header/>
+    <div class="service">
+      <router-view></router-view>
+      <!--    <First />-->
+      <!--    <Second />-->
+      <!--    <Third />-->
     </div>
-  </header>
-  <main>
-    <First />
-    <Second />
-    <Third />
-  </main>
-
+  </div>
 </template>
 
 <style scoped>
-
-header {
+.all-page {
   position: fixed;
-  left: 0;
   top: 0;
-  right: 0;
-  height: 8vh; /* Занимает 10% высоты */
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  display: inline-flex;
 }
 
-main {
-  padding-top: 8vh;
+.service {
+  width: 100%;
+  padding-top: 100px;
+  min-height: 300px;
+  min-width: 1000px;
 }
 
 </style>
