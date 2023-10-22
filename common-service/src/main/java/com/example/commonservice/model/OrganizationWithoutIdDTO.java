@@ -17,6 +17,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.validation.annotation.Validated;
 
 import javax.annotation.Generated;
+import javax.validation.Valid;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -41,6 +42,7 @@ public class OrganizationWithoutIdDTO {
   @Schema(required = true, description = "")
   @NotNull(message = "Coordinates are required.")
   @JsonProperty("coordinates")
+  @Valid
   private CoordinatesDTO coordinatesDTO;
 
   @Schema(required = true, description = "Organization creation date, generates automatically")
@@ -66,6 +68,7 @@ public class OrganizationWithoutIdDTO {
   @Schema(required = true, description = "")
   @NotNull(message = "Official-Address is required.")
   @JsonProperty("officialAddress")
+  @Valid
   private AddressDTO officialAddressDTO;
 
   public void setType(OrganizationTypeDto type) {
