@@ -7,12 +7,9 @@ import ViolationErrors from "../../../data-details/errors/ViolationError.vue";
 <template>
   <div class="container">
     <div class="left-side">
-      <p class="description_text">Получение суммы годовых оборотов</p>
+      <p class="description_text">Получение всех организаций</p>
       <form @submit="submitForm" class="form">
-        <div class="form-group">
-
-        </div>
-        <button type="submit">Получить сумму годовых оборотов всех компаний</button>
+        <button type="submit">Получить все организации</button>
       </form>
     </div>
     <div class="right-side">
@@ -30,7 +27,9 @@ import ViolationErrors from "../../../data-details/errors/ViolationError.vue";
         </div>
       </div>
       <div v-else>
-        <TotalSum :totalSum="totalSum"/>
+        <div v-for="(organization, index) in organizations" :key="index">
+          <OrganizationFromDto :organization="organization" />
+        </div>
       </div>
     </div>
   </div>
@@ -38,7 +37,7 @@ import ViolationErrors from "../../../data-details/errors/ViolationError.vue";
 
 <script>
 import axios from 'axios';
-import TotalSum from "@/components/data-details/TotalSum.vue";
+import OrganizationFromDto from "@/components/data-details/OrganizationFromDto.vue";
 import ErrorDto from "@/components/data-details/errors/ErrorDto.vue";
 import {headers, urls} from "@/configs/Config";
 import {handleAxiosError} from "@/components/requests/ErrorHandler";
@@ -47,34 +46,29 @@ import '@/assets/requets.css';
 export default {
 
   components: {
-    TotalSum,
+    OrganizationFromDto,
     ErrorDto
   },
 
   data() {
     return {
-      formData: {
-        id: '',
-      },
-
       errorAll: null,
-      totalSum: 0
+      organizations: null
     };
   },
-
   methods: {
     submitForm(event) {
       event.preventDefault();
 
-      // Сбросил вывод о прошлом действии
-      this.totalSum = null
-      this.errorAll = null
+      const url = `${urls[0]}/organizations?pageNumber=0&pageSize=0`;
+      console.log('url = ' + url);
 
+      this.organizations = null;
       axios.create()
-          .get(`${urls[0]}/organizations/annual-turnover/sum`, {headers})
+          .get(url, {headers})
           .then(response => {
-            console.log(response);
-            this.totalSum = response.data;
+            console.log(response)
+            this.organizations = response.data;
           })
           .catch(error => {
             this.errorAll = handleAxiosError(error);

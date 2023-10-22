@@ -1,17 +1,12 @@
 <script setup>
-
-import Navigation from "@/components/headers-and-static/NavigationAndServices.vue";
 </script>
 
 <template>
-  <div class="all-header">
-    <div class="header-content">
-      <p class="header-text">P34111 Ivanov Evgeniy and Bordun Anastasiya (SWAGGER 4.0???)</p>
+    <div class="all-header">
+      <div class="header-content">
+        <p class="header-text">P34111 Ivanov Evgeniy and Bordun Anastasiya (SWAGGER 4.0???)</p>
+      </div>
     </div>
-
-    <Navigation />
-
-  </div>
 </template>
 
 <style scoped>
@@ -27,7 +22,6 @@ import Navigation from "@/components/headers-and-static/NavigationAndServices.vu
 }
 
 .header-content {
-  min-width: 710px;
   width: 100%;
   text-align: center; /* Выравнивание текста по центру */
 }

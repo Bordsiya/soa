@@ -6,8 +6,8 @@
 
 label {
     color: black;
-    display: flex;
-    justify-content: flex-end;
+    display: inline;
+    justify-content: flex-start;
     align-items: end;
     margin-right: 10px; /* Расстояние между меткой и инпутом */
     text-align: right; /* Выравнивание текста метки по правому краю */
@@ -18,7 +18,7 @@ label {
     display: flex;
     justify-content: flex-end;
     align-items: end;
-    margin-left: 10px;
+    /*margin-left: 10px;*/
     align-content: end;
     flex: 1;
 }

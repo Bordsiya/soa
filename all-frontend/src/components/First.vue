@@ -7,18 +7,21 @@ import GetOrganizationsWithPreferences from "@/components/requests/first/basic-s
 import GetAnnualTurnoverSum from "@/components/requests/first/advanced-set/GetAnnualTurnoverSum.vue";
 import GetAnnualTurnoverGrouped from "@/components/requests/first/advanced-set/GetAnnualTurnoverGrouped.vue";
 import DeleteByOfficialAddress from "@/components/requests/first/advanced-set/DeleteByOfficialAddress.vue";
+import GetAllOrganizations from "@/components/requests/first/basic-set/GetAllOrganizations.vue";
 </script>
 
 <template>
-
-  <GetOneOrganization />
-  <DeleteOneOrganization />
-  <PostOneOrganization />
-  <PutOneOrganization />
-  <GetOrganizationsWithPreferences />
-  <GetAnnualTurnoverSum />
-  <GetAnnualTurnoverGrouped />
-  <DeleteByOfficialAddress />
+  <div class="overflow-wrapper">
+    <GetOneOrganization/>
+    <DeleteOneOrganization/>
+    <PostOneOrganization/>
+    <PutOneOrganization/>
+    <GetAllOrganizations/>
+    <GetOrganizationsWithPreferences/>
+    <GetAnnualTurnoverSum/>
+    <GetAnnualTurnoverGrouped/>
+    <DeleteByOfficialAddress/>
+  </div>
 </template>
 
 <script>

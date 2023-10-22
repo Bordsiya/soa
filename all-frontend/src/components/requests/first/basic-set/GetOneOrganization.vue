@@ -1,7 +1,8 @@
 <script setup>
 
-import OtherError from "@/components/data-details/OtherError.vue";
-import ViolationErrors from "../../../data-details/ViolationErrors.vue";
+import OtherError from "@/components/data-details/errors/OtherError.vue";
+import ViolationError from "../../../data-details/errors/ViolationError.vue";
+import ValidationError from "@/components/data-details/errors/ValidationError.vue";
 </script>
 
 <template>
@@ -21,7 +22,11 @@ import ViolationErrors from "../../../data-details/ViolationErrors.vue";
     <div class="right-side">
       <div v-if="errorAll" class="error-message">
         <div v-if="errorAll.violations">
-          <ViolationErrors :errors="errorAll.violations"/>
+          <ViolationError :errors="errorAll.violations"/>
+        </div>
+
+        <div v-if="errorAll.validations">
+          <ValidationError :errors="errorAll.validations"/>
         </div>
 
         <div v-else-if="errorAll.status" class="other-message">
@@ -42,10 +47,11 @@ import ViolationErrors from "../../../data-details/ViolationErrors.vue";
 <script>
 import axios from 'axios';
 import OrganizationFromDto from "@/components/data-details/OrganizationFromDto.vue";
-import ErrorDto from "@/components/data-details/ErrorDto.vue";
+import ErrorDto from "@/components/data-details/errors/ErrorDto.vue";
 import {headers, urls} from "@/configs/Config";
 import {handleAxiosError} from "@/components/requests/ErrorHandler";
 import '@/assets/requets.css';
+import { addToValidationsAnotherError, validateId } from "@/components/utils/validate";
 
 export default {
 
@@ -66,12 +72,27 @@ export default {
   },
 
   methods: {
+    validateAll() {
+      if (!validateId(this.formData.id)) {
+        const validError = {
+          fieldName: 'id',
+          message: 'id must be not null and >0'
+        };
+        this.errorAll = addToValidationsAnotherError(this.errorAll, validError);
+      }
+    },
+
     submitForm(event) {
       event.preventDefault();
 
       // Сбросил вывод о прошлом действии
       this.organization = null
       this.errorAll = null
+
+      this.validateAll();
+      if (this.errorAll && this.errorAll.validations) {
+        return;
+      }
 
       axios.create()
           .get(`${urls[0]}/organizations/${this.formData.id}`, {headers})

@@ -1,6 +1,6 @@
 <script setup>
-import OtherError from "@/components/data-details/OtherError.vue";
-import ViolationErrors from "../../../data-details/ViolationErrors.vue";
+import OtherError from "@/components/data-details/errors/OtherError.vue";
+import ViolationErrors from "../../../data-details/errors/ViolationError.vue";
 
 </script>
 
@@ -36,6 +36,7 @@ import ViolationErrors from "../../../data-details/ViolationErrors.vue";
               <option value="COMMERCIAL">COMMERCIAL</option>
               <option value="PUBLIC">PUBLIC</option>
               <option value="OPEN_JOINT_STOCK_COMPANY">OPEN_JOINT_STOCK_COMPANY</option>
+              <option value="LOL">LOL</option>
             </select>
           </div>
           <div class="another-field">
@@ -75,7 +76,7 @@ import ViolationErrors from "../../../data-details/ViolationErrors.vue";
 <script>
 import axios from 'axios';
 import OrganizationFromDto from "@/components/data-details/OrganizationFromDto.vue";
-import ErrorDto from "@/components/data-details/ErrorDto.vue";
+import ErrorDto from "@/components/data-details/errors/ErrorDto.vue";
 import {headers, urls} from "@/configs/Config";
 import {handleAxiosError} from "@/components/requests/ErrorHandler";
 import '@/assets/requets.css';

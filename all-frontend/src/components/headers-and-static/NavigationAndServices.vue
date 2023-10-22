@@ -12,10 +12,12 @@
   </div>
 
 
-  <div>
-    <KeepAlive>
-      <component :is="component"></component>
-    </KeepAlive>
+  <div class="service-wrapper">
+    <div class="service-content">
+      <KeepAlive>
+        <component :is="component"></component>
+      </KeepAlive>
+    </div>
   </div>
 </template>
 
@@ -42,4 +44,14 @@ export default {
 
 <style scoped>
 @import "@/assets/navigation-and-buttons.css";
+
+.service-content {
+
+}
+
+.service-wrapper {
+  width: 100%;
+  overflow: auto;
+}
+
 </style>

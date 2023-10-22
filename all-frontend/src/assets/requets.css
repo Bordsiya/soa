@@ -47,10 +47,8 @@ p.description_text {
 }
 
 label {
-    margin-right: 10px;
 }
 
 input {
     flex: 1;
-    padding: 5px;
 }

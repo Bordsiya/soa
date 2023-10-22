@@ -1,7 +1,7 @@
 <script setup>
 
-import OtherError from "@/components/data-details/OtherError.vue";
-import ViolationErrors from "../../data-details/ViolationErrors.vue";
+import OtherError from "@/components/data-details/errors/OtherError.vue";
+import ViolationErrors from "../../data-details/errors/ViolationError.vue";
 </script>
 
 <template>
@@ -42,7 +42,7 @@ import ViolationErrors from "../../data-details/ViolationErrors.vue";
 <script>
 import axios from 'axios';
 import PredictionDtoResponse from "@/components/data-details/PredictionDtoResponse.vue";
-import ErrorDto from "@/components/data-details/ErrorDto.vue";
+import ErrorDto from "@/components/data-details/errors/ErrorDto.vue";
 import {headers, urls} from "@/configs/Config";
 import {handleAxiosError} from "@/components/requests/ErrorHandler";
 import '@/assets/requets.css';

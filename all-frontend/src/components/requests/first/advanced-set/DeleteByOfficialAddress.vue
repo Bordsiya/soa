@@ -1,8 +1,8 @@
 <script setup>
 
-import OtherError from "@/components/data-details/OtherError.vue";
+import OtherError from "@/components/data-details/errors/OtherError.vue";
 import OkResponseNoContent from "@/components/data-details/OkResponseNoContent.vue";
-import ViolationErrors from "../../../data-details/ViolationErrors.vue";
+import ViolationErrors from "../../../data-details/errors/ViolationError.vue";
 </script>
 
 <template>
@@ -46,7 +46,7 @@ import ViolationErrors from "../../../data-details/ViolationErrors.vue";
 
 <script>
 import axios from 'axios';
-import ErrorDto from "@/components/data-details/ErrorDto.vue";
+import ErrorDto from "@/components/data-details/errors/ErrorDto.vue";
 import {headers, urls} from "@/configs/Config";
 import {handleAxiosError} from "@/components/requests/ErrorHandler";
 import '@/assets/requets.css';
