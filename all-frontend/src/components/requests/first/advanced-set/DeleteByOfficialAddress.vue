@@ -3,6 +3,7 @@
 import OtherError from "@/components/data-details/errors/OtherError.vue";
 import OkResponseNoContent from "@/components/data-details/OkResponseNoContent.vue";
 import ViolationErrors from "../../../data-details/errors/ViolationError.vue";
+import ValidationError from "@/components/data-details/errors/ValidationError.vue";
 </script>
 
 <template>
@@ -29,6 +30,10 @@ import ViolationErrors from "../../../data-details/errors/ViolationError.vue";
           <ViolationErrors :errors="errorAll.violations"/>
         </div>
 
+        <div v-if="errorAll.validations">
+          <ValidationError :errors="errorAll.validations"/>
+        </div>
+
         <div v-else-if="errorAll.status" class="other-message">
           <OtherError :error="errorAll"/>
         </div>
@@ -50,6 +55,12 @@ import ErrorDto from "@/components/data-details/errors/ErrorDto.vue";
 import {headers, urls} from "@/configs/Config";
 import {handleAxiosError} from "@/components/requests/ErrorHandler";
 import '@/assets/requets.css';
+import {
+  addToValidationsAnotherError, validateAnnualTurnover,
+  validateCoordinates,
+  validateCreationDate,
+  validateName
+} from "@/components/utils/validate";
 
 export default {
 
@@ -70,8 +81,37 @@ export default {
   },
 
   methods: {
+    validateAll() {
+      if (!validateName(this.formData.officialAddressStreet)) {
+        const validError = {
+          fieldName: 'zipCode',
+          message: 'zipCode must be not null and not blank'
+        };
+        this.errorAll = addToValidationsAnotherError(this.errorAll, validError);
+      }
+
+      if (!validateName(this.formData.officialAddressZipCode)) {
+        const validError = {
+          fieldName: 'street',
+          message: 'street must be not null and not blank'
+        };
+        this.errorAll = addToValidationsAnotherError(this.errorAll, validError);
+      }
+
+
+    },
+
     submitForm(event) {
       event.preventDefault();
+
+      // Сбросил вывод о прошлом действии
+      this.message_result = null
+      this.errorAll = null
+
+      this.validateAll();
+      if (this.errorAll && this.errorAll.validations) {
+        return;
+      }
 
       const queryParams = {
         officialAddressStreet: this.formData.officialAddressStreet,
@@ -87,10 +127,6 @@ export default {
 
       const url = `${urls[0]}/organizations/official-address?${queryString}`
       console.log(url)
-
-      // Сбросил вывод о прошлом действии
-      this.message_result = null
-      this.errorAll = null
 
       axios.create()
           .delete(url, {headers})

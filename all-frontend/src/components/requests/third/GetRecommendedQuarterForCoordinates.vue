@@ -2,6 +2,7 @@
 
 import OtherError from "@/components/data-details/errors/OtherError.vue";
 import ViolationErrors from "../../data-details/errors/ViolationError.vue";
+import ValidationError from "@/components/data-details/errors/ValidationError.vue";
 </script>
 
 <template>
@@ -12,7 +13,7 @@ import ViolationErrors from "../../data-details/errors/ViolationError.vue";
         <div class="form-group">
           <div class="another-field">
             <label for="x">x</label>
-            <input type="number" id="x" v-model="formData.x">
+            <input type="text" id="x" v-model="formData.x">
           </div>
           <div class="another-field">
             <label for="y">y</label>
@@ -28,9 +29,14 @@ import ViolationErrors from "../../data-details/errors/ViolationError.vue";
           <ViolationErrors :errors="errorAll.violations"/>
         </div>
 
+        <div v-if="errorAll.validations">
+          <ValidationError :errors="errorAll.validations"/>
+        </div>
+
         <div v-else-if="errorAll.status" class="other-message">
           <OtherError :error="errorAll"/>
         </div>
+
         <div v-else>
           <ErrorDto :error="errorAll"/>
         </div>
@@ -51,6 +57,12 @@ import ErrorDto from "@/components/data-details/errors/ErrorDto.vue";
 import {headers, urls} from "@/configs/Config";
 import {handleAxiosError} from "@/components/requests/ErrorHandler";
 import '@/assets/requets.css';
+import {
+  addToValidationsAnotherError, validateAnnualTurnover,
+  validateCoordinates,
+  validateCreationDate,
+  validateName
+} from "@/components/utils/validate";
 
 export default {
 
@@ -72,12 +84,32 @@ export default {
   },
 
   methods: {
+    validateAll() {
+      const coordinates = {
+        x: this.formData.x,
+        y: this.formData.y
+      }
+
+      if (!validateCoordinates(coordinates)) {
+        const validError = {
+          fieldName: 'coordinates: x and y',
+          message: 'x is double, y is integer, both is required.'
+        };
+        this.errorAll = addToValidationsAnotherError(this.errorAll, validError);
+      }
+    },
+
     submitForm(event) {
       event.preventDefault();
 
       // Сбросил вывод о прошлом действии
       this.organizations = null
       this.errorAll = null
+
+      this.validateAll();
+      if (this.errorAll && this.errorAll.validations) {
+        return;
+      }
 
       axios.create()
           .get(`${urls[2]}/organalysis/recommend/organizations/coordinates?x=${this.formData.x}&y=${this.formData.y}`)

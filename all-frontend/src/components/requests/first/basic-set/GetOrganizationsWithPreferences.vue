@@ -2,6 +2,7 @@
 
 import OtherError from "@/components/data-details/errors/OtherError.vue";
 import ViolationErrors from "../../../data-details/errors/ViolationError.vue";
+import ValidationError from "@/components/data-details/errors/ValidationError.vue";
 </script>
 
 <template>
@@ -12,26 +13,26 @@ import ViolationErrors from "../../../data-details/errors/ViolationError.vue";
         <div class="form-group">
           <div class="another-field">
             <label for="pageNumber">Page Number</label>
-            <input type="number" id="pageNumber" v-model="pageNumber">
+            <input type="number" id="pageNumber" v-model="formData.pageNumber">
           </div>
           <div class="another-field">
             <label for="pageSize">Page Size</label>
-            <input type="number" id="pageSize" v-model="pageSize">
+            <input type="number" id="pageSize" v-model="formData.pageSize">
           </div>
           <div class="field-sort-or-filter">
             <!-- Фильтры (можно добавлять динамически) -->
-            <div v-for="(filter, index) in filters" :key="index" class="sort-field">
+            <div v-for="(filter, index) in formData.filters" :key="index" class="sort-field">
               <label :for="'filter_' + index">Filter {{ index + 1 }}</label>
-              <input :id="'filter_' + index" v-model="filters[index]">
+              <input :id="'filter_' + index" v-model="formData.filters[index]">
               <button type="button" @click="removeFilter(index)">Удалить фильтр</button>
             </div>
             <button type="button" @click="addFilter">Добавить фильтр</button>
           </div>
           <div class="field-sort-or-filter">
             <!-- Сортировка (можно добавлять динамически) -->
-            <div v-for="(sort, index) in sortBy" :key="index" class="sort-field">
+            <div v-for="(sort, index) in formData.sortBy" :key="index" class="sort-field">
               <label :for="'sort_' + index">Sort {{ index + 1 }}</label>
-              <select :id="'sort_' + index" v-model="sortBy[index]">
+              <select :id="'sort_' + index" v-model="formData.sortBy[index]">
                 <option value="id">ID</option>
                 <option value="name">Name</option>
                 <option value="coordinates.x">Coordinates X</option>
@@ -54,6 +55,10 @@ import ViolationErrors from "../../../data-details/errors/ViolationError.vue";
       <div v-if="errorAll" class="error-message">
         <div v-if="errorAll.violations">
           <ViolationErrors :errors="errorAll.violations"/>
+        </div>
+
+        <div v-if="errorAll.validations">
+          <ValidationError :errors="errorAll.validations"/>
         </div>
 
         <div v-else-if="errorAll.status" class="other-message">
@@ -80,6 +85,7 @@ import ErrorDto from "@/components/data-details/errors/ErrorDto.vue";
 import {headers, urls} from "@/configs/Config";
 import {handleAxiosError} from "@/components/requests/ErrorHandler";
 import '@/assets/requets.css';
+import {addToValidationsAnotherError, validateOrganizationFilters, validatePageNumberOrPageSize, validateId} from "@/components/utils/validate";
 
 export default {
 
@@ -90,25 +96,72 @@ export default {
 
   data() {
     return {
-      pageNumber: 1,
-      pageSize: 5,
-      filters: [], // Массив для фильтров
-      sortBy: [], // Массив для сортировки
+      formData: {
+        pageNumber: '1',
+        pageSize: '5',
+        filters: [],
+        sortBy: [],
+      },
 
       errorAll: null,
       organizations: null
     };
   },
+
   methods: {
+    validateAll() {
+      if (!validatePageNumberOrPageSize(this.formData.pageNumber)) {
+        const validError = {
+          fieldName: 'pageNumber',
+          message: 'pageNumber must be not null and >= 0'
+        };
+        this.errorAll = addToValidationsAnotherError(this.errorAll, validError);
+      }
+
+      if (!validatePageNumberOrPageSize(this.formData.pageSize)) {
+        const validError = {
+          fieldName: 'pageSize',
+          message: 'pageSize must be not null and >= 0'
+        };
+        this.errorAll = addToValidationsAnotherError(this.errorAll, validError);
+      }
+
+      if (!validateOrganizationFilters(this.formData.filters)) {
+        const validError = {
+          fieldName: 'filter(-s)',
+          message: 'Every filter must be not null and not blank'
+        };
+        this.errorAll = addToValidationsAnotherError(this.errorAll, validError);
+      }
+
+      if (!validateOrganizationFilters(this.formData.sortBy)) {
+        const validError = {
+          fieldName: 'sort(-s)',
+          message: 'Every sorting field must be not null and not blank'
+        };
+        this.errorAll = addToValidationsAnotherError(this.errorAll, validError);
+      }
+
+    },
+
     submitForm(event) {
       event.preventDefault();
 
+      // сброс состояния
+      this.organizations = null;
+      this.errorAll = null;
+
+      this.validateAll();
+      if (this.errorAll && this.errorAll.validations) {
+        return;
+      }
+
       // Формируем URL с параметрами
       const queryParams = {
-        pageNumber: this.pageNumber,
-        pageSize: this.pageSize,
-        filters: this.filters,
-        sortBy: this.sortBy,
+        pageNumber: this.formData.pageNumber,
+        pageSize: this.formData.pageSize,
+        filters: this.formData.filters,
+        sortBy: this.formData.sortBy,
       };
 
       // Преобразуем объект queryParams в строку для добавления в URL
@@ -123,7 +176,6 @@ export default {
       const url = `${urls[0]}/organizations?${queryString}`;
       console.log('url = ' + url);
 
-      this.organizations = null;
       axios.create()
           .get(url, {headers})
           .then(response => {
@@ -134,17 +186,19 @@ export default {
             this.errorAll = handleAxiosError(error);
           });
     },
+
     addFilter() {
-      this.filters.push('');
+      this.formData.filters.push('');
     },
     removeFilter(index) {
-      this.filters.splice(index, 1);
+      this.formData.filters.splice(index, 1);
     },
+
     addSort() {
-      this.sortBy.push('');
+      this.formData.sortBy.push('');
     },
     removeSort(index) {
-      this.sortBy.splice(index, 1);
+      this.formData.sortBy.splice(index, 1);
     },
   },
 };

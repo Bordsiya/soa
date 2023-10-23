@@ -2,6 +2,7 @@
 
 import OtherError from "@/components/data-details/errors/OtherError.vue";
 import ViolationErrors from "../../../data-details/errors/ViolationError.vue";
+import ValidationError from "@/components/data-details/errors/ValidationError.vue";
 </script>
 
 <template>
@@ -19,6 +20,10 @@ import ViolationErrors from "../../../data-details/errors/ViolationError.vue";
       <div v-if="errorAll" class="error-message">
         <div v-if="errorAll.violations">
           <ViolationErrors :errors="errorAll.violations"/>
+        </div>
+
+        <div v-if="errorAll.validations">
+          <ValidationError :errors="errorAll.validations"/>
         </div>
 
         <div v-else-if="errorAll.status" class="other-message">

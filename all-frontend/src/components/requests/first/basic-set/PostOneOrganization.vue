@@ -1,6 +1,7 @@
 <script setup>
 import OtherError from "@/components/data-details/errors/OtherError.vue";
 import ViolationErrors from "../../../data-details/errors/ViolationError.vue";
+import ValidationError from "@/components/data-details/errors/ValidationError.vue";
 
 </script>
 
@@ -16,7 +17,7 @@ import ViolationErrors from "../../../data-details/errors/ViolationError.vue";
           </div>
           <div class="another-field">
             <label for="x">координата X</label>
-            <input type="number" id="x" v-model="formData.coordinates.x">
+            <input type="text" id="x" v-model="formData.coordinates.x">
           </div>
           <div class="another-field">
             <label for="y">координата Y</label>
@@ -57,6 +58,10 @@ import ViolationErrors from "../../../data-details/errors/ViolationError.vue";
           <ViolationErrors :errors="errorAll.violations"/>
         </div>
 
+        <div v-if="errorAll.validations">
+          <ValidationError :errors="errorAll.validations"/>
+        </div>
+
         <div v-else-if="errorAll.status" class="other-message">
           <OtherError :error="errorAll"/>
         </div>
@@ -80,6 +85,12 @@ import ErrorDto from "@/components/data-details/errors/ErrorDto.vue";
 import {headers, urls} from "@/configs/Config";
 import {handleAxiosError} from "@/components/requests/ErrorHandler";
 import '@/assets/requets.css';
+import {
+  addToValidationsAnotherError, validateAnnualTurnover,
+  validateCoordinates,
+  validateCreationDate,
+  validateName
+} from "@/components/utils/validate";
 
 export default {
 
@@ -111,12 +122,69 @@ export default {
   },
 
   methods: {
+    validateAll() {
+      if (!validateName(this.formData.name)) {
+        const validError = {
+          fieldName: 'name',
+          message: 'name must be not null and not blank'
+        };
+        this.errorAll = addToValidationsAnotherError(this.errorAll, validError);
+      }
+
+      if (!validateCoordinates(this.formData.coordinates)) {
+        const validError = {
+          fieldName: 'coordinates: x and y',
+          message: 'x is double, y is integer, both is required.'
+        };
+        this.errorAll = addToValidationsAnotherError(this.errorAll, validError);
+      }
+
+      if (!validateCreationDate(this.formData.creationDate)) {
+        const validError = {
+          fieldName: 'creationDate',
+          message: 'creationDate must be in format YYYY-MM-DD'
+        };
+        this.errorAll = addToValidationsAnotherError(this.errorAll, validError);
+      }
+
+      if (!validateAnnualTurnover(this.formData.annualTurnover)) {
+        const validError = {
+          fieldName: 'annualTurnover',
+          message: 'annualTurnover must be not null and >0'
+        };
+        this.errorAll = addToValidationsAnotherError(this.errorAll, validError);
+      }
+
+      if (!validateName(this.formData.officialAddress.zipCode)) {
+        const validError = {
+          fieldName: 'zipCode',
+          message: 'zipCode must be not null and not blank'
+        };
+        this.errorAll = addToValidationsAnotherError(this.errorAll, validError);
+      }
+
+      if (!validateName(this.formData.officialAddress.street)) {
+        const validError = {
+          fieldName: 'street',
+          message: 'street must be not null and not blank'
+        };
+        this.errorAll = addToValidationsAnotherError(this.errorAll, validError);
+      }
+
+
+    },
+
     submitForm(event) {
       event.preventDefault();
 
       // Сбросил вывод о прошлом действии
       this.organization = null
       this.errorAll = null
+
+      this.validateAll();
+      if (this.errorAll && this.errorAll.validations) {
+        return;
+      }
 
       axios.create()
           .post(`${urls[0]}/organizations`, this.formData, {headers})
