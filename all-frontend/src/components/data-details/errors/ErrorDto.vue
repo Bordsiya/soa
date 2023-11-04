@@ -4,7 +4,10 @@
 
 <template>
   <div class="error">
-    <h2>Error Details</h2>
+    <div class="error-header">
+      <h2>Error
+        Detailsdsssssssssssssssssssssssssssssssssssssssss00000ssssssssssssssssssssss00000ssssssssssssssssssssss00000ssssssssssssssssssssss00000ssssssssssssssssssssss00000ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss</h2>
+    </div>
     <div class="error-info">
       <p><strong>Status:</strong> {{ error.code }}</p>
       <p><strong>Error:</strong> {{ error.message }}</p>
@@ -14,7 +17,7 @@
 </template>
 
 <script>
-import { convertTimestampToDate } from "@/components/utils/utils";
+import {convertTimestampToDate} from "@/components/utils/utils";
 
 export default {
   props: {

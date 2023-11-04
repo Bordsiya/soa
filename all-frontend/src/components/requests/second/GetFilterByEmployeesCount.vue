@@ -29,7 +29,7 @@ import ValidationError from "@/components/data-details/errors/ValidationError.vu
           <ViolationErrors :errors="errorAll.violations"/>
         </div>
 
-        <div v-if="errorAll.validations">
+        <div v-else-if="errorAll.validations">
           <ValidationError :errors="errorAll.validations"/>
         </div>
 
@@ -107,6 +107,15 @@ export default {
 
       this.validateAll();
       if (this.errorAll && this.errorAll.validations) {
+        return;
+      }
+
+      if (this.formData.maxEmployeesCount < this.formData.minEmployeesCount) {
+        const validError = {
+          fieldName: 'min/max',
+          message: 'max must be >= min'
+        };
+        this.errorAll = addToValidationsAnotherError(this.errorAll, validError);
         return;
       }
 

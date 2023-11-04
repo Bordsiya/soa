@@ -25,7 +25,7 @@ import ValidationError from "@/components/data-details/errors/ValidationError.vu
           <ViolationErrors :errors="errorAll.violations"/>
         </div>
 
-        <div v-if="errorAll.validations">
+        <div v-else-if="errorAll.validations">
           <ValidationError :errors="errorAll.validations"/>
         </div>
 
@@ -93,12 +93,13 @@ export default {
       if (this.errorAll && this.errorAll.validations) {
         return;
       }
+      console.log("adsfasf");
 
       axios.create()
           .get(`${urls[2]}/organalysis/predict/organizations/${this.formData.id}/annual-turnover`)
           .then(response => {
             console.log(response)
-            this.predictionDto = response.data.body;
+            this.predictionDto = response.data;
           })
           .catch(error => {
             this.errorAll = handleAxiosError(error);

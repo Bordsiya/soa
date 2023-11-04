@@ -22,7 +22,7 @@ import ValidationError from "@/components/data-details/errors/ValidationError.vu
           <ViolationErrors :errors="errorAll.violations"/>
         </div>
 
-        <div v-if="errorAll.validations">
+        <div v-else-if="errorAll.validations">
           <ValidationError :errors="errorAll.validations"/>
         </div>
 
@@ -89,7 +89,7 @@ export default {
           })
           .then(response => {
             console.log(response);
-            this.quarter = response.data.body;
+            this.quarter = response.data;
           })
           .catch(error => {
             this.errorAll = handleAxiosError(error);

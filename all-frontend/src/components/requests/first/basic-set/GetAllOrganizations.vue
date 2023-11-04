@@ -19,7 +19,7 @@ import ValidationError from "@/components/data-details/errors/ValidationError.vu
           <ViolationErrors :errors="errorAll.violations"/>
         </div>
 
-        <div v-if="errorAll.validations">
+        <div v-else-if="errorAll.validations">
           <ValidationError :errors="errorAll.validations"/>
         </div>
 
