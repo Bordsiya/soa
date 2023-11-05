@@ -12,11 +12,11 @@ import GetAllOrganizations from "@/components/requests/first/basic-set/GetAllOrg
 
 <template>
   <div class="overflow-wrapper">
-    <GetOneOrganization/>
-    <DeleteOneOrganization/>
-    <PostOneOrganization/>
-    <PutOneOrganization/>
-    <GetAllOrganizations/>
+<!--    <GetOneOrganization/>-->
+<!--    <DeleteOneOrganization/>-->
+<!--    <PostOneOrganization/>-->
+<!--    <PutOneOrganization/>-->
+<!--    <GetAllOrganizations/>-->
     <GetOrganizationsWithPreferences/>
     <GetAnnualTurnoverSum/>
     <GetAnnualTurnoverGrouped/>

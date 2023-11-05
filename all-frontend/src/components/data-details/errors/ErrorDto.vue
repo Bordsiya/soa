@@ -5,8 +5,7 @@
 <template>
   <div class="error">
     <div class="error-header">
-      <h2>Error
-        Detailsdsssssssssssssssssssssssssssssssssssssssss00000ssssssssssssssssssssss00000ssssssssssssssssssssss00000ssssssssssssssssssssss00000ssssssssssssssssssssss00000ssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssss</h2>
+      <h2>Error Details </h2>
     </div>
     <div class="error-info">
       <p><strong>Status:</strong> {{ error.code }}</p>
