@@ -21,17 +21,19 @@ document.onmouseover = function(event) {
         let left = coords.left + (target.offsetWidth - tooltipElem.offsetWidth) * 0;
         if (left < 0) left = 0; // не заезжать за левый край окна
 
-        let top = coords.top - tooltipElem.offsetHeight - 35;
-        if (top < 0) { // если подсказка не помещается сверху, то отображать её снизу
-            top = coords.top + target.offsetHeight + 15;
-        }
+        let top = coords.top + tooltipElem.offsetHeight + 35;
+        // if (top < 0) { // если подсказка не помещается сверху, то отображать её снизу
+        //     top = coords.top + target.offsetHeight + 15;
+        // }
 
         tooltipElem.style.position = "fixed";
         tooltipElem.style.zIndex = "1000";
         tooltipElem.style.padding = "10px 20px";
         tooltipElem.style.border = "1px solid #b3c9ce";
         tooltipElem.style.borderRadius = "4px";
-        tooltipElem.style.textAlign = "right";
+        tooltipElem.style.textAlign = "left";
+        tooltipElem.style.wordWrap = "break-word";
+        tooltipElem.style.wordBreak = "break-all";
         tooltipElem.style.font = "italic 14px/1.3 sans-serif";
         tooltipElem.style.color = "#333";
         tooltipElem.style.backgroundColor = "#ffffff";
