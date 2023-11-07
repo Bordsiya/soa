@@ -1,5 +1,7 @@
 <script setup>
-import OtherError from "@/components/data-details/OtherError.vue";
+import OtherError from "@/components/data-details/errors/OtherError.vue";
+import ViolationErrors from "../../../data-details/errors/ViolationError.vue";
+import ValidationError from "@/components/data-details/errors/ValidationError.vue";
 
 </script>
 
@@ -55,9 +57,18 @@ import OtherError from "@/components/data-details/OtherError.vue";
     </div>
     <div class="right-side">
       <div v-if="errorAll" class="error-message">
-        <div v-if="errorAll.status" class="other-message">
+        <div v-if="errorAll.violations">
+          <ViolationErrors :errors="errorAll.violations"/>
+        </div>
+
+        <div v-else-if="errorAll.validations">
+          <ValidationError :errors="errorAll.validations"/>
+        </div>
+
+        <div v-else-if="errorAll.status" class="other-message">
           <OtherError :error="errorAll"/>
         </div>
+
         <div v-else>
           <ErrorDto :error="errorAll"/>
         </div>
@@ -72,10 +83,16 @@ import OtherError from "@/components/data-details/OtherError.vue";
 <script>
 import axios from 'axios';
 import OrganizationFromDto from "@/components/data-details/OrganizationFromDto.vue";
-import ErrorDto from "@/components/data-details/ErrorDto.vue";
+import ErrorDto from "@/components/data-details/errors/ErrorDto.vue";
 import {headers, urls} from "@/configs/Config";
 import {handleAxiosError} from "@/components/requests/ErrorHandler";
 import '@/assets/requets.css';
+import {
+  addToValidationsAnotherError, validateAnnualTurnover,
+  validateCoordinates,
+  validateCreationDate, validateId,
+  validateName
+} from "@/components/utils/validate";
 
 export default {
 
@@ -108,12 +125,75 @@ export default {
   },
 
   methods: {
+    validateAll() {
+      if (!validateId(this.formData.id)) {
+        const validError = {
+          fieldName: 'id',
+          message: 'id must be not null and >0'
+        };
+        this.errorAll = addToValidationsAnotherError(this.errorAll, validError);
+      }
+
+      if (!validateName(this.formData.name)) {
+        const validError = {
+          fieldName: 'name',
+          message: 'name must be not null and not blank'
+        };
+        this.errorAll = addToValidationsAnotherError(this.errorAll, validError);
+      }
+
+      if (!validateCoordinates(this.formData.coordinates)) {
+        const validError = {
+          fieldName: 'coordinates: x and y',
+          message: 'x is double, y is integer, both is required.'
+        };
+        this.errorAll = addToValidationsAnotherError(this.errorAll, validError);
+      }
+
+      if (!validateCreationDate(this.formData.creationDate)) {
+        const validError = {
+          fieldName: 'creationDate',
+          message: 'creationDate must be in format YYYY-MM-DD'
+        };
+        this.errorAll = addToValidationsAnotherError(this.errorAll, validError);
+      }
+
+      if (!validateAnnualTurnover(this.formData.annualTurnover)) {
+        const validError = {
+          fieldName: 'annualTurnover',
+          message: 'annualTurnover must be not null and >0'
+        };
+        this.errorAll = addToValidationsAnotherError(this.errorAll, validError);
+      }
+
+      if (!validateName(this.formData.officialAddress.zipCode)) {
+        const validError = {
+          fieldName: 'zipCode',
+          message: 'zipCode must be not null and not blank'
+        };
+        this.errorAll = addToValidationsAnotherError(this.errorAll, validError);
+      }
+
+      if (!validateName(this.formData.officialAddress.street)) {
+        const validError = {
+          fieldName: 'street',
+          message: 'street must be not null and not blank'
+        };
+        this.errorAll = addToValidationsAnotherError(this.errorAll, validError);
+      }
+    },
+
     submitForm(event) {
       event.preventDefault();
 
       // Сбросил вывод о прошлом действии
       this.organization = null
       this.errorAll = null
+
+      this.validateAll();
+      if (this.errorAll && this.errorAll.validations) {
+        return;
+      }
 
       axios.create()
           .put(`${urls[0]}/organizations/${this.id}`, this.formData, {headers})

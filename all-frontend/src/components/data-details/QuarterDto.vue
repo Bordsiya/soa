@@ -3,12 +3,9 @@
 </script>
 
 <template>
-  <div v-if="totalSum">
+  <div v-if="Quarter">
     <div class="details">
-      <h2>Result</h2>
-      <div class="sum-info">
-        <p><strong>Sum of annual turnover of all orgs:</strong> {{ totalSum.value }}</p>
-      </div>
+      <h2>Quarter number {{ Quarter.quarter }}</h2>
     </div>
   </div>
   <div v-else>
@@ -19,7 +16,7 @@
 <script>
 export default {
   props: {
-    totalSum: Object, // Принимайте объект ошибки в качестве свойства
+    Quarter: Object, // Принимайте объект ошибки в качестве свойства
   },
 };
 </script>

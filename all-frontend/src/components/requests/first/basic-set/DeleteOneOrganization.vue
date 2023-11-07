@@ -1,7 +1,9 @@
 <script setup>
 
-import OtherError from "@/components/data-details/OtherError.vue";
+import OtherError from "@/components/data-details/errors/OtherError.vue";
 import OkResponseNoContent from "@/components/data-details/OkResponseNoContent.vue";
+import ViolationErrors from "../../../data-details/errors/ViolationError.vue";
+import ValidationError from "@/components/data-details/errors/ValidationError.vue";
 </script>
 
 <template>
@@ -20,9 +22,18 @@ import OkResponseNoContent from "@/components/data-details/OkResponseNoContent.v
     </div>
     <div class="right-side">
       <div v-if="errorAll" class="error-message">
-        <div v-if="errorAll.status" class="other-message">
+        <div v-if="errorAll.violations">
+          <ViolationErrors :errors="errorAll.violations"/>
+        </div>
+
+        <div v-else-if="errorAll.validations">
+          <ValidationError :errors="errorAll.validations"/>
+        </div>
+
+        <div v-else-if="errorAll.status" class="other-message">
           <OtherError :error="errorAll"/>
         </div>
+
         <div v-else>
           <ErrorDto :error="errorAll"/>
         </div>
@@ -36,10 +47,11 @@ import OkResponseNoContent from "@/components/data-details/OkResponseNoContent.v
 
 <script>
 import axios from 'axios';
-import ErrorDto from "@/components/data-details/ErrorDto.vue";
+import ErrorDto from "@/components/data-details/errors/ErrorDto.vue";
 import {headers, urls} from "@/configs/Config";
 import {handleAxiosError} from "@/components/requests/ErrorHandler";
 import '@/assets/requets.css';
+import {addToValidationsAnotherError, validateId} from "@/components/utils/validate";
 
 export default {
 
@@ -59,6 +71,16 @@ export default {
   },
 
   methods: {
+    validateAll() {
+      if (!validateId(this.formData.id)) {
+        const validError = {
+          fieldName: 'id',
+          message: 'id must be not null and >0'
+        };
+        this.errorAll = addToValidationsAnotherError(this.errorAll, validError);
+      }
+    },
+
     submitForm(event) {
       event.preventDefault();
 
@@ -66,6 +88,12 @@ export default {
       this.message_result = null
       this.errorAll = null
 
+      this.validateAll();
+      if (this.errorAll && this.errorAll.validations) {
+        return;
+      }
+
+      console.log(`${urls[0]}/organizations/${this.formData.id}`)
       axios.create()
           .delete(`${urls[0]}/organizations/${this.formData.id}`, {headers})
           .then(response => {

@@ -17,10 +17,8 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.validation.annotation.Validated;
 
 import javax.annotation.Generated;
-import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.Valid;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.Objects;
 
@@ -37,13 +35,13 @@ public class OrganizationWithoutIdDTO {
 
   @Schema(example = "OAO Aviasales", required = true, description = "Organization name")
   @NotBlank(message = "Name is required.")
-  @Size(min=1)
   @JsonProperty("name")
   private String name;
 
   @Schema(required = true, description = "")
   @NotNull(message = "Coordinates are required.")
   @JsonProperty("coordinates")
+  @Valid
   private CoordinatesDTO coordinatesDTO;
 
   @Schema(required = true, description = "Organization creation date, generates automatically")
@@ -57,7 +55,7 @@ public class OrganizationWithoutIdDTO {
 
   @Schema(example = "4.5", required = true, description = "Organization annual turnover")
   @NotNull(message = "Double is required.")
-  @DecimalMin("0")
+  @DecimalMin(value = "0.0", inclusive = false)
   @JsonProperty("annualTurnover")
   private Double annualTurnover;
 
@@ -69,6 +67,7 @@ public class OrganizationWithoutIdDTO {
   @Schema(required = true, description = "")
   @NotNull(message = "Official-Address is required.")
   @JsonProperty("officialAddress")
+  @Valid
   private AddressDTO officialAddressDTO;
 
   public void setType(OrganizationTypeDto type) {

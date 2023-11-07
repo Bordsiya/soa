@@ -1,14 +1,14 @@
 <script setup>
 
 import OtherError from "@/components/data-details/errors/OtherError.vue";
-import ViolationError from "../../../data-details/errors/ViolationError.vue";
+import ViolationErrors from "../../data-details/errors/ViolationError.vue";
 import ValidationError from "@/components/data-details/errors/ValidationError.vue";
 </script>
 
 <template>
   <div class="container">
     <div class="left-side">
-      <p class="description_text">Получение организации по id</p>
+      <p class="description_text">Расчёт развития годового оборота организации по id</p>
       <form @submit="submitForm" class="form">
         <div class="form-group">
           <div class="another-field">
@@ -16,13 +16,13 @@ import ValidationError from "@/components/data-details/errors/ValidationError.vu
             <input type="number" id="id" v-model="formData.id">
           </div>
         </div>
-        <button type="submit">Найти организацию</button>
+        <button type="submit">Рассчитать для организации организацию</button>
       </form>
     </div>
     <div class="right-side">
       <div v-if="errorAll" class="error-message">
         <div v-if="errorAll.violations">
-          <ViolationError :errors="errorAll.violations"/>
+          <ViolationErrors :errors="errorAll.violations"/>
         </div>
 
         <div v-else-if="errorAll.validations">
@@ -38,7 +38,7 @@ import ValidationError from "@/components/data-details/errors/ValidationError.vu
         </div>
       </div>
       <div v-else>
-        <OrganizationFromDto :organization="organization"/>
+        <PredictionDtoResponse :predictionDto="predictionDto"/>
       </div>
     </div>
   </div>
@@ -46,17 +46,17 @@ import ValidationError from "@/components/data-details/errors/ValidationError.vu
 
 <script>
 import axios from 'axios';
-import OrganizationFromDto from "@/components/data-details/OrganizationFromDto.vue";
+import PredictionDtoResponse from "@/components/data-details/PredictionDtoResponse.vue";
 import ErrorDto from "@/components/data-details/errors/ErrorDto.vue";
 import {headers, urls} from "@/configs/Config";
 import {handleAxiosError} from "@/components/requests/ErrorHandler";
 import '@/assets/requets.css';
-import { addToValidationsAnotherError, validateId } from "@/components/utils/validate";
+import {addToValidationsAnotherError, validateId} from "@/components/utils/validate";
 
 export default {
 
   components: {
-    OrganizationFromDto,
+    PredictionDtoResponse,
     ErrorDto
   },
 
@@ -67,7 +67,7 @@ export default {
       },
 
       errorAll: null,
-      organization: null
+      predictionDto: null
     };
   },
 
@@ -86,18 +86,20 @@ export default {
       event.preventDefault();
 
       // Сбросил вывод о прошлом действии
-      this.organization = null
+      this.predictionDto = null
       this.errorAll = null
 
       this.validateAll();
       if (this.errorAll && this.errorAll.validations) {
         return;
       }
+      console.log("adsfasf");
 
       axios.create()
-          .get(`${urls[0]}/organizations/${this.formData.id}`, {headers})
+          .get(`${urls[2]}/organalysis/predict/organizations/${this.formData.id}/annual-turnover`)
           .then(response => {
-            this.organization = response.data;
+            console.log(response)
+            this.predictionDto = response.data;
           })
           .catch(error => {
             this.errorAll = handleAxiosError(error);

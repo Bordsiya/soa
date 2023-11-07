@@ -1,12 +1,14 @@
 <script setup>
-import OtherError from "@/components/data-details/OtherError.vue";
+import OtherError from "@/components/data-details/errors/OtherError.vue";
+import ViolationErrors from "../../../data-details/errors/ViolationError.vue";
+import ValidationError from "@/components/data-details/errors/ValidationError.vue";
 
 </script>
 
 <template>
   <div class="container">
     <div class="left-side">
-      <p class="description_text">Получение организации по id</p>
+      <p class="description_text">Добавление организации</p>
       <form @submit="submitForm" class="form">
         <div class="form-group">
           <div class="another-field">
@@ -15,7 +17,7 @@ import OtherError from "@/components/data-details/OtherError.vue";
           </div>
           <div class="another-field">
             <label for="x">координата X</label>
-            <input type="number" id="x" v-model="formData.coordinates.x">
+            <input type="text" id="x" v-model="formData.coordinates.x">
           </div>
           <div class="another-field">
             <label for="y">координата Y</label>
@@ -35,6 +37,7 @@ import OtherError from "@/components/data-details/OtherError.vue";
               <option value="COMMERCIAL">COMMERCIAL</option>
               <option value="PUBLIC">PUBLIC</option>
               <option value="OPEN_JOINT_STOCK_COMPANY">OPEN_JOINT_STOCK_COMPANY</option>
+              <option value="LOL">LOL</option>
             </select>
           </div>
           <div class="another-field">
@@ -51,9 +54,18 @@ import OtherError from "@/components/data-details/OtherError.vue";
     </div>
     <div class="right-side">
       <div v-if="errorAll" class="error-message">
-        <div v-if="errorAll.status" class="other-message">
+        <div v-if="errorAll.violations">
+          <ViolationErrors :errors="errorAll.violations"/>
+        </div>
+
+        <div v-else-if="errorAll.validations">
+          <ValidationError :errors="errorAll.validations"/>
+        </div>
+
+        <div v-else-if="errorAll.status" class="other-message">
           <OtherError :error="errorAll"/>
         </div>
+
         <div v-else>
           <ErrorDto :error="errorAll"/>
         </div>
@@ -61,6 +73,7 @@ import OtherError from "@/components/data-details/OtherError.vue";
       <div v-else>
         <OrganizationFromDto :organization="organization"/>
       </div>
+
     </div>
   </div>
 </template>
@@ -68,10 +81,16 @@ import OtherError from "@/components/data-details/OtherError.vue";
 <script>
 import axios from 'axios';
 import OrganizationFromDto from "@/components/data-details/OrganizationFromDto.vue";
-import ErrorDto from "@/components/data-details/ErrorDto.vue";
+import ErrorDto from "@/components/data-details/errors/ErrorDto.vue";
 import {headers, urls} from "@/configs/Config";
 import {handleAxiosError} from "@/components/requests/ErrorHandler";
 import '@/assets/requets.css';
+import {
+  addToValidationsAnotherError, validateAnnualTurnover,
+  validateCoordinates,
+  validateCreationDate,
+  validateName
+} from "@/components/utils/validate";
 
 export default {
 
@@ -103,6 +122,58 @@ export default {
   },
 
   methods: {
+    validateAll() {
+      if (!validateName(this.formData.name)) {
+        const validError = {
+          fieldName: 'name',
+          message: 'name must be not null and not blank'
+        };
+        this.errorAll = addToValidationsAnotherError(this.errorAll, validError);
+      }
+
+      if (!validateCoordinates(this.formData.coordinates)) {
+        const validError = {
+          fieldName: 'coordinates: x and y',
+          message: 'x is double, y is integer, both is required.'
+        };
+        this.errorAll = addToValidationsAnotherError(this.errorAll, validError);
+      }
+
+      if (!validateCreationDate(this.formData.creationDate)) {
+        const validError = {
+          fieldName: 'creationDate',
+          message: 'creationDate must be in format YYYY-MM-DD'
+        };
+        this.errorAll = addToValidationsAnotherError(this.errorAll, validError);
+      }
+
+      if (!validateAnnualTurnover(this.formData.annualTurnover)) {
+        const validError = {
+          fieldName: 'annualTurnover',
+          message: 'annualTurnover must be not null and >0'
+        };
+        this.errorAll = addToValidationsAnotherError(this.errorAll, validError);
+      }
+
+      if (!validateName(this.formData.officialAddress.zipCode)) {
+        const validError = {
+          fieldName: 'zipCode',
+          message: 'zipCode must be not null and not blank'
+        };
+        this.errorAll = addToValidationsAnotherError(this.errorAll, validError);
+      }
+
+      if (!validateName(this.formData.officialAddress.street)) {
+        const validError = {
+          fieldName: 'street',
+          message: 'street must be not null and not blank'
+        };
+        this.errorAll = addToValidationsAnotherError(this.errorAll, validError);
+      }
+
+
+    },
+
     submitForm(event) {
       event.preventDefault();
 
@@ -110,12 +181,19 @@ export default {
       this.organization = null
       this.errorAll = null
 
+      this.validateAll();
+      if (this.errorAll && this.errorAll.validations) {
+        return;
+      }
+
       axios.create()
           .post(`${urls[0]}/organizations`, this.formData, {headers})
           .then(response => {
+            console.log(response);
             this.organization = response.data;
           })
           .catch(error => {
+            console.log(error);
             this.errorAll = handleAxiosError(error);
           });
     },

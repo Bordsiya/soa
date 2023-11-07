@@ -1,29 +1,34 @@
 <script setup>
-
 </script>
 
 <template>
-  <header class="header">
-    <div class="header-content">
-      <p class="header-text">P34111 Ivanov Evgeniy and Bordun Anastasiya (SWAGGER 4.0???)</p>
+    <div class="all-header">
+      <div class="header-content">
+        <p class="header-text">P34111 Ivanov Evgeniy and Bordun Anastasiya (SWAGGER 4.0???)</p>
+      </div>
     </div>
-  </header>
 </template>
 
 <style scoped>
-.header {
+.all-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   background-color: #304c4d; /* Цвет фона */
   color: #fc0e0e; /* Цвет текста */
-  padding: 15px; /* Внутренний отступ */
-  text-align: center; /* Выравнивание текста по центру */
+  max-height: 100px;
+  min-height: 50px;
 }
 
 .header-content {
-    //max-width: 2500px; /* Максимальная ширина контента */
+  width: 100%;
+  text-align: center; /* Выравнивание текста по центру */
 }
 
 .header-text {
-  font-size: 24px; /* Размер текста */
-  font-weight: bold; /* Жирный шрифт */
+  width: 100%;
+  font-size: 20px;
+  font-weight: bold;
 }
 </style>

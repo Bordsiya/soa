@@ -4,21 +4,16 @@ package com.example.thirdservice;
 import com.example.commonservice.model.OrganizationDTO;
 import com.example.commonservice.model.PredictionDTO;
 import com.example.commonservice.model.QuarterResponseDTO;
-import com.example.thirdservice.exception.ClientException;
 import com.example.thirdservice.exception.JSONException;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.inject.Inject;
-import javax.ws.rs.ProcessingException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -48,7 +43,7 @@ public class RestClientService {
     }
 
     private Client client;
-    private final String serviceUrl = "https://localhost:9099/first-service";
+    private final String serviceUrl = "https://localhost:9099/";
 
     public QuarterResponseDTO recommendCoordinateQuarter(){
         String url = serviceUrl + "/recommend/coordinates/quarter";

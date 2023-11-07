@@ -1,8 +1,9 @@
 package com.example.firstservice.exception;
 
 import com.example.commonservice.exception.UndefinedOrganizationTypeException;
-import com.example.commonservice.model.ErrorDTO;
 import com.example.commonservice.exception.not_found.ResourceNotFoundException;
+import com.example.commonservice.model.ErrorDTO;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.FieldError;
@@ -19,6 +20,7 @@ import java.util.regex.Pattern;
 
 @ControllerAdvice
 @ResponseBody
+@Slf4j
 public class GlobalErrorHandler {
     @ExceptionHandler(ResourceNotFoundException.class)
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
@@ -64,10 +66,13 @@ public class GlobalErrorHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     ValidationErrorResponse onConstraintValidationException(ConstraintViolationException e) {
+        log.error("ConstraintViolationException about: " + e.getMessage());
         ValidationErrorResponse error = new ValidationErrorResponse();
         for (ConstraintViolation violation : e.getConstraintViolations()) {
+            log.error("Violation -> " + violation.getMessage());
             error.getViolations().add(new Violation(violation.getPropertyPath().toString(), violation.getMessage()));
         }
+
         return error;
     }
 
@@ -75,6 +80,7 @@ public class GlobalErrorHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     ValidationErrorResponse onMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+        log.error("MethodArgumentNotValidException about: " + e.getMessage());
         ValidationErrorResponse error = new ValidationErrorResponse();
         for (FieldError fieldError : e.getBindingResult().getFieldErrors()) {
             error.getViolations().add(new Violation(fieldError.getField(), fieldError.getDefaultMessage()));
@@ -86,15 +92,15 @@ public class GlobalErrorHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     ValidationErrorResponse onHttpMessageNotReadableException(HttpMessageNotReadableException e) {
+        log.error("HttpMessageNotReadableException about: " + e.getMessage());
         ValidationErrorResponse error = new ValidationErrorResponse();
         String message = e.getMessage();
         assert message != null;
-        /*
+
         String field = Pattern.compile("\"(.*?)\"")
                 .matcher(message).results().map(mr -> mr.group(1)).findFirst().get();
         error.getViolations().add(new Violation(field, e.getMessage()));
 
-         */
         return error;
     }
 }

@@ -1,28 +1,32 @@
 <script setup>
 
 import OtherError from "@/components/data-details/errors/OtherError.vue";
-import ViolationError from "../../../data-details/errors/ViolationError.vue";
+import ViolationErrors from "../../data-details/errors/ViolationError.vue";
 import ValidationError from "@/components/data-details/errors/ValidationError.vue";
 </script>
 
 <template>
   <div class="container">
     <div class="left-side">
-      <p class="description_text">Получение организации по id</p>
+      <p class="description_text">Получение организаций для работы по координатам</p>
       <form @submit="submitForm" class="form">
         <div class="form-group">
           <div class="another-field">
-            <label for="id">id</label>
-            <input type="number" id="id" v-model="formData.id">
+            <label for="x">x</label>
+            <input type="text" id="x" v-model="formData.x">
+          </div>
+          <div class="another-field">
+            <label for="y">y</label>
+            <input type="number" id="y" v-model="formData.y">
           </div>
         </div>
-        <button type="submit">Найти организацию</button>
+        <button type="submit">Найти организации</button>
       </form>
     </div>
     <div class="right-side">
       <div v-if="errorAll" class="error-message">
         <div v-if="errorAll.violations">
-          <ViolationError :errors="errorAll.violations"/>
+          <ViolationErrors :errors="errorAll.violations"/>
         </div>
 
         <div v-else-if="errorAll.validations">
@@ -38,7 +42,9 @@ import ValidationError from "@/components/data-details/errors/ValidationError.vu
         </div>
       </div>
       <div v-else>
-        <OrganizationFromDto :organization="organization"/>
+        <div v-for="(organization, index) in organizations" :key="index">
+          <OrganizationFromDto :organization="organization" />
+        </div>
       </div>
     </div>
   </div>
@@ -51,7 +57,12 @@ import ErrorDto from "@/components/data-details/errors/ErrorDto.vue";
 import {headers, urls} from "@/configs/Config";
 import {handleAxiosError} from "@/components/requests/ErrorHandler";
 import '@/assets/requets.css';
-import { addToValidationsAnotherError, validateId } from "@/components/utils/validate";
+import {
+  addToValidationsAnotherError, validateAnnualTurnover,
+  validateCoordinates,
+  validateCreationDate,
+  validateName
+} from "@/components/utils/validate";
 
 export default {
 
@@ -63,20 +74,26 @@ export default {
   data() {
     return {
       formData: {
-        id: '',
+        x: '',
+        y: ''
       },
 
       errorAll: null,
-      organization: null
+      organizations: null
     };
   },
 
   methods: {
     validateAll() {
-      if (!validateId(this.formData.id)) {
+      const coordinates = {
+        x: this.formData.x,
+        y: this.formData.y
+      }
+
+      if (!validateCoordinates(coordinates)) {
         const validError = {
-          fieldName: 'id',
-          message: 'id must be not null and >0'
+          fieldName: 'coordinates: x and y',
+          message: 'x is double, y is integer, both is required.'
         };
         this.errorAll = addToValidationsAnotherError(this.errorAll, validError);
       }
@@ -86,7 +103,7 @@ export default {
       event.preventDefault();
 
       // Сбросил вывод о прошлом действии
-      this.organization = null
+      this.organizations = null
       this.errorAll = null
 
       this.validateAll();
@@ -95,9 +112,10 @@ export default {
       }
 
       axios.create()
-          .get(`${urls[0]}/organizations/${this.formData.id}`, {headers})
+          .get(`${urls[2]}/organalysis/recommend/organizations/coordinates?x=${this.formData.x}&y=${this.formData.y}`)
           .then(response => {
-            this.organization = response.data;
+            console.log(response)
+            this.organizations = response.data;
           })
           .catch(error => {
             this.errorAll = handleAxiosError(error);

@@ -1,5 +1,4 @@
 <script setup>
-import Headline from "@/components/headers-and-static/Headline.vue";
 import GetOneOrganization from "@/components/requests/first/basic-set/GetOneOrganization.vue";
 import DeleteOneOrganization from "@/components/requests/first/basic-set/DeleteOneOrganization.vue";
 import PostOneOrganization from "@/components/requests/first/basic-set/PostOneOrganization.vue";
@@ -8,25 +7,24 @@ import GetOrganizationsWithPreferences from "@/components/requests/first/basic-s
 import GetAnnualTurnoverSum from "@/components/requests/first/advanced-set/GetAnnualTurnoverSum.vue";
 import GetAnnualTurnoverGrouped from "@/components/requests/first/advanced-set/GetAnnualTurnoverGrouped.vue";
 import DeleteByOfficialAddress from "@/components/requests/first/advanced-set/DeleteByOfficialAddress.vue";
+import GetAllOrganizations from "@/components/requests/first/basic-set/GetAllOrganizations.vue";
 </script>
 
 <template>
-  <Headline :text_of_headline='headline_text'></Headline>
-
-  <GetOneOrganization />
-  <DeleteOneOrganization />
-  <PostOneOrganization />
-  <PutOneOrganization />
-  <GetOrganizationsWithPreferences />
-  <GetAnnualTurnoverSum />
-  <GetAnnualTurnoverGrouped />
-  <DeleteByOfficialAddress />
+  <div class="overflow-wrapper">
+    <GetOneOrganization/>
+    <DeleteOneOrganization/>
+    <PostOneOrganization/>
+    <PutOneOrganization/>
+    <GetAllOrganizations/>
+    <GetOrganizationsWithPreferences/>
+    <GetAnnualTurnoverSum/>
+    <GetAnnualTurnoverGrouped/>
+    <DeleteByOfficialAddress/>
+  </div>
 </template>
 
 <script>
-
-const headline_text = 'Organization Service:';
-
 </script>
 
 <style scoped>

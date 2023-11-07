@@ -1,6 +1,8 @@
 <script setup>
 
-import OtherError from "@/components/data-details/OtherError.vue";
+import OtherError from "@/components/data-details/errors/OtherError.vue";
+import ViolationErrors from "../../data-details/errors/ViolationError.vue";
+import ValidationError from "@/components/data-details/errors/ValidationError.vue";
 </script>
 
 <template>
@@ -23,9 +25,18 @@ import OtherError from "@/components/data-details/OtherError.vue";
     </div>
     <div class="right-side">
       <div v-if="errorAll" class="error-message">
-        <div v-if="errorAll.status" class="other-message">
+        <div v-if="errorAll.violations">
+          <ViolationErrors :errors="errorAll.violations"/>
+        </div>
+
+        <div v-else-if="errorAll.validations">
+          <ValidationError :errors="errorAll.validations"/>
+        </div>
+
+        <div v-else-if="errorAll.status" class="other-message">
           <OtherError :error="errorAll"/>
         </div>
+
         <div v-else>
           <ErrorDto :error="errorAll"/>
         </div>
@@ -42,10 +53,11 @@ import OtherError from "@/components/data-details/OtherError.vue";
 <script>
 import axios from 'axios';
 import OrganizationFromDto from "@/components/data-details/OrganizationFromDto.vue";
-import ErrorDto from "@/components/data-details/ErrorDto.vue";
+import ErrorDto from "@/components/data-details/errors/ErrorDto.vue";
 import {headers, urls} from "@/configs/Config";
 import {handleAxiosError} from "@/components/requests/ErrorHandler";
 import '@/assets/requets.css';
+import {addToValidationsAnotherError, validateAnnualTurnover} from "@/components/utils/validate";
 
 export default {
 
@@ -67,12 +79,45 @@ export default {
   },
 
   methods: {
+    validateAll() {
+      if (!validateAnnualTurnover(this.formData.minEmployeesCount)) {
+        const validError = {
+          fieldName: 'min',
+          message: 'min employees count must be not null and >0'
+        };
+        this.errorAll = addToValidationsAnotherError(this.errorAll, validError);
+      }
+
+      if (!validateAnnualTurnover(this.formData.maxEmployeesCount)) {
+        const validError = {
+          fieldName: 'max',
+          message: 'max employees count must be not null and >0'
+        };
+        this.errorAll = addToValidationsAnotherError(this.errorAll, validError);
+      }
+
+    },
+
     submitForm(event) {
       event.preventDefault();
 
       // Сбросил вывод о прошлом действии
       this.organizations = null
       this.errorAll = null
+
+      this.validateAll();
+      if (this.errorAll && this.errorAll.validations) {
+        return;
+      }
+
+      if (this.formData.maxEmployeesCount < this.formData.minEmployeesCount) {
+        const validError = {
+          fieldName: 'min/max',
+          message: 'max must be >= min'
+        };
+        this.errorAll = addToValidationsAnotherError(this.errorAll, validError);
+        return;
+      }
 
       axios.create()
           .get(`${urls[1]}/orgdirectory/filter/employees/${this.formData.minEmployeesCount}/${this.formData.maxEmployeesCount}`, {headers})

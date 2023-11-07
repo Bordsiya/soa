@@ -1,37 +1,38 @@
 <script setup>
 
 import Header from "@/components/headers-and-static/Header.vue";
-import First from "@/components/First.vue";
-import Second from "@/components/Second.vue";
-import Third from "@/components/Third.vue";
+import NavigationAndServices from "@/components/headers-and-static/NavigationAndServices.vue";
 </script>
 
 <template>
-  <header>
-    <div class="header-fixed">
-      <Header />
+  <div class="all-page">
+    <div class="our-headline">
+      <Header/>
     </div>
-  </header>
-  <main>
-    <First />
-    <Second />
-    <Third />
-  </main>
 
+    <div class="telo">
+      <NavigationAndServices/>
+    </div>
+  </div>
 </template>
 
 <style scoped>
-
-header {
-  position: fixed;
-  left: 0;
-  top: 0;
-  right: 0;
-  height: 8vh; /* Занимает 10% высоты */
+.all-page {
+  min-width: 710px;
+  width: 100%;
+  height: 100%;
 }
 
-main {
-  padding-top: 8vh;
+.our-headline {
+  display: inline-flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.telo {
+  margin-top: 60px;
+  overflow: auto;
 }
 
 </style>
