@@ -83,7 +83,7 @@ public class OrganizationFilterService {
                     break;
                 case TYPE:
                     OrganizationType type = organization.getOrganizationType();
-                    if (!compare(type.getType(), operator, value)) {
+                    if (!compare(type.getType(), operator, value.toUpperCase())) {
                         return false;
                     }
                     break;
