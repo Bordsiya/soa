@@ -8,6 +8,7 @@ public class CoordinatesNotFoundException extends ResourceNotFoundException {
     }
 
     public CoordinatesNotFoundException(Double x, Long y) {
-        super("Coordinates", "coordinates-x, coordinates-y", x.toString() + ", " + y.toString());
+        super("Coordinates", "coordinates-x, coordinates-y",
+                (x != null ? x.toString() : "X is null") + ", " + (y != null ? y.toString() : "Y is NULL"));
     }
 }
