@@ -3,7 +3,7 @@ h2 {
     font-weight: bold;
     font-size: 24px;
     color: #51f61a;
-    width: 355px;
+    max-width: 355px;
     overflow: hidden;
     text-overflow: ellipsis;
 }

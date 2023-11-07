@@ -105,38 +105,6 @@ export default {
 
       errorAll: null,
       organizations: null
-      //     [
-      //   {
-      //     name: "123",
-      //     id: "123",
-      //     coordinates: {
-      //       x: "123",
-      //       y: "3"
-      //     },
-      //     creationDate: "123",
-      //     annualTurnover: 5,
-      //     type: "123",
-      //     officialAddress: {
-      //       zipcode: "123",
-      //       street: "3"
-      //     }
-      //   },
-      //   {
-      //     name: "123123131314авпуквпв123123131314авпуквпв123123131314авпуквпв АБОБА АБОБА ОДИН МАНУЛ ДВА МАНУЛА ТРИ МАНУЛААБОБА АБОБА ОДИН МАНУЛ ДВА МАНУЛА ТРИ МАНУЛААБОБА АБОБА ОДИН МАНУЛ ДВА МАНУЛА ТРИ МАНУЛА",
-      //     id: "123",
-      //     coordinates: {
-      //       x: "123",
-      //       y: "3"
-      //     },
-      //     creationDate: "123",
-      //     annualTurnover: 5,
-      //     type: "123",
-      //     officialAddress: {
-      //       zipcode: "123",
-      //       street: "3"
-      //     }
-      //   }
-      // ]
     };
   },
 

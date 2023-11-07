@@ -3,8 +3,7 @@ let tooltipElem;
 document.onmouseover = function(event) {
     let target = event.target;
 
-    console.log(target.offsetWidth);
-    if (target.offsetWidth > 350) {
+    if (target.scrollWidth > 355) {
         // если у нас есть подсказка...
         let tooltipHtml = target.dataset.tooltip;
         if (!tooltipHtml) return;
@@ -22,7 +21,7 @@ document.onmouseover = function(event) {
         let left = coords.left + (target.offsetWidth - tooltipElem.offsetWidth) * 0;
         if (left < 0) left = 0; // не заезжать за левый край окна
 
-        let top = coords.top - tooltipElem.offsetHeight - 15;
+        let top = coords.top - tooltipElem.offsetHeight - 35;
         if (top < 0) { // если подсказка не помещается сверху, то отображать её снизу
             top = coords.top + target.offsetHeight + 15;
         }

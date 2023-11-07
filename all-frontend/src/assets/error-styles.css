@@ -9,12 +9,6 @@ h2 {
     /*max-width: 100px;*/
 }
 
-.error-header:hover > h2 {
-    background-color: inherit;
-    display: inline;
-    min-width: 100%;
-}
-
 .error {
     background-color: #ffcccc;
     border: 1px solid #ff0000;

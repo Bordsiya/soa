@@ -7,6 +7,6 @@ export function convertTimestampToDate(timestamp) {
     const minutes = String(date.getMinutes()).padStart(2, '0');
     const seconds = String(date.getSeconds()).padStart(2, '0');
 
-    const formattedDate = `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+    const formattedDate = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}Z`;
     return formattedDate;
 }
