@@ -23,7 +23,7 @@ import static org.springframework.web.util.UriComponentsBuilder.fromHttpUrl;
 public class RestClientService {
 
     private final RestTemplate restTemplate;
-    private final String serviceUrl = "https://localhost:9099/first-service";
+    private final String serviceUrl = "https://localhost:9099/";
 
     @Autowired
     public RestClientService(

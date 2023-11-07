@@ -35,7 +35,6 @@ public class OrganizationWithoutIdDTO {
 
   @Schema(example = "OAO Aviasales", required = true, description = "Organization name")
   @NotBlank(message = "Name is required.")
-  @Size(min=1)
   @JsonProperty("name")
   private String name;
 

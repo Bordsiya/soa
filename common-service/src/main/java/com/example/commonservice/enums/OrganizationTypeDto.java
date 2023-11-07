@@ -14,7 +14,7 @@ public enum OrganizationTypeDto {
     private String value;
 
     OrganizationTypeDto(String value) {
-        this.value = value;
+        this.value = value.toUpperCase();
     }
 
     @Override
@@ -26,7 +26,7 @@ public enum OrganizationTypeDto {
     @JsonCreator
     public static OrganizationTypeDto fromValue(String text) {
         for (OrganizationTypeDto b : OrganizationTypeDto.values()) {
-            if (String.valueOf(b.value).equals(text)) {
+            if (b.value.equalsIgnoreCase(text)) {
                 return b;
             }
         }

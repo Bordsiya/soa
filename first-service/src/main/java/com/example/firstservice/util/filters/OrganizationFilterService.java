@@ -28,7 +28,7 @@ public class OrganizationFilterService {
             result.setValue(parts[1]);
 
             // for logs
-            System.out.println("Filer was -> " + filter + ", parts -> " + parts[0] + " " + result.getOperator() + " " + parts[1]);
+            System.out.println("Filter was -> " + filter + ", parts -> " + parts[0] + " " + result.getOperator() + " " + parts[1]);
             // TODO check for correct filter fillings
             //  for example that the operator is '<' or '>=' ...
 
