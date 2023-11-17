@@ -20,7 +20,7 @@
         <java.version>1.8</java.version>
         <start-class>com.example.firstservice.FirstServiceApplication</start-class>
     </properties>
-    <packaging>war</packaging>
+    <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
