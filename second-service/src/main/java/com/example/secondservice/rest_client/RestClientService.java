@@ -2,6 +2,7 @@ package com.example.secondservice.rest_client;
 
 import com.example.commonservice.model.OrganizationDTO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,9 @@ import static org.springframework.web.util.UriComponentsBuilder.fromHttpUrl;
 public class RestClientService {
 
     private final RestTemplate restTemplate;
-    private final String serviceUrl = "https://localhost:9099/";
+
+    @Value("${first-service.url}")
+    private String serviceUrl;
 
     @Autowired
     public RestClientService(
