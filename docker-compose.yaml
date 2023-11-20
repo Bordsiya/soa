@@ -25,14 +25,50 @@ services:
     networks:
       - backend-network
 
-  second_service:
+  dublicate_first_service:
     build:
-      context: second-service
-      dockerfile: Dockerfile
+      context: first-service
+      dockerfile: Dockerfile2
+    depends_on:
+      - database_postgres
     ports:
-      - '9100:9100'
+      - '9199:9199'
     networks:
       - backend-network
+
+  haproxy_for_first_service:
+    image: "haproxy:2.2-alpine"
+    ports:
+      - '9200:9200'
+    volumes:
+      - ./first-service/src/main/resources/keystore/orgdirectory.pem:/etc/ssl/certs/orgdirectory.pem
+      - ./first-service/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
+#    build:
+#      context: first-service
+#      dockerfile: DockerfileHaproxy
+    depends_on:
+      - first_service
+      - dublicate_first_service
+    networks:
+      - backend-network
+
+  consul:
+    container_name: consul
+    build: consul
+    image: consul:1.14.2
+    ports:
+      - "8500:8500"
+    networks:
+      - backend-network
+
+#  second_service:
+#    build:
+#      context: second-service
+#      dockerfile: Dockerfile
+#    ports:
+#      - '9100:9100'
+#    networks:
+#      - backend-network
 
 networks:
   backend-network:
