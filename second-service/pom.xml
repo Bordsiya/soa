@@ -16,12 +16,16 @@
     <version>1.0.0</version>
     <name>second-service</name>
     <description>second-service</description>
+    <modules>
+        <module>EJB</module>
+        <module>backend</module>
+    </modules>
 
     <properties>
         <java.version>1.8</java.version>
         <start-class>com.example.firstservice.FirstServiceApplication</start-class>
     </properties>
-    <packaging>war</packaging>
+    <packaging>pom</packaging>
 
     <dependencies>
 

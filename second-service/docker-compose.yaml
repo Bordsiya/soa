@@ -1,0 +1,8 @@
+version: '3'
+services:
+  wildfly:
+    build:
+      context: ./
+    ports:
+      - '9990:9990'
+      - '8080:8080'
