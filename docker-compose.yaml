@@ -42,6 +42,7 @@ services:
       - '9200:9200'
     volumes:
       - ./first-service/src/main/resources/keystore/orgdirectory.pem:/etc/ssl/certs/orgdirectory.pem
+      - ./first-service/src/main/resources/keystore/org_cert_origin.pem:/etc/ssl/certs/org_cert_origin.pem
       - ./first-service/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
 #    build:
 #      context: first-service
