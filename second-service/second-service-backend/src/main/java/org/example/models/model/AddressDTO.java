@@ -1,25 +1,34 @@
-package org.example.ejb.model;
+package org.example.models.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.validation.annotation.Validated;
 
-import java.io.Serializable;
+import javax.annotation.Generated;
+import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
 /**
  * Address
  */
+@Validated
+@Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2023-09-22T14:28:41.491075200+03:00[Europe/Moscow]")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class AddressDTO implements Serializable {
+public class AddressDTO {
+  @Schema(example = "Kosovo street", required = true, description = "Address street")
+  @NotBlank(message = "Street is required.")
   @JsonProperty("street")
   private String street;
 
+  @Schema(example = "AE84C", required = true, description = "Address zipcode")
+  @NotBlank(message = "ZipCode is required.")
   @JsonProperty("zipCode")
   private String zipCode;
 

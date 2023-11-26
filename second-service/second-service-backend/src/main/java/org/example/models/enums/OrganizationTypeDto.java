@@ -1,14 +1,12 @@
-package org.example.ejb.model;
+package org.example.models.enums;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-import java.io.Serializable;
-
 /**
  * Type of Organization
  */
-public enum OrganizationTypeDto implements Serializable {
+public enum OrganizationTypeDto {
     COMMERCIAL("COMMERCIAL"),
     PUBLIC("PUBLIC"),
     OPEN_JOINT_STOCK_COMPANY("OPEN_JOINT_STOCK_COMPANY");

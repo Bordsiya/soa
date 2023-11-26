@@ -1,23 +1,32 @@
 package org.example.ejb.service;
 
-import lombok.extern.slf4j.Slf4j;
-import org.example.ejb.model.OrganizationDTO;
-import org.example.ejb.exception.JSONException;
-import org.example.ejb.external.HttpClientFactory;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import lombok.SneakyThrows;
+import lombok.extern.slf4j.Slf4j;
+import org.example.ejb.exception.ClientException;
+import org.example.ejb.model.AddressDTO;
+import org.example.ejb.model.CoordinatesDTO;
+import org.example.ejb.model.OrganizationDTO;
+import org.example.ejb.exception.JSONException;
+import org.example.ejb.external.HttpClientFactory;
+import org.example.ejb.model.OrganizationTypeDto;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.web.util.UriComponentsBuilder;
+import org.springframework.web.util.UriUtils;
 
+import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ws.rs.client.Client;
+import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import java.net.URI;
+import java.net.*;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -28,10 +37,12 @@ import java.util.Objects;
 import static org.springframework.web.util.UriComponentsBuilder.fromHttpUrl;
 
 @Slf4j
-@Stateless(name = "RestClientService")
+@Stateless
+@Remote(RestClientService.class)
+//@Pool(value = "restClientServicePool")
 public class RestClientServiceBean implements RestClientService {
     private Client client;
-    private final String serviceUrl = "https://localhost:9099/";
+    private final String serviceUrl = "https://haproxy-for-first-service:9200";
     private final ObjectMapper objectMapper;
 
     public RestClientServiceBean() {
@@ -40,63 +51,68 @@ public class RestClientServiceBean implements RestClientService {
         module.addDeserializer(LocalDate.class, localDateTimeDeserializer);
         LocalDateSerializer localDateSerializer = new LocalDateSerializer(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         module.addSerializer(localDateSerializer);
-        objectMapper = Jackson2ObjectMapperBuilder.json()
-                .modules(module)
-                .featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
-                .build();
+        objectMapper = new ObjectMapper().registerModule(module).disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
     }
 
-    private URI buildURIWithIntervals(String url, String filterMinQuery, String filterMaxQuery) {
-        UriComponentsBuilder builder = fromHttpUrl(url);
-        builder.queryParam("pageNumber", 0);
-        builder.queryParam("pageSize", 0);
-        List<String> myList = new ArrayList<>();
-        myList.add(filterMinQuery);
-        myList.add(filterMaxQuery);
-
-        builder.queryParam("filters", String.join(",", myList));
-        return builder.build().encode().toUri();
+    private URI buildURIWithIntervals(String urlHost, String filterMinQuery, String filterMaxQuery) {
+        try {
+            String parameters = "filters=" + filterMinQuery + "&filters=" + filterMaxQuery + "&pageNumber=0&pageSize=0";
+            URL url = new URL(urlHost + "?" + parameters);
+            return new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(), url.getRef());
+        }
+        catch (MalformedURLException | URISyntaxException e) {
+            log.error("-------------------uri problems----------------");
+            log.error(e.getMessage());
+        }
+        return null;
     }
 
     public List<OrganizationDTO> getOrganizationsFilteredByAnnualTurnover(Double minAnnualTurnover, Double maxAnnualTurnover) {
         client = HttpClientFactory.getJerseyHTTPSClient();
 
         String url = serviceUrl + "/organizations";
-        String filterMinQuery = "annualTurnover>=" + minAnnualTurnover.toString();
-        String filterMaxQuery = "annualTurnover<=" + maxAnnualTurnover.toString();
+        String filterMinQuery = "annualTurnover>=" + minAnnualTurnover;
+        String filterMaxQuery = "annualTurnover<=" + maxAnnualTurnover;
         URI uri = buildURIWithIntervals(url, filterMinQuery, filterMaxQuery);
+
+        log.error("-------------" + uri.toASCIIString() + "---------------");
+
 
         Response response = client.target(uri).request(MediaType.APPLICATION_JSON_TYPE).get();
         String organizationsDTOString = response.readEntity(String.class);
+        log.error("--------------------" + organizationsDTOString + "---------------------");
         OrganizationDTO[] organizationDTOS;
         try {
             organizationDTOS = objectMapper.readValue(organizationsDTOString, OrganizationDTO[].class);
         } catch (JsonProcessingException e) {
             throw new JSONException(e.getMessage());
         }
-
         client.close();
-        return Arrays.asList(Objects.requireNonNull(organizationDTOS));
+
+        return Arrays.asList(organizationDTOS);
     }
 
     public List<OrganizationDTO> getOrganizationsFilteredByEmployeesCount(Long minEmployeesCount, Long maxEmployeesCount) {
         client = HttpClientFactory.getJerseyHTTPSClient();
 
         String url = serviceUrl + "/organizations";
-        String filterMinQuery = "employeesCount>=" + minEmployeesCount.toString();
-        String filterMaxQuery = "employeesCount<=" + maxEmployeesCount.toString();
+        String filterMinQuery = "employeesCount>=" + minEmployeesCount;
+        String filterMaxQuery = "employeesCount<=" + maxEmployeesCount;
         URI uri = buildURIWithIntervals(url, filterMinQuery, filterMaxQuery);
+
+        log.error("-------------" + uri.toASCIIString() + "---------------");
 
         Response response = client.target(uri).request(MediaType.APPLICATION_JSON_TYPE).get();
         String organizationsDTOString = response.readEntity(String.class);
+        log.error("--------------------" + organizationsDTOString + "---------------------");
         OrganizationDTO[] organizationDTOS;
         try {
             organizationDTOS = objectMapper.readValue(organizationsDTOString, OrganizationDTO[].class);
         } catch (JsonProcessingException e) {
             throw new JSONException(e.getMessage());
         }
-
         client.close();
-        return Arrays.asList(Objects.requireNonNull(organizationDTOS));
+
+        return Arrays.asList(organizationDTOS);
     }
 }

@@ -1,18 +1,22 @@
 package org.example.ejb.external;
 
+import lombok.extern.slf4j.Slf4j;
 import org.example.ejb.exception.ClientException;
 
 import javax.net.ssl.*;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.security.KeyManagementException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
 import java.security.cert.CertificateException;
 
+@Slf4j
 public class HttpClientFactory {
 
     public static Client getJerseyHTTPSClient() throws ClientException {
@@ -31,16 +35,17 @@ public class HttpClientFactory {
                 .build();
     }
 
-    private static SSLContext getSslContext() throws NoSuchAlgorithmException,
-            KeyManagementException, IOException, KeyStoreException, CertificateException {
+    private static SSLContext getSslContext() throws KeyStoreException, CertificateException, IOException, NoSuchAlgorithmException, KeyManagementException {
 
-        FileInputStream myKeys = new FileInputStream("C:/Users/Nastya/IdeaProjects/soa/second-service/ejb/WebContent/keystore/orgdirectory.jks");
+        ClassLoader classloader = Thread.currentThread().getContextClassLoader();
+        InputStream is = classloader.getResourceAsStream("keystore/orgdirectory.jks");
+
         KeyStore myTrustStore = KeyStore.getInstance(KeyStore.getDefaultType());
-        myTrustStore.load(myKeys, "orgdirectory".toCharArray());
-        myKeys.close();
+        myTrustStore.load(is, "orgdirectory".toCharArray());
 
         TrustManagerFactory tmf = TrustManagerFactory
-                .getInstance(TrustManagerFactory.getDefaultAlgorithm());
+                    .getInstance(TrustManagerFactory.getDefaultAlgorithm());
+
         tmf.init(myTrustStore);
 
         X509TrustManager myTm = null;
@@ -60,7 +65,8 @@ public class HttpClientFactory {
     private static class LocalHostnameVerifier implements HostnameVerifier {
         @Override
         public boolean verify(String hostname, SSLSession session) {
-            return "localhost".equalsIgnoreCase(hostname) || "127.0.0.1".equals(hostname);
+            return "first-service".equalsIgnoreCase(hostname) || "dublicate-first-service".equalsIgnoreCase(hostname)
+                    || "haproxy-for-first-service".equalsIgnoreCase(hostname);
         }
     }
 

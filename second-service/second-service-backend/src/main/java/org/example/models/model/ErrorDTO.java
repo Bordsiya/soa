@@ -1,31 +1,39 @@
-package org.example.ejb.model;
+package org.example.models.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.validation.annotation.Validated;
 
-//import javax.annotation.Generated;
-import java.io.Serializable;
+import javax.annotation.Generated;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
 /**
  * Error
  */
+@Validated
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-//@Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2023-09-22T14:28:41.491075200+03:00[Europe/Moscow]")
-public class ErrorDTO implements Serializable {
+@Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2023-09-22T14:28:41.491075200+03:00[Europe/Moscow]")
+public class ErrorDTO {
+  @Schema(example = "400", description = "Error code")
   @JsonProperty("code")
   private String code;
 
+  @Schema(example = "Bad Request", required = true, description = "Error message")
+  @NotNull(message = "Message is required.")
   @JsonProperty("message")
   private String message;
 
+  @Schema(example = "2022-09-19T00:00:09Z", required = true, description = "Error time")
+  @NotNull(message = "Time is required.")
   @JsonProperty("time")
   private LocalDateTime time;
 

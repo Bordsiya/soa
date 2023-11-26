@@ -1,27 +1,31 @@
-package org.example.ejb.model;
+package org.example.models.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.validation.annotation.Validated;
 
-import java.io.Serializable;
+import javax.annotation.Generated;
+import javax.validation.constraints.DecimalMin;
 import java.util.Objects;
 
 /**
- * Address
+ * OnlyAnnualTurnover
  */
+@Validated
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class AddressDTO implements Serializable {
-  @JsonProperty("street")
-  private String street;
-
-  @JsonProperty("zipCode")
-  private String zipCode;
+@Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2023-09-22T14:28:41.491075200+03:00[Europe/Moscow]")
+public class OnlyAnnualTurnoverDTO {
+  @Schema(example = "4.5", description = "Organization annual turnover")
+  @DecimalMin("0")
+  @JsonProperty("value")
+  private Double value;
 
   @Override
   public boolean equals(Object o) {
@@ -31,23 +35,21 @@ public class AddressDTO implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    AddressDTO addressDTO = (AddressDTO) o;
-    return Objects.equals(this.street, addressDTO.street) &&
-        Objects.equals(this.zipCode, addressDTO.zipCode);
+    OnlyAnnualTurnoverDTO onlyAnnualTurnoverDTO = (OnlyAnnualTurnoverDTO) o;
+    return Objects.equals(this.value, onlyAnnualTurnoverDTO.value);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(street, zipCode);
+    return Objects.hash(value);
   }
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Address {\n");
+    sb.append("class OnlyAnnualTurnover {\n");
     
-    sb.append("    street: ").append(toIndentedString(street)).append("\n");
-    sb.append("    zipCode: ").append(toIndentedString(zipCode)).append("\n");
+    sb.append("    value: ").append(toIndentedString(value)).append("\n");
     sb.append("}");
     return sb.toString();
   }

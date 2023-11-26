@@ -1,40 +1,75 @@
-package org.example.ejb.model;
+package org.example.models.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.example.ejb.exception.UndefinedOrganizationTypeException;
+import org.example.models.enums.OrganizationTypeDto;
+import org.example.models.exception.UndefinedOrganizationTypeException;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.validation.annotation.Validated;
 
-import java.io.Serializable;
+import javax.annotation.Generated;
+import javax.validation.Valid;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Objects;
 
 /**
  * OrganizationWithoutId
  */
+@Validated
+@Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2023-09-22T14:28:41.491075200+03:00[Europe/Moscow]")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class OrganizationWithoutIdDTO implements Serializable {
+public class OrganizationWithoutIdDTO {
+
+  @Schema(example = "OAO Aviasales", required = true, description = "Organization name")
+  @NotBlank(message = "Name is required.")
   @JsonProperty("name")
   private String name;
 
+  @Schema(required = true, description = "")
+  @NotNull(message = "Coordinates are required.")
   @JsonProperty("coordinates")
+  @Valid
   private CoordinatesDTO coordinatesDTO;
 
+  @Schema(required = true, description = "Organization creation date, generates automatically")
+  @NotNull(message = "Creation-date is required.")
   @JsonProperty("creationDate")
+  @JsonFormat(pattern = "yyyy-MM-dd")
+  @JsonSerialize(using = LocalDateSerializer.class)
+  @JsonDeserialize(using = LocalDateDeserializer.class)
+  @DateTimeFormat(pattern = "yyyy-MM-dd")
   private LocalDate creationDate;
 
+  @Schema(example = "4.5", required = true, description = "Organization annual turnover")
+  @NotNull(message = "Double is required.")
+  @DecimalMin(value = "0.0", inclusive = false)
   @JsonProperty("annualTurnover")
   private Double annualTurnover;
 
+  @Schema(required = true, description = "")
+  @NotNull(message = "Organization-Type is required.")
   @JsonProperty("type")
   private OrganizationTypeDto type;
 
+  @Schema(required = true, description = "")
+  @NotNull(message = "Official-Address is required.")
   @JsonProperty("officialAddress")
+  @Valid
   private AddressDTO officialAddressDTO;
 
   public void setType(OrganizationTypeDto type) {

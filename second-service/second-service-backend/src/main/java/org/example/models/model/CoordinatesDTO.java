@@ -1,25 +1,34 @@
-package org.example.ejb.model;
+package org.example.models.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.validation.annotation.Validated;
 
-import java.io.Serializable;
+import javax.annotation.Generated;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 /**
  * Coordinates
  */
+@Validated
+@Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2023-09-22T14:28:41.491075200+03:00[Europe/Moscow]")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class CoordinatesDTO implements Serializable {
+public class CoordinatesDTO {
+  @Schema(example = "4.9", required = true, description = "x coordinate")
+  @NotNull(message = "X is required.")
   @JsonProperty("x")
   private Double x;
 
+  @Schema(example = "6", required = true, description = "y coordinate")
+  @NotNull(message = "Y is required.")
   @JsonProperty("y")
   private Long y;
 

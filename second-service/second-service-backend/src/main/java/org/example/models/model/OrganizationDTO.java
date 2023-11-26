@@ -1,23 +1,33 @@
-package org.example.ejb.model;
+package org.example.models.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.example.models.enums.OrganizationTypeDto;
+import org.springframework.validation.annotation.Validated;
 
-import java.io.Serializable;
+import javax.annotation.Generated;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.Objects;
 
 /**
  * Organization
  */
+@Validated
+@Generated(value = "io.swagger.codegen.v3.generators.java.SpringCodegen", date = "2023-09-22T14:28:41.491075200+03:00[Europe/Moscow]")
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class OrganizationDTO extends OrganizationWithoutIdDTO implements Serializable {
+public class OrganizationDTO extends OrganizationWithoutIdDTO {
+  @Schema(example = "1", required = true, description = "Organization ID")
+  @NotNull(message = "Id is required.")
+  @Min(1)
   @JsonProperty("id")
   private Integer id;
 
