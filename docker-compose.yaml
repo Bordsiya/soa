@@ -37,9 +37,10 @@ services:
       - backend-network
 
   haproxy-for-first-service:
-    image: "haproxy:2.2-alpine"
+    image: "haproxy:2.2.2"
     ports:
       - '9200:9200'
+      - '9202:9202'
       - '8404:8404'
     volumes:
       - ./first-service/src/main/resources/keystore/orgdirectory.pem:/etc/ssl/certs/orgdirectory.pem
@@ -59,7 +60,13 @@ services:
     build: consul
     image: consul:1.14.2
     ports:
-      - "8500:8500"
+      - '8500:8500'
+      - '8600:8600/udp'
+      - '8600:8600/tcp'
+#    volumes:
+#      - ./consul-config.json:/consul/config/config.json
+#    command: "consul agent -bootstrap-expect=3 -config-dir /consul/config"
+    command: agent -dev -client=0.0.0.0
     networks:
       - backend-network
 
@@ -68,7 +75,7 @@ services:
       context: second-service
       dockerfile: Dockerfile
     ports:
-      - '8080:8080'
+      - '9100:9100'
       - '9990:9990'
     networks:
       - backend-network
