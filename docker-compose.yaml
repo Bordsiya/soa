@@ -45,6 +45,8 @@ services:
     volumes:
       - ./first-service/src/main/resources/keystore/orgdirectory.pem:/etc/ssl/certs/orgdirectory.pem
       - ./first-service/src/main/resources/keystore/org_cert_origin.pem:/etc/ssl/certs/org_cert_origin.pem
+      - ./second-service/second-service-backend/src/main/resources/keystore/2service.pem:/etc/ssl/certs/second_service.pem
+      - ./second-service/second-service-backend/src/main/resources/keystore/2serv_cert_origin.pem:/etc/ssl/certs/serv_cert_origin.pem
       - ./first-service/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
 #    build:
 #      context: first-service
