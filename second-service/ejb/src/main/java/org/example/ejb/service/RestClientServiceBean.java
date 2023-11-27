@@ -6,40 +6,27 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
-import org.example.ejb.exception.ClientException;
-import org.example.ejb.model.AddressDTO;
-import org.example.ejb.model.CoordinatesDTO;
 import org.example.ejb.model.OrganizationDTO;
 import org.example.ejb.exception.JSONException;
 import org.example.ejb.external.HttpClientFactory;
-import org.example.ejb.model.OrganizationTypeDto;
-import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
-import org.springframework.web.util.UriComponentsBuilder;
-import org.springframework.web.util.UriUtils;
+import org.jboss.ejb3.annotation.Pool;
 
 import javax.ejb.Remote;
 import javax.ejb.Stateless;
 import javax.ws.rs.client.Client;
-import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.net.*;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
-
-import static org.springframework.web.util.UriComponentsBuilder.fromHttpUrl;
 
 @Slf4j
 @Stateless
 @Remote(RestClientService.class)
-//@Pool(value = "restClientServicePool")
+@Pool(value = "restClientServicePool")
 public class RestClientServiceBean implements RestClientService {
     private Client client;
     private final String serviceUrl = "https://haproxy-for-first-service:9200";

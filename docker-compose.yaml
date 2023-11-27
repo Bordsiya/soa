@@ -76,7 +76,15 @@ services:
       dockerfile: Dockerfile
     ports:
       - '9100:9100'
-      - '9990:9990'
+    networks:
+      - backend-network
+
+  dublicate-second-service:
+    build:
+      context: second-service
+      dockerfile: Dockerfile
+    ports:
+      - '9102:9100'
     networks:
       - backend-network
 
