@@ -25,7 +25,7 @@ services:
     networks:
       - backend-network
 
-  dublicate-first-service:
+  duplicate-first-service:
     build:
       context: first-service
       dockerfile: Dockerfile2
@@ -36,8 +36,9 @@ services:
     networks:
       - backend-network
 
-  haproxy-for-first-service:
-    image: "haproxy:2.2.2"
+  haproxy:
+    image: "haproxy:2.7"
+    user: root
     ports:
       - '9200:9200'
       - '9202:9202'
@@ -48,27 +49,17 @@ services:
       - ./second-service/second-service-backend/src/main/resources/keystore/2service.pem:/etc/ssl/certs/second_service.pem
       - ./second-service/second-service-backend/src/main/resources/keystore/2serv_cert_origin.pem:/etc/ssl/certs/serv_cert_origin.pem
       - ./first-service/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
-#    build:
-#      context: first-service
-#      dockerfile: DockerfileHaproxy
-    depends_on:
-      - first-service
-      - dublicate-first-service
     networks:
       - backend-network
 
   consul:
-    container_name: consul
-    build: consul
-    image: consul:1.14.2
+    image: consul:1.9.3
     ports:
       - '8500:8500'
       - '8600:8600/udp'
-      - '8600:8600/tcp'
-#    volumes:
-#      - ./consul-config.json:/consul/config/config.json
-#    command: "consul agent -bootstrap-expect=3 -config-dir /consul/config"
-    command: agent -dev -client=0.0.0.0
+    volumes:
+      - ./consul.config.json:/etc/consul.d/consul.config.json
+    command: consul agent -dev -config-dir /etc/consul.d
     networks:
       - backend-network
 
@@ -81,7 +72,7 @@ services:
     networks:
       - backend-network
 
-  dublicate-second-service:
+  duplicate-second-service:
     build:
       context: second-service
       dockerfile: Dockerfile

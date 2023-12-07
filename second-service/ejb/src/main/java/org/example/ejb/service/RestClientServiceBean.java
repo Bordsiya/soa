@@ -29,7 +29,7 @@ import java.util.List;
 @Pool(value = "restClientServicePool")
 public class RestClientServiceBean implements RestClientService {
     private Client client;
-    private final String serviceUrl = "https://haproxy-for-first-service:9200";
+    private final String serviceUrl = "https://haproxy:9200";
     private final ObjectMapper objectMapper;
 
     public RestClientServiceBean() {

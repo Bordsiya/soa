@@ -6,8 +6,6 @@ import org.example.ejb.exception.ClientException;
 import javax.net.ssl.*;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.security.KeyManagementException;
@@ -65,8 +63,8 @@ public class HttpClientFactory {
     private static class LocalHostnameVerifier implements HostnameVerifier {
         @Override
         public boolean verify(String hostname, SSLSession session) {
-            return "first-service".equalsIgnoreCase(hostname) || "dublicate-first-service".equalsIgnoreCase(hostname)
-                    || "haproxy-for-first-service".equalsIgnoreCase(hostname);
+            return "first-service".equalsIgnoreCase(hostname) || "duplicate-first-service".equalsIgnoreCase(hostname)
+                    || "haproxy".equalsIgnoreCase(hostname);
         }
     }
 
