@@ -36,6 +36,24 @@ services:
     networks:
       - backend-network
 
+  second-service:
+    build:
+      context: second-service
+      dockerfile: Dockerfile
+    ports:
+      - '9100:9100'
+    networks:
+      - backend-network
+
+  duplicate-second-service:
+    build:
+      context: second-service
+      dockerfile: Dockerfile
+    ports:
+      - '9102:9100'
+    networks:
+      - backend-network
+
   haproxy:
     image: "haproxy:2.7"
     user: root
@@ -60,24 +78,6 @@ services:
     volumes:
       - ./consul.config.json:/etc/consul.d/consul.config.json
     command: consul agent -dev -config-dir /etc/consul.d
-    networks:
-      - backend-network
-
-  second-service:
-    build:
-      context: second-service
-      dockerfile: Dockerfile
-    ports:
-      - '9100:9100'
-    networks:
-      - backend-network
-
-  duplicate-second-service:
-    build:
-      context: second-service
-      dockerfile: Dockerfile
-    ports:
-      - '9102:9100'
     networks:
       - backend-network
 
