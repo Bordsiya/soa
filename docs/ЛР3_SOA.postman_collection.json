@@ -1,0 +1,712 @@
+{
+	"info": {
+		"_postman_id": "5137b641-0938-4a74-a58d-9d4aa58547bd",
+		"name": "SOA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17825748"
+	},
+	"item": [
+		{
+			"name": "first-service",
+			"item": [
+				{
+					"name": "Get Organization By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:9099/organizations/3",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "9099",
+							"path": [
+								"organizations",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Organization By Id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Yandex Inc.\",\r\n  \"coordinates\": {\r\n    \"x\": -10,\r\n    \"y\": 150\r\n  },\r\n  \"creationDate\": \"1973-10-09\",\r\n  \"annualTurnover\": 154000,\r\n  \"type\": \"PUBLIC\",\r\n  \"officialAddress\": {\r\n    \"street\": \"Nevskiy street\",\r\n    \"zipCode\": \"193318\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:9099/organizations/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "9099",
+							"path": [
+								"organizations",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Organizations With Preferences",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:9099/organizations?pageNumber=1&pageSize=5&sortBy=annualTurnover&filters=id>3&filters=id<8",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "9099",
+							"path": [
+								"organizations"
+							],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "5"
+								},
+								{
+									"key": "sortBy",
+									"value": "annualTurnover"
+								},
+								{
+									"key": "filters",
+									"value": "id>3"
+								},
+								{
+									"key": "filters",
+									"value": "id<8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Organization By Id",
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:9099/organizations/-1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "9099",
+							"path": [
+								"organizations",
+								"-1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Organization",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"ISU ITMO\",\r\n  \"coordinates\": {\r\n    \"x\": -4.9,\r\n    \"y\": -66\r\n  },\r\n  \"creationDate\": \"2023-10-09\",\r\n  \"annualTurnover\": 10000,\r\n  \"type\": \"COMMERCIAL\",\r\n  \"officialAddress\": {\r\n    \"street\": \"Kronva street\",\r\n    \"zipCode\": \"ABOBA\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:9099/organizations",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "9099",
+							"path": [
+								"organizations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get sum of Organizations Annual Turnovers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:9099/organizations/annual-turnover/sum",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "9099",
+							"path": [
+								"organizations",
+								"annual-turnover",
+								"sum"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Organizations Grouped By Annual Turnover",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:9099/organizations/annual-turnover/grouped",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "9099",
+							"path": [
+								"organizations",
+								"annual-turnover",
+								"grouped"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Organizations By Official Address",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:9099/organizations/official-address?officialAddressStreet=Liteiniy prospekt&officialAddressZipCode=15OOND",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "9099",
+							"path": [
+								"organizations",
+								"official-address"
+							],
+							"query": [
+								{
+									"key": "officialAddressStreet",
+									"value": "Liteiniy prospekt"
+								},
+								{
+									"key": "officialAddressZipCode",
+									"value": "15OOND"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "dublicate-first-service",
+			"item": [
+				{
+					"name": "Get Organization By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:9199/organizations/3",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "9199",
+							"path": [
+								"organizations",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Organization By Id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Yandex Inc.\",\r\n  \"coordinates\": {\r\n    \"x\": -10,\r\n    \"y\": 150\r\n  },\r\n  \"creationDate\": \"1973-10-09\",\r\n  \"annualTurnover\": 154000,\r\n  \"type\": \"PUBLIC\",\r\n  \"officialAddress\": {\r\n    \"street\": \"Nevskiy street\",\r\n    \"zipCode\": \"193318\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:9199/organizations/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "9199",
+							"path": [
+								"organizations",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Organizations With Preferences",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:9199/organizations?pageNumber=1&pageSize=5&sortBy=annualTurnover&filters=id>3&filters=id<8",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "9199",
+							"path": [
+								"organizations"
+							],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "5"
+								},
+								{
+									"key": "sortBy",
+									"value": "annualTurnover"
+								},
+								{
+									"key": "filters",
+									"value": "id>3"
+								},
+								{
+									"key": "filters",
+									"value": "id<8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Organization By Id",
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:9199/organizations/-1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "9199",
+							"path": [
+								"organizations",
+								"-1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Organization",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"ISU ITMO\",\r\n  \"coordinates\": {\r\n    \"x\": -4.9,\r\n    \"y\": -66\r\n  },\r\n  \"creationDate\": \"2023-10-09\",\r\n  \"annualTurnover\": 10000,\r\n  \"type\": \"COMMERCIAL\",\r\n  \"officialAddress\": {\r\n    \"street\": \"Kronva street\",\r\n    \"zipCode\": \"ABOBA\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:9199/organizations",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "9199",
+							"path": [
+								"organizations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get sum of Organizations Annual Turnovers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:9199/organizations/annual-turnover/sum",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "9199",
+							"path": [
+								"organizations",
+								"annual-turnover",
+								"sum"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Organizations Grouped By Annual Turnover",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:9199/organizations/annual-turnover/grouped",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "9199",
+							"path": [
+								"organizations",
+								"annual-turnover",
+								"grouped"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Organizations By Official Address",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:9199/organizations/official-address?officialAddressStreet=Liteiniy prospekt&officialAddressZipCode=15OOND",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "9199",
+							"path": [
+								"organizations",
+								"official-address"
+							],
+							"query": [
+								{
+									"key": "officialAddressStreet",
+									"value": "Liteiniy prospekt"
+								},
+								{
+									"key": "officialAddressZipCode",
+									"value": "15OOND"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "second-service",
+			"item": [
+				{
+					"name": "Get Organizations Filtered By Annual Turnover",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Access-Control-Allow-Origin",
+								"value": "*",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Access-Control-Allow-Headers",
+								"value": "*",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Access-Control-Allow-Credentials",
+								"value": "true",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "https://localhost:9100/orgdirectory/filter/turnover/1/50000",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "9100",
+							"path": [
+								"orgdirectory",
+								"filter",
+								"turnover",
+								"1",
+								"50000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Organizations Filtered By Employees Count",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:9100/orgdirectory/filter/employees/1/3",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "9100",
+							"path": [
+								"orgdirectory",
+								"filter",
+								"employees",
+								"1",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "third-service",
+			"item": [
+				{
+					"name": "Recommend Coordinate Quarter",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:9101/organalysis/recommend/coordinates/quarter",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "9101",
+							"path": [
+								"organalysis",
+								"recommend",
+								"coordinates",
+								"quarter"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Predict Organization Annual Turnover",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:9101/organalysis/predict/organizations/1/annual-turnover",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "9101",
+							"path": [
+								"organalysis",
+								"predict",
+								"organizations",
+								"1",
+								"annual-turnover"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Recommend Organizations By Coordinates",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:9101/organalysis/recommend/organizations/coordinates?x=1&y=2",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "9101",
+							"path": [
+								"organalysis",
+								"recommend",
+								"organizations",
+								"coordinates"
+							],
+							"query": [
+								{
+									"key": "x",
+									"value": "1"
+								},
+								{
+									"key": "y",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "haproxy-for-first-services",
+			"item": [
+				{
+					"name": "First services example of calling",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:9200/organizations/5",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"organizations",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Ping first services",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:9200/ping",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "9200",
+							"path": [
+								"ping"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "First services post example for check db",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"ISU ITMO\",\r\n  \"coordinates\": {\r\n    \"x\": -4.9,\r\n    \"y\": -66\r\n  },\r\n  \"creationDate\": \"2023-10-09\",\r\n  \"annualTurnover\": 10000,\r\n  \"type\": \"COMMERCIAL\",\r\n  \"officialAddress\": {\r\n    \"street\": \"Kronva street\",\r\n    \"zipCode\": \"ABOBA\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:9099/organizations",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "9099",
+							"path": [
+								"organizations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Second services call example",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Access-Control-Allow-Origin",
+								"value": "*",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Access-Control-Allow-Headers",
+								"value": "*",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Access-Control-Allow-Credentials",
+								"value": "true",
+								"type": "text",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "https://localhost:9100/orgdirectory/filter/turnover/1/50000",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "9100",
+							"path": [
+								"orgdirectory",
+								"filter",
+								"turnover",
+								"1",
+								"50000"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

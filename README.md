@@ -16,3 +16,10 @@
 
 - [postman коллекция для импорта](docs/ЛР2_SOA.postman_collection.json)
 
+## Лабораторная работа №3 ##
+
+- [Отчёт](docs/ЛР3_ОТЧЕТ_СОА.pdf)
+
+- [Процесс деплоя, описание лабы](docs/ЛР3_README.md)
+
+- [postman коллекция для импорта](docs/ЛР3_SOA.postman_collection.json)
