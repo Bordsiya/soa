@@ -20,6 +20,7 @@
         <module>first-service</module>
         <module>second-service</module>
         <module>third-service</module>
+        <module>second-service-soap</module>
     </modules>
 
 </project>

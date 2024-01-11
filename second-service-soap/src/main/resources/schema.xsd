@@ -1,0 +1,28 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="http://org/example/secondservicesoap/catalog"
+           targetNamespace="http://org/example/secondservicesoap/catalog"
+           elementFormDefault="qualified">
+
+    <!--  Get Flat (only one)  -->
+    <xs:element name="getPingRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:string" minOccurs="1"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getPingResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="ping" type="tns:PingGetResponseDto" maxOccurs="1"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="PingGetResponseDto">
+        <xs:sequence>
+            <xs:element name="id" type="xs:long" minOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>
