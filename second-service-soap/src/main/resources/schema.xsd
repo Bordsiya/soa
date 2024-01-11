@@ -3,7 +3,7 @@
            targetNamespace="http://org/example/secondservicesoap/catalog"
            elementFormDefault="qualified">
 
-    <!--  Get Flat (only one)  -->
+    <!--  Get Ping (only one)  -->
     <xs:element name="getPingRequest">
         <xs:complexType>
             <xs:sequence>
