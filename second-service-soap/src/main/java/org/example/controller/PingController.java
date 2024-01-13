@@ -13,7 +13,7 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 public class PingController {
     private static final String NAMESPACE_URI = "http://org/example/secondservicesoap/catalog";
 
-    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getFlatRequest")
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getPingRequest")
     @ResponsePayload
     public GetPingResponse getPing(@RequestPayload GetPingRequest request){
         Long id = request.getId();
