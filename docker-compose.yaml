@@ -90,6 +90,15 @@ services:
     networks:
       - backend-network
 
+  mule:
+    build:
+      context: mule-esb
+      dockerfile: Dockerfile
+    ports:
+      - '8888:8888'
+    networks:
+      - backend-network
+
 networks:
   backend-network:
     driver: bridge
