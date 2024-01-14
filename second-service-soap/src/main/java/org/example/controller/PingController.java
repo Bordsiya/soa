@@ -35,9 +35,9 @@ public class PingController {
         return response;
     }
 
-    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "FilterAnnualTurnoverRequest")
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "filterOrganizationsByAnnualTurnoverRequest")
     @ResponsePayload
-    public OrganizationsResponse filterOrganizationsByAnnualTurnover(@RequestPayload FilterAnnualTurnoverRequest request) throws DatatypeConfigurationException {
+    public FilterOrganizationsByAnnualTurnoverResponse filterOrganizationsByAnnualTurnover(@RequestPayload FilterOrganizationsByAnnualTurnoverRequest request) throws DatatypeConfigurationException {
         List<Organization> organizationList = new ArrayList<>();
         Coordinates coordinates1 = new Coordinates();
         coordinates1.setX(1D);
@@ -62,15 +62,15 @@ public class PingController {
                 organization1
         );
 
-        OrganizationsResponse organizationsResponse = new OrganizationsResponse();
+        FilterOrganizationsByAnnualTurnoverResponse organizationsResponse = new FilterOrganizationsByAnnualTurnoverResponse();
         List<Organization> toAdd = organizationsResponse.getOrganizations();
         toAdd.add(organization1);
         return organizationsResponse;
     }
 
-    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "FilterEmployeesCountRequest")
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "filterOrganizationsByEmployeesCountRequest")
     @ResponsePayload
-    public OrganizationsResponse filterOrganizationsByEmployeesCount(@RequestPayload FilterEmployeesCountRequest request) throws DatatypeConfigurationException {
+    public FilterOrganizationsByEmployeesCountResponse filterOrganizationsByEmployeesCount(@RequestPayload FilterOrganizationsByEmployeesCountRequest request) throws DatatypeConfigurationException {
         List<Organization> organizationList = new ArrayList<>();
         Coordinates coordinates1 = new Coordinates();
         coordinates1.setX(1D);
@@ -95,7 +95,7 @@ public class PingController {
                 organization1
         );
 
-        OrganizationsResponse organizationsResponse = new OrganizationsResponse();
+        FilterOrganizationsByEmployeesCountResponse organizationsResponse = new FilterOrganizationsByEmployeesCountResponse();
         List<Organization> toAdd = organizationsResponse.getOrganizations();
         toAdd.add(organization1);
         return organizationsResponse;

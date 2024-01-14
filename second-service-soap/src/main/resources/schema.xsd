@@ -26,7 +26,7 @@
         </xs:sequence>
     </xs:complexType>
 
-    <xs:element name="FilterAnnualTurnoverRequest">
+    <xs:element name="filterOrganizationsByAnnualTurnoverRequest">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="minAnnualTurnover" type="xs:double"/>
@@ -35,7 +35,7 @@
         </xs:complexType>
     </xs:element>
     
-    <xs:element name="FilterEmployeesCountRequest">
+    <xs:element name="filterOrganizationsByEmployeesCountRequest">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="minEmployeesCount" type="xs:long"/>
@@ -44,7 +44,15 @@
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="OrganizationsResponse">
+    <xs:element name="filterOrganizationsByAnnualTurnoverResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="organizations" type="tns:Organization" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="filterOrganizationsByEmployeesCountResponse">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="organizations" type="tns:Organization" maxOccurs="unbounded"/>
