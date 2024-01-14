@@ -1,0 +1,15 @@
+{
+  "name": "ITMO W.T.F.",
+  "coordinates": {
+    "x": 3.2,
+    "y": 950
+  },
+  "creationDate": "1984-01-14",
+  "annualTurnover": 10000.0,
+  "type": "OPEN_JOINT_STOCK_COMPANY",
+  "officialAddress": {
+    "street": "Kronva street",
+    "zipCode": "IFMO322WTF"
+  },
+  "id": 3
+}
