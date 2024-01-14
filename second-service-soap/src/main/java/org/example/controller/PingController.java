@@ -62,31 +62,9 @@ public class PingController {
                 organization1
         );
 
-        Coordinates coordinates2 = new Coordinates();
-        coordinates1.setX(-10D);
-        coordinates1.setY(93);
-        Address address2 = new Address();
-        address1.setStreet("Street2");
-        address1.setZipCode("44822");
-        GregorianCalendar calendar2 = new GregorianCalendar(2022, Calendar.AUGUST, 2);
-        XMLGregorianCalendar XMLGregorianCalendar2 = datatypeFactory
-                .newXMLGregorianCalendar(calendar2);
-
-        Organization organization2 = new Organization();
-        organization1.setId(2);
-        organization1.setName("Organization2");
-        organization1.setCoordinates(coordinates2);
-        organization1.setCreationDate(XMLGregorianCalendar2);
-        organization1.setAnnualTurnover(55000D);
-        organization1.setOrganizationType("MUR");
-        organization1.setAddress(address2);
-        organizationList.add(
-                organization2
-        );
-
         OrganizationsResponse organizationsResponse = new OrganizationsResponse();
-        organizationsResponse.getOrganizations().add(organization1);
-        organizationsResponse.getOrganizations().add(organization2);
+        List<Organization> toAdd = organizationsResponse.getOrganizations();
+        toAdd.add(organization1);
         return organizationsResponse;
     }
 
@@ -117,31 +95,9 @@ public class PingController {
                 organization1
         );
 
-        Coordinates coordinates2 = new Coordinates();
-        coordinates1.setX(-10D);
-        coordinates1.setY(93);
-        Address address2 = new Address();
-        address1.setStreet("Street2");
-        address1.setZipCode("44822");
-        GregorianCalendar calendar2 = new GregorianCalendar(2022, Calendar.AUGUST, 2);
-        XMLGregorianCalendar XMLGregorianCalendar2 = datatypeFactory
-                .newXMLGregorianCalendar(calendar2);
-
-        Organization organization2 = new Organization();
-        organization1.setId(2);
-        organization1.setName("Organization2");
-        organization1.setCoordinates(coordinates2);
-        organization1.setCreationDate(XMLGregorianCalendar2);
-        organization1.setAnnualTurnover(55000D);
-        organization1.setOrganizationType("MUR");
-        organization1.setAddress(address2);
-        organizationList.add(
-                organization2
-        );
-
         OrganizationsResponse organizationsResponse = new OrganizationsResponse();
-        organizationsResponse.getOrganizations().add(organization1);
-        organizationsResponse.getOrganizations().add(organization2);
+        List<Organization> toAdd = organizationsResponse.getOrganizations();
+        toAdd.add(organization1);
         return organizationsResponse;
     }
 }
