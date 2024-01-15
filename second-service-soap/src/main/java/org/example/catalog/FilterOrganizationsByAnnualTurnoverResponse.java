@@ -71,4 +71,7 @@ public class FilterOrganizationsByAnnualTurnoverResponse {
         return this.organizations;
     }
 
+    public void setOrganizations(List<Organization> organizations) {
+        this.organizations = organizations;
+    }
 }

@@ -1,6 +1,9 @@
 package org.example.controller;
 
+import com.example.commonservice.model.OrganizationDTO;
 import org.example.catalog.*;
+import org.example.service.ClientService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
@@ -20,6 +23,13 @@ import java.util.List;
 public class PingController {
     private static final String NAMESPACE_URI = "http://org/example/secondservicesoap/catalog";
 
+    private ClientService clientService;
+
+    @Autowired
+    public PingController(ClientService clientService) {
+        this.clientService = clientService;
+    }
+
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getPingRequest")
     @ResponsePayload
     public GetPingResponse getPing(@RequestPayload GetPingRequest request){
@@ -38,66 +48,68 @@ public class PingController {
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "filterOrganizationsByAnnualTurnoverRequest")
     @ResponsePayload
     public FilterOrganizationsByAnnualTurnoverResponse filterOrganizationsByAnnualTurnover(@RequestPayload FilterOrganizationsByAnnualTurnoverRequest request) throws DatatypeConfigurationException {
-        List<Organization> organizationList = new ArrayList<>();
-        Coordinates coordinates1 = new Coordinates();
-        coordinates1.setX(1D);
-        coordinates1.setY(3);
-        Address address1 = new Address();
-        address1.setStreet("Street1");
-        address1.setZipCode("3746");
-        GregorianCalendar calendar1 = new GregorianCalendar(2018, Calendar.JULY, 28);
-        DatatypeFactory datatypeFactory = DatatypeFactory.newInstance();
-        XMLGregorianCalendar XMLGregorianCalendar1 = datatypeFactory
-                .newXMLGregorianCalendar(calendar1);
-
-        Organization organization1 = new Organization();
-        organization1.setId(1);
-        organization1.setName("Organization1");
-        organization1.setCoordinates(coordinates1);
-        organization1.setCreationDate(XMLGregorianCalendar1);
-        organization1.setAnnualTurnover(20000D);
-        organization1.setOrganizationType("ORG_TYPE");
-        organization1.setAddress(address1);
-        organizationList.add(
-                organization1
+        List<OrganizationDTO> organizationDTOS = clientService.getOrganizationsFilteredByAnnualTurnover(
+                request.getMinAnnualTurnover(), request.getMaxAnnualTurnover()
         );
 
+        List<Organization> organizationList = new ArrayList<>();
+        for (OrganizationDTO organizationDTO: organizationDTOS) {
+            Coordinates coordinates = new Coordinates();
+            coordinates.setX(organizationDTO.getCoordinatesDTO().getX());
+            coordinates.setY(organizationDTO.getCoordinatesDTO().getY());
+            Address address = new Address();
+            address.setStreet(organizationDTO.getOfficialAddressDTO().getStreet());
+            address.setZipCode(organizationDTO.getOfficialAddressDTO().getZipCode());
+            XMLGregorianCalendar xmlGregorianCalendar =
+                    DatatypeFactory.newInstance().newXMLGregorianCalendar(organizationDTO.getCreationDate().toString());
+
+            Organization organization = new Organization();
+            organization.setId(organizationDTO.getId());
+            organization.setName(organizationDTO.getName());
+            organization.setCoordinates(coordinates);
+            organization.setCreationDate(xmlGregorianCalendar);
+            organization.setAnnualTurnover(organizationDTO.getAnnualTurnover());
+            organization.setOrganizationType(organizationDTO.getType().name());
+            organization.setAddress(address);
+            organizationList.add(organization);
+        }
+
         FilterOrganizationsByAnnualTurnoverResponse organizationsResponse = new FilterOrganizationsByAnnualTurnoverResponse();
-        List<Organization> toAdd = organizationsResponse.getOrganizations();
-        toAdd.add(organization1);
+        organizationsResponse.setOrganizations(organizationList);
         return organizationsResponse;
     }
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "filterOrganizationsByEmployeesCountRequest")
     @ResponsePayload
     public FilterOrganizationsByEmployeesCountResponse filterOrganizationsByEmployeesCount(@RequestPayload FilterOrganizationsByEmployeesCountRequest request) throws DatatypeConfigurationException {
-        List<Organization> organizationList = new ArrayList<>();
-        Coordinates coordinates1 = new Coordinates();
-        coordinates1.setX(1D);
-        coordinates1.setY(3);
-        Address address1 = new Address();
-        address1.setStreet("Street1");
-        address1.setZipCode("3746");
-        GregorianCalendar calendar1 = new GregorianCalendar(2018, Calendar.JULY, 28);
-        DatatypeFactory datatypeFactory = DatatypeFactory.newInstance();
-        XMLGregorianCalendar XMLGregorianCalendar1 = datatypeFactory
-                .newXMLGregorianCalendar(calendar1);
-
-        Organization organization1 = new Organization();
-        organization1.setId(1);
-        organization1.setName("Organization1");
-        organization1.setCoordinates(coordinates1);
-        organization1.setCreationDate(XMLGregorianCalendar1);
-        organization1.setAnnualTurnover(20000D);
-        organization1.setOrganizationType("ORG_TYPE");
-        organization1.setAddress(address1);
-        organizationList.add(
-                organization1
+        List<OrganizationDTO> organizationDTOS = clientService.getOrganizationsFilteredByEmployeesCount(
+                request.getMinEmployeesCount(), request.getMaxEmployeesCount()
         );
 
+        List<Organization> organizationList = new ArrayList<>();
+        for (OrganizationDTO organizationDTO: organizationDTOS) {
+            Coordinates coordinates = new Coordinates();
+            coordinates.setX(organizationDTO.getCoordinatesDTO().getX());
+            coordinates.setY(organizationDTO.getCoordinatesDTO().getY());
+            Address address = new Address();
+            address.setStreet(organizationDTO.getOfficialAddressDTO().getStreet());
+            address.setZipCode(organizationDTO.getOfficialAddressDTO().getZipCode());
+            XMLGregorianCalendar xmlGregorianCalendar =
+                    DatatypeFactory.newInstance().newXMLGregorianCalendar(organizationDTO.getCreationDate().toString());
+
+            Organization organization = new Organization();
+            organization.setId(organizationDTO.getId());
+            organization.setName(organizationDTO.getName());
+            organization.setCoordinates(coordinates);
+            organization.setCreationDate(xmlGregorianCalendar);
+            organization.setAnnualTurnover(organizationDTO.getAnnualTurnover());
+            organization.setOrganizationType(organizationDTO.getType().name());
+            organization.setAddress(address);
+            organizationList.add(organization);
+        }
+
         FilterOrganizationsByEmployeesCountResponse organizationsResponse = new FilterOrganizationsByEmployeesCountResponse();
-        List<Organization> toAdd = organizationsResponse.getOrganizations();
-        toAdd.add(organization1);
+        organizationsResponse.setOrganizations(organizationList);
         return organizationsResponse;
     }
 }
