@@ -1,0 +1,379 @@
+{
+	"info": {
+		"_postman_id": "3d162a15-e328-4d5e-8b50-8f843018fee6",
+		"name": "SOA-LAB-4",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18130613"
+	},
+	"item": [
+		{
+			"name": "first-service",
+			"item": [
+				{
+					"name": "Get Organization By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:9099/organizations/30",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "9099",
+							"path": [
+								"organizations",
+								"30"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Organization By Id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"Yandex Inc.\",\r\n  \"coordinates\": {\r\n    \"x\": -10,\r\n    \"y\": 150\r\n  },\r\n  \"creationDate\": \"1973-10-09\",\r\n  \"annualTurnover\": 154000,\r\n  \"type\": \"PUBLIC\",\r\n  \"officialAddress\": {\r\n    \"street\": \"Nevskiy street\",\r\n    \"zipCode\": \"193318\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:9099/organizations/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "9099",
+							"path": [
+								"organizations",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Organizations With Preferences",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:9099/organizations?pageNumber=1&pageSize=5&sortBy=annualTurnover&filters=id>3&filters=id<8",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "9099",
+							"path": [
+								"organizations"
+							],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "1"
+								},
+								{
+									"key": "pageSize",
+									"value": "5"
+								},
+								{
+									"key": "sortBy",
+									"value": "annualTurnover"
+								},
+								{
+									"key": "filters",
+									"value": "id>3"
+								},
+								{
+									"key": "filters",
+									"value": "id<8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Organization By Id",
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:9099/organizations/-1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "9099",
+							"path": [
+								"organizations",
+								"-1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Organization",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"ISU ITMO\",\r\n  \"coordinates\": {\r\n    \"x\": -4.9,\r\n    \"y\": -66\r\n  },\r\n  \"creationDate\": \"2023-10-09\",\r\n  \"annualTurnover\": 10000,\r\n  \"type\": \"COMMERCIAL\",\r\n  \"officialAddress\": {\r\n    \"street\": \"Kronva street\",\r\n    \"zipCode\": \"ABOBA\"\r\n  }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:9099/organizations",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "9099",
+							"path": [
+								"organizations"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get sum of Organizations Annual Turnovers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:9099/organizations/annual-turnover/sum",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "9099",
+							"path": [
+								"organizations",
+								"annual-turnover",
+								"sum"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Organizations Grouped By Annual Turnover",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:9099/organizations/annual-turnover/grouped",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "9099",
+							"path": [
+								"organizations",
+								"annual-turnover",
+								"grouped"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Organizations By Official Address",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:9099/organizations/official-address?officialAddressStreet=Liteiniy prospekt&officialAddressZipCode=15OOND",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "9099",
+							"path": [
+								"organizations",
+								"official-address"
+							],
+							"query": [
+								{
+									"key": "officialAddressStreet",
+									"value": "Liteiniy prospekt"
+								},
+								{
+									"key": "officialAddressZipCode",
+									"value": "15OOND"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "mule",
+			"item": [
+				{
+					"name": "filter by annual turnover with mule",
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:8081/orgdirectory/filter/turnover/1/50000",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"orgdirectory",
+								"filter",
+								"turnover",
+								"1",
+								"50000"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "filter by employees with mule",
+					"protocolProfileBehavior": {
+						"strictSSL": false
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:8081/orgdirectory/filter/employees/1/20",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"orgdirectory",
+								"filter",
+								"employees",
+								"1",
+								"20"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "second-service-soap",
+			"item": [
+				{
+					"name": "ping",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						},
+						"strictSSL": false
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\"\r\n               xmlns:gs=\"http://org/example/secondservicesoap/catalog\">\r\n  <soap:Body>\r\n    <gs:getPingRequest>\r\n      <gs:id>1</gs:id>\r\n    </gs:getPingRequest>\r\n  </soap:Body>\r\n</soap:Envelope>\r\n",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:8080/ws/getPingRequest",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ws",
+								"getPingRequest"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get WSDL",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:8080/ws/schema.wsdl",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ws",
+								"schema.wsdl"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "filter by employees",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {
+							"content-type": true
+						}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\r\n<soap:Envelope xmlns:soap=\"http://schemas.xmlsoap.org/soap/envelope/\"\r\n               xmlns:ns=\"http://org/example/secondservicesoap/catalog\">\r\n  <soap:Body>\r\n    <ns:filterOrganizationsByEmployeesCountRequest>\r\n      <ns:minEmployeesCount>1</ns:minEmployeesCount>\r\n      <ns:maxEmployeesCount>1000</ns:maxEmployeesCount>\r\n    </ns:filterOrganizationsByEmployeesCountRequest>\r\n  </soap:Body>\r\n</soap:Envelope>\r\n",
+							"options": {
+								"raw": {
+									"language": "xml"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:8080/ws/",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"ws",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
