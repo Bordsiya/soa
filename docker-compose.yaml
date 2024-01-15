@@ -25,35 +25,6 @@ services:
     networks:
       - backend-network
 
-  duplicate-first-service:
-    build:
-      context: first-service
-      dockerfile: Dockerfile2
-    depends_on:
-      - database_postgres
-    ports:
-      - '9199:9199'
-    networks:
-      - backend-network
-
-  second-service:
-    build:
-      context: second-service
-      dockerfile: Dockerfile
-    ports:
-      - '9100:9100'
-    networks:
-      - backend-network
-
-  duplicate-second-service:
-    build:
-      context: second-service
-      dockerfile: Dockerfile
-    ports:
-      - '9102:9100'
-    networks:
-      - backend-network
-
   second-service-soap:
     build:
       context: second-service-soap
@@ -63,41 +34,14 @@ services:
     networks:
       - backend-network
 
-  haproxy:
-    image: "haproxy:2.7"
-    user: root
-    ports:
-      - '9200:9200'
-      - '9202:9202'
-      - '8404:8404'
-    volumes:
-      - ./first-service/src/main/resources/keystore/orgdirectory.pem:/etc/ssl/certs/orgdirectory.pem
-      - ./first-service/src/main/resources/keystore/org_cert_origin.pem:/etc/ssl/certs/org_cert_origin.pem
-      - ./second-service/second-service-backend/src/main/resources/keystore/2service.pem:/etc/ssl/certs/second_service.pem
-      - ./second-service/second-service-backend/src/main/resources/keystore/2serv_cert_origin.pem:/etc/ssl/certs/serv_cert_origin.pem
-      - ./first-service/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg
-    networks:
-      - backend-network
-
-  consul:
-    image: consul:1.9.3
-    ports:
-      - '8500:8500'
-      - '8600:8600/udp'
-    volumes:
-      - ./consul.config.json:/etc/consul.d/consul.config.json
-    command: consul agent -dev -config-dir /etc/consul.d
-    networks:
-      - backend-network
-
-  mule:
-    build:
-      context: mule-esb
-      dockerfile: Dockerfile
-    ports:
-      - '8888:8888'
-    networks:
-      - backend-network
+#  mule:
+#    build:
+#      context: mule-esb
+#      dockerfile: Dockerfile
+#    ports:
+#      - '8888:8888'
+#    networks:
+#      - backend-network
 
 networks:
   backend-network:
