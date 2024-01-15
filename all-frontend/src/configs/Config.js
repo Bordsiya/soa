@@ -7,6 +7,6 @@ export const headers = {
 export const urls = [
     "https://localhost:9099",
     // "https://localhost:9099/first-service",
-    "https://localhost:9100",
-    "https://localhost:9101"
+    "https://localhost:8081",
+    // "https://localhost:9101"
 ]

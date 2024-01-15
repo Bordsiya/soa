@@ -6,9 +6,9 @@
     <div class="trapezoid-second">
       <button type="button" class="my-button" @click="component='Second'">SECOND SERVICE</button>
     </div>
-    <div class="trapezoid-third">
-      <button type="button" class="my-button" @click="component='Third'">THIRD SERVICE</button>
-    </div>
+<!--    <div class="trapezoid-third">-->
+<!--      <button type="button" class="my-button" @click="component='Third'">THIRD SERVICE</button>-->
+<!--    </div>-->
   </div>
 
 
