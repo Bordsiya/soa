@@ -22,7 +22,7 @@ import static org.springframework.web.util.UriComponentsBuilder.fromHttpUrl;
 @Service
 public class ClientService {
     private final RestTemplate restTemplate;
-    private final String serviceUrl = "https://haproxy:9200/";
+    private final String serviceUrl = "https://first-service:9099/";
 
     @Autowired
     public ClientService(
